@@ -1,0 +1,75 @@
+extends ../../../templates/navbaradmin.pug
+
+block content
+  h3.title Registration Manipulation
+  hr(style='border: 0.5px solid #000105')
+  .field.is-grouped
+    each status in statustab
+      if status == 'unregistered'
+        p.control
+          a.button.is-warning.is-inverted.is-hovered(class="button") UNREGISTERED
+        p.control
+          a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/registration-rejected/1") REJECTED REGISTRATIONS
+      else
+        p.control
+          a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/registration-unregistered/1") UNREGISTERED
+        p.control
+          a.button.is-warning.is-inverted.is-hovered(class="button") REJECTED REGISTRATIONS
+  hr(style='border: 0.5px solid #000105')
+  each stud in studtab
+    if stud.page == stud.curpage
+      h3.title
+        b #{stud.strSNum}
+      h3.subtitle &nbsp#{stud.strName}
+      p Email: #{stud.strEmail}
+      p Results: #{stud.TotalScore}
+      br
+      .field.is-grouped
+        if stud.strStatus == 'unregistered'
+          p.control
+            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/registration/approve/"+ stud.strSNum) Approve
+          p.control
+            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/registration/reject/"+ stud.strSNum) Reject
+        else
+          p.control
+            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/registration/revert/"+ stud.strSNum) Revert
+      hr(style='border: 0.5px solid #000105')
+  each curpage in curpagetab
+    .field.is-grouped
+      each status in statustab
+        if status == 'unregistered'
+          if curpage > 1
+            each prevpage in prevpagetab
+              p.control
+                a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/registration-unregistered/'+ prevpage ) << Previous
+          each lastpage in lastpagetab
+            each page in pagetab
+              if page == curpage
+                p.control
+                  a.button.is-warning.is-inverted.is-hovered() #{page}
+              else
+                if page <= lastpage
+                  p.control
+                    a.button.is-warning.is-inverted.is-outlined(href='/admin/registration-unregistered/'+ page ) #{page}
+            each nextpage in nextpagetab
+              if curpage < lastpage
+                p.control
+                  a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/registration-unregistered/'+ nextpage ) Next >>
+        else
+          if curpage > 1
+            each prevpage in prevpagetab
+              p.control
+                a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/registration-rejected/'+ prevpage ) << Previous
+          each lastpage in lastpagetab
+            each page in pagetab
+              if page == curpage
+                p.control
+                  a.button.is-warning.is-inverted.is-hovered() #{page}
+              else
+                if page <= lastpage
+                  p.control
+                    a.button.is-warning.is-inverted.is-outlined(href='/admin/registration-rejected/'+ page ) #{page}
+            each nextpage in nextpagetab
+              if curpage < lastpage
+                p.control
+                  a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/registration-rejected/'+ nextpage ) Next >>

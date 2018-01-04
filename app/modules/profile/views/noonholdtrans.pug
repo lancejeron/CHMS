@@ -1,0 +1,19 @@
+extends ../../../templates/navbar.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/profile_post.css")
+  div(align='center')
+    h2.title Onhold Transactions
+  hr(style='border: 0.5px solid #990000')
+  div(style='width: 38%; float: left' , align='right')
+    a.button(class="button", href="/profile/-/transactions/1") ONGOING TRANSACTIONS
+  div(style='width: 38%; float: right' , align='left')
+    a.button(class="button", href="/profile/-/transactions/history/1") PREVIOUS TRANSACTIONS
+  div(style='width: 24%; float: right' , align='center')
+    a.button(class="button", href="/profile/-/transactions/hold/1") ON HOLD TRANSACTIONS
+  br
+  br
+  br
+  div(align='center')
+    p
+      i No transactions were found

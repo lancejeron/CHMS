@@ -1,0 +1,31 @@
+extends ../../../templates/navbar.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/order.css")
+  each post in posttab
+    h2.title
+      |
+      a(href='/categories/' + post.strCatName + '/' + post.intItemID) #{post.strItemTitle}
+    hr(style='border: 0.5px solid #990000')
+    p(style='display:inline') Price : Php &nbsp
+      b #{post.fltItemPrice}
+    p(style='display:inline') &nbsp ||
+    p(style='display:inline') &nbsp Seller : &nbsp&nbsp
+      u
+        a(href='/profile/'+ post.strItemSNum ) #{post.strName} ( #{post.strItemSNum} )
+    p(style='display:inline') &nbsp - #{post.strStatus}
+    p(style='display:inline') &nbsp ||
+    p(style='display:inline') &nbsp Commends : #{post.intCommend} &nbsp|&nbsp Reports : #{post.intReport}
+    p Contact Information:
+    p - Email : #{post.strEmail}
+    p - #{post.txtContact}
+    hr(style='border: 0.5px solid #990000')
+    form(method="POST" action='/categories/' + post.strCatName + '/' + post.intItemID + '/order')
+        .field
+            .control
+                input.input(type="password" placeholder="Order Password" name="orderpass")
+        .field.is-grouped
+            .control
+                input.button.is-inverted(type="submit" value="ORDER")
+            .control
+                a.button.is-inverted(href='/categories/' + post.strCatName + '/' + post.intItemID ) BACK

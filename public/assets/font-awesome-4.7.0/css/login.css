@@ -1,0 +1,151 @@
+body{
+	margin:0;
+	color: rgb(128, 126, 0);
+	/* background-image:url("/assets/images/upload_images/mainbg.jpg"); */
+	background-size: 1260px;
+	background-position: center;
+	margin: auto;
+	font:600 16px/18px 'Open Sans',sans-serif;
+}
+*,:after,:before{box-sizing:border-box}
+.clearfix:after,.clearfix:before{content:'';display:table}
+.clearfix:after{clear:both;display:block}
+a{color:inherit;text-decoration:none}
+
+.login-wrap{
+	width:100%;
+	margin:auto;
+	width:525px;
+	height:500px;
+	position:relative;
+	 /* background-image:url("/assets/images/upload_images/login.jpg"); */
+	 background-color: rgb(128, 126, 0);
+	opacity: .8;
+	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+}
+.login-html{
+	width:100%;
+	height:100%;
+	position:absolute;
+	padding:90px 70px 50px 70px;
+	 background:rgb(63, 82, 3);
+}
+.login-html .sign-in-htm,
+.login-html .sign-up-htm{
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	position:absolute;
+	transform:rotateY(180deg);
+	backface-visibility:hidden;
+	transition:all .4s linear;
+}
+.login-html .sign-in,
+.login-html .sign-up,
+.login-form .group .check{
+	display:none;
+}
+.login-html .tab,
+.login-form .group .label,
+.login-form .group .button{
+	text-transform:uppercase;
+}
+.login-html .tab{
+	font-size:22px;
+	margin-right:15px;
+	padding-bottom:5px;
+	margin:0 15px 10px 0;
+	display:inline-block;
+	border-bottom:2px solid transparent;
+}
+.login-form{
+	min-height:345px;
+	position:relative;
+	perspective:1000px;
+	transform-style:preserve-3d;
+}
+.login-form .group{
+	margin-bottom:15px;
+}
+label
+{
+    font-size: 25px;
+
+}
+
+label3
+{
+color: white;
+font-style: italic;
+}
+
+label4{
+color:white;
+font-style: italic;
+font-size: 12pt;
+}
+a{
+	float: right;
+}
+.button{
+	float: right;
+}
+label{
+	color: white;
+}
+h2{
+	color: white;
+	font-size: 12pt;
+}
+.input1{
+	color: white;
+	-webkit-text-fill-color: initial
+
+}
+
+.input2{
+	-webkit-text-fill-color: white;
+
+}
+/* dropdown */
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+	cursor: pointer;
+	
+}
+
+.dropdown {
+	float: right;
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+	
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}

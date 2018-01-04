@@ -1,0 +1,36 @@
+extends ../../../../templates/master.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/login.css")
+  .login-wrap
+    .login-html
+      //- i.fa.fa-shopping-cart.fa-2x.fa-inverse
+      label.tab &nbsp Coffeemate!
+      br
+      br
+      br
+      label.tab Sign In
+      label4 Your registration is still under assessment by our team
+      br
+        //- label4 Contact Us: psm.sup.adm@gmail.com / 091996919603
+      br
+       form(method="POST" action="/login")
+          .group
+          label.label(for='email')
+          h2 E-mail
+          input.input1(type="email" maxlength="45" name="email", required)
+          .group
+          label.label(for='pass')
+          h2 Password
+          br
+          input.input2(type="password" minlength="8" name="password", required)
+          br
+          br
+          br
+          .group
+          input.button.is-info.is-inverted.is-outlined(type='submit', value='Sign In')
+          br
+          br
+          br
+          a.button.is-info.is-inverted.is-outlined(href="/register") Register
+

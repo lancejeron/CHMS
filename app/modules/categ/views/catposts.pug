@@ -1,0 +1,58 @@
+extends ../../../templates/navbar.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/posts.css")
+  each catname in catnametab
+    div(align='center')
+      h2.title #{catname.strCatName}
+  hr(style='border: 0.5px solid #990000')
+  each item in itemtab
+    if item.page == item.curpage
+      .card
+        h3.card-header
+            h3.subtitle &nbsp
+        .card-body
+         h4.card-title
+           h9 &nbsp&nbsp &nbsp #{item.strItemTitle}
+           #image-container
+             if item.strFirstPic != 'blank.jpg'
+               img(src='/images/uploaded_images/'+item.strFirstPic)
+             else if item.strSecondPic != 'blank.jpg'
+               img(src='/images/uploaded_images/'+item.strSecondPic)
+             else
+               img(src='/images/uploaded_images/'+item.strThirdPic)
+           p.card-text
+               ul1
+                 b &nbsp&nbsp Price: Php #{item.price}
+                 br
+               ul1
+                 b &nbsp&nbsp Date: #{item.date}
+                 br
+               ul1
+                 b &nbsp&nbsp Seller: &nbsp
+                   u
+                     a.lan(href='/profile/'+ item.strItemSNum ) #{item.strName} ( #{item.strItemSNum} )
+           br
+           a.btn.btn-primary(href='/categories/' + item.strCatName + '/' + item.intItemID) View Details
+      br
+  br
+  each catname in catnametab
+    each curpage in curpagetab
+      .field.is-grouped
+        if curpage > 1
+          each prevpage in prevpagetab
+            p.control
+              a.button.is-inverted.is-hovered(href='/categories/'+ catname.strCatName +'/page/'+ prevpage ) << Previous
+        each lastpage in lastpagetab
+          each page in pagetab
+            if page == curpage
+              p.control
+                a.jon.button.is-hovered() #{page}
+            else
+              if page <= lastpage
+                p.control
+                  a.button.is-inverted(href='/categories/'+ catname.strCatName +'/page/'+ page ) #{page}
+          each nextpage in nextpagetab
+            if curpage < lastpage
+              p.control
+                a.button.is-inverted.is-hovered(href='/categories/'+ catname.strCatName +'/page/'+ nextpage ) Next >>

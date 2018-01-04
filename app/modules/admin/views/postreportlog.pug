@@ -1,0 +1,66 @@
+extends ../../../templates/navbaradmin.pug
+
+block content
+  h3.title Reported Posts Manager
+  h3.subtitle &nbsp Active Posts and Transactions
+  hr(style='border: 0.5px solid #000105')
+  .field.is-grouped
+    p.control
+      a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/post-reported/1") REPORTED POSTS
+    p.control
+      a.button.is-warning.is-inverted.is-hovered(class="button") REPORT POST LOG
+  hr(style='border: 0.5px solid #000105')
+  div
+    div(style='width: 20%; float: left')
+      p
+        b Reporter
+    div(style='width: 55%; float: right')
+      p
+        b Item Title
+    div(style='width: 10%; float: right')
+      p
+        b Post ID
+    div(style='width: 14%; float: right')
+      p
+        b Category
+    div(style='width: 2%; float: right')
+      p &nbsp
+  br
+  hr(style='border: 0.5px solid #000105')
+  each log in logtab
+    if log.page == log.curpage
+      div
+        div#w74(style='width: 19%; float: left')
+          p (#{log.strSNum}) -
+          p #{log.strName}
+        div#w74(style='width: 55%; float: right')
+          p #{log.strItemTitle}
+        div(style='width: 10%; float: right')
+          p #{log.intItemID}
+        div(style='width: 14%; float: right')
+          p #{log.strCatName}
+        div(style='width: 2%; float: right')
+          p &nbsp
+      p &nbsp
+      br
+      hr(style='border: 0.5px solid #000105')
+
+  each curpage in curpagetab
+    .field.is-grouped
+      if curpage > 1
+        each prevpage in prevpagetab
+          p.control
+            a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/post-reportlog/'+ prevpage ) << Previous
+      each lastpage in lastpagetab
+        each page in pagetab
+          if page == curpage
+            p.control
+              a.button.is-warning.is-inverted.is-hovered() #{page}
+          else
+            if page <= lastpage
+              p.control
+                a.button.is-warning.is-inverted.is-outlined(href='/admin/post-reportlog/'+ page ) #{page}
+        each nextpage in nextpagetab
+          if curpage < lastpage
+            p.control
+              a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/post-reportlog/'+ nextpage ) Next >>

@@ -1,0 +1,12 @@
+.big-btn {
+    width: auto;
+    height: 300px;
+    font-weight: bolder;
+    font-size: 70pt;
+    
+}
+.card{
+    background-color: #FFDD57;
+    height: 300px;
+    width: auto;
+}

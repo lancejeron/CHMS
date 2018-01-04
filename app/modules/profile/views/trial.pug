@@ -1,0 +1,37 @@
+extends ../../../templates/navbar.pug
+
+block content
+    link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/profile.css")
+    link(rel='stylesheet', type='text/CSS', href='style.css')
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,400,300,600,700,800', rel='stylesheet', type='text/css')
+    each user in usertab
+        body
+            .portfoliocard
+            .coverphoto
+            .profile_picture
+            .left_col
+                .commend
+                .commend_count #{user.intCommend}
+                | 			     Commends
+                .report
+                .report_count #{user.intReport}
+                | 				Reports
+            .right_col
+                h2.name #{user.strName}
+                h3.studnum #{user.strSNum} 
+                ul.contact_information
+                li.status #{user.strStatus} 
+                li.mail #{user.strEmail}
+                li.phone #{user.txtContact}
+    div(align='left')
+      p &nbsp
+      br
+      br
+      hr
+      .field.is-grouped
+        p.control
+          a.button.is-primary.is-inverted.is-outlined(class="button", href="/profile/-/edit") Edit Profile
+        p.control
+          a.button.is-primary.is-inverted.is-outlined(class="button", href="/profile/-/transactions/1") Transactions
+        p.control
+          a.button.is-primary.is-inverted.is-outlined(class="button", href="/profile/"+ user.strSNum +"/posts/1") Posts

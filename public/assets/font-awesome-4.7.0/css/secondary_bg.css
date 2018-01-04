@@ -1,0 +1,16 @@
+section.herocont{
+    border-radius: 25px;
+    background-color: #EFE4B0;
+    box-shadow: 0 0 20px #2C2C2C;
+}
+section.heroback{
+    background-color: #EFE4B0;
+}
+section.hero1{
+    background-color: #990000;
+}
+section.hero1curve{
+    border-radius: 25px;
+    background-color: #990000;
+    box-shadow: 0 0 20px #2C2C2C;
+}

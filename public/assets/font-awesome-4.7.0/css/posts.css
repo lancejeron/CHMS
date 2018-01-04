@@ -1,0 +1,60 @@
+.subtitle{
+    background-color: #990000;
+    font-size: 25pt;
+    border-width: 50%;
+    color: white;
+}
+.card{
+    background-color: #FF7F27;
+    height: 300px;
+    width: auto;
+}
+#image-container{
+    height:200px;
+    width: 150pt;
+    float: right;
+    margin-right: 25pt;
+}
+img{
+    height:200px;
+    width: 150pt;
+}
+
+card-text{
+    font-size: 15pt;
+}
+hr{
+    width: 100%;
+    font-weight: bolder;
+}
+h9{
+    font-size: 20pt;
+
+}
+.btn{
+    margin-left: 10pt;
+    background-color: #990000;
+}
+ul1{
+    font-size: 12pt;
+}
+.button{
+    background-color: #990000;
+    outline-color: black;
+    -webkit-text-fill-color: white;
+}
+/* ul1
+{
+color:white;
+text-shadow:
+} */
+h9{
+    color: black;
+}
+.lan{
+    color: black;
+}
+.jon{
+    background-color: white;
+    -webkit-text-fill-color: #990000;
+}

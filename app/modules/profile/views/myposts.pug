@@ -1,0 +1,56 @@
+extends ../../../templates/navbar.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/posts.css")
+  each user in usertab
+    div(align='center')
+      h3.title #{user.strName}'s posts
+  hr(style='border: 0.5px solid #990000')
+  each post in myposttab
+    if post.page == post.curpage
+      .card
+        h3.card-header
+          h3.subtitle &nbsp#{post.strCatName}
+        .card-body
+          h4.card-title
+            h9 &nbsp&nbsp &nbsp #{post.strItemTitle}
+            #image-container
+              img(src='/images/uploaded_images/'+post.strFirstPic)
+            p.card-text
+                ul1
+                  b &nbsp&nbsp Price: Php #{post.price}
+                  br
+                ul1
+                  b &nbsp&nbsp Date: #{post.date}
+                  br
+            br
+            .field.is-grouped
+              p.control
+                a.btn.btn-primary(href='/categories/' + post.strCatName + '/' + post.intItemID) View Details
+              p.control
+                a.btn.btn-primary(href='/profile/'+ post.strItemSNum +'/posts/'+ post.intItemID +'/edit' ) Edit Post
+              p.control
+                a.btn.btn-primary(href='/profile/'+ post.strItemSNum +'/posts/'+ post.intItemID +'/delete') Delete Post
+      br
+  br
+
+  each user in usertab
+    each curpage in curpagetab
+      .field.is-grouped
+        if curpage > 1
+          each prevpage in prevpagetab
+            p.control
+              a.button.is-outlined.is-hovered(href='/profile/'+ user.strSNum +'/posts/'+ prevpage ) << Previous
+        each lastpage in lastpagetab
+          each page in pagetab
+            if page == curpage
+              p.control
+                a.jon.button.is-hovered() #{page}
+            else
+              if page <= lastpage
+                p.control
+                  a.button.is-outlined(href='/profile/'+ user.strSNum +'/posts/'+ page ) #{page}
+          each nextpage in nextpagetab
+            if curpage < lastpage
+              p.control
+                a.button.is-outlined.is-hovered(href='/profile/'+ user.strSNum +'/posts/'+ nextpage ) Next >>

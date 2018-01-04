@@ -1,0 +1,77 @@
+extends ../../../templates/navbar.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/profile_post.css")
+  each post in editposttab
+    h3.title
+      a(href='/categories/' + post.strCatName + '/' + post.intItemID) #{post.strItemTitle}
+    hr(style='border: 0.5px solid #990000')
+    h3.title Edit Post:
+    h3.subtitle Note: You can use your old order password as your new order password.
+    form(method="POST" action="/profile/"+post.strItemSNum+"/posts/"+post.intItemID+"/edit" enctype='multipart/form-data')
+        .field
+            .control
+                .select.is-danger
+                    select(name="category")
+                      if post.intItemCat == 1
+                        option(value='1') Books
+                        option(value='2') School Supplies
+                        option(value='3') Food
+                        option(value='4') Misc.
+                      else if post.intItemCat == 2
+                        option(value='2') School Supplies
+                        option(value='1') Books
+                        option(value='3') Food
+                        option(value='4') Misc.
+                      else if post.intItemCat == 3
+                        option(value='3') Food
+                        option(value='1') Books
+                        option(value='2') School Supplies
+                        option(value='4') Misc.
+                      else if post.intItemCat == 4
+                        option(value='4') Misc.
+                        option(value='1') Books
+                        option(value='2') School Supplies
+                        option(value='3') Food
+        hr(style='border: 0.5px solid #990000')
+        .field
+            .control
+              div(style='width: 33%; float: left')
+                label PICTURE 1
+                br
+                input.file-input(type='file', name='pic1', accept='image/*')
+              div(style='width: 33%; float: left')
+                label PICTURE 2
+                br
+                input.file-input(type='file', name='pic2', accept='image/*')
+              div(style='width: 34%; float: right')
+                label PICTURE 3
+                br
+                input.file-input(type='file', name='pic3', accept='image/*')
+        br
+        br
+        hr(style='border: 0.5px solid #990000')
+        .field
+            .control
+                input.input(type="text" placeholder="Item Title" maxlength="50" value=post.strItemTitle name="title" required)
+        .field
+            .control
+                input.input(type="number" step="any" placeholder="Item Price" max="9999999" min="0" value=post.fltItemPrice name="price" required)
+        .field
+            .control
+               textarea#form8.md-textarea(type="text" placeholder="Item Description" maxlength="250" name="description" required) #{post.txtItemDesc}
+               label(for='form8') Description (Maximum of 250 characters.)
+        .field
+            .control
+                input.input(type="password" placeholder="Old Order Password" minlength="8" maxlength="45" name="oldpass" required)
+        .field
+            .control
+                input.input(type="password" placeholder="New Order Password" minlength="8" maxlength="45" name="newpass" required)
+        .field
+            .control
+                input.input(type="password" placeholder="Confirm Order Password" minlength="8" maxlength="45" name="confirm" required)
+        .field.is-grouped
+            .control
+                input.button(type="submit" value="Post")
+            .control
+                a.button(href='/profile/'+post.strItemSNum+'/posts/1') Cancel

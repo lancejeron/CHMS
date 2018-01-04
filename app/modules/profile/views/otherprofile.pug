@@ -1,0 +1,47 @@
+extends ../../../templates/navbarnocontainer.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/profile.css")
+  body
+    each user in usertab
+      .container
+          section.section1.clearfix
+            div
+              .row.clearfix
+                .col2.first
+                  if user.strProfilePicture == 'blank.jpg'
+                    div(style='width: 30%; float: left')
+                      #yourContainer
+                        img(src='/images/profile_pictures/'+ user.strProfilePicture, alt='')
+                  else
+                    div(style='width: 30%; float: left')
+                      #yourContainer
+                        img(src='/images/profile_pictures/'+ user.strProfilePicture, alt='')
+                .col2.last
+                  .grid.clearfix
+                    .col3.first
+                      h1 #{user.intCommend}
+                      span Commend
+                    .col3
+                      h1 #{user.intReport}
+                      span Report
+                    p5
+                      ul4|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp#{user.strName}
+                      ul|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp#{user.strSNum} [ #{user.strStatus} ]
+          div
+            section.hero
+              .hero-body
+                div#w74(style='width: 83%; float: right')
+                  p
+                    b Contact Information :
+                  p
+                    i E-mail: &nbsp
+                    | #{user.strEmail}
+                  p
+                    i Others: &nbsp
+                    | #{user.txtContact}
+                div(style='width: 2%; float: right')
+                  p &nbsp
+                div(style='width: 15%; float: left', align='center')
+                  p
+                    a.button.is-info.is-inverted.is-outlined(class="button", href="/profile/"+ user.strSNum +"/posts/1") &nbsp&nbsp&nbsp&nbsp&nbsp Posts &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp

@@ -1,0 +1,15 @@
+extends ../../../templates/navbaradmin.pug
+
+block content
+  h3.title Accounts Manager
+  hr(style='border: 0.5px solid #000105')
+  .field.is-grouped
+    p.control
+      a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/account-verified/1") VERIFIED
+    p.control
+      a.button.is-warning.is-inverted.is-hovered(class="button") NOT VERIFIED
+    p.control
+      a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/account-banned/1") BANNED
+  hr(style='border: 0.5px solid #000105')
+  p
+    i No accounts were found

@@ -1,0 +1,108 @@
+extends ../../../templates/navbaradmin.pug
+
+block content
+  h3.title Accounts Manager
+  hr(style='border: 0.5px solid #000105')
+  .field.is-grouped
+    each status in statustab
+      if status == 'verified'
+        p.control
+          a.button.is-warning.is-inverted.is-hovered(class="button") VERIFIED
+        p.control
+          a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/account-notverified/1") NOT VERIFIED
+        p.control
+          a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/account-banned/1") BANNED
+      else if status == 'not verified'
+        p.control
+          a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/account-verified/1") VERIFIED
+        p.control
+          a.button.is-warning.is-inverted.is-hovered(class="button") NOT VERIFIED
+        p.control
+          a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/account-banned/1") BANNED
+      else
+        p.control
+          a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/account-verified/1") VERIFIED
+        p.control
+          a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/account-notverified/1") NOT VERIFIED
+        p.control
+          a.button.is-warning.is-inverted.is-hovered(class="button") BANNED
+  hr(style='border: 0.5px solid #000105')
+  each stud in studtab
+    if stud.page == stud.curpage
+      h3.title
+        b #{stud.strSNum}
+      h3.subtitle &nbsp#{stud.strName}
+      p Email: #{stud.strEmail}
+      p Commends: #{stud.intCommend}
+      p Reports: #{stud.intReport}
+      br
+      .field.is-grouped
+        if stud.strStatus == 'verified'
+          p.control
+            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/account/banver/"+ stud.strSNum) Ban
+        else if stud.strStatus == 'not verified'
+          p.control
+            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/account/bannotver/"+ stud.strSNum) Ban
+        else
+          p.control
+            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/account/reinstate/"+ stud.strSNum) Reinstate
+      hr(style='border: 0.5px solid #000105')
+
+  each curpage in curpagetab
+    .field.is-grouped
+      each status in statustab
+        if status == 'verified'
+          if curpage > 1
+            each prevpage in prevpagetab
+              p.control
+                a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/account-verified/'+ prevpage ) << Previous
+          each lastpage in lastpagetab
+            each page in pagetab
+              if page == curpage
+                p.control
+                  a.button.is-warning.is-inverted.is-hovered() #{page}
+              else
+                if page <= lastpage
+                  p.control
+                    a.button.is-warning.is-inverted.is-outlined(href='/admin/account-verified/'+ page ) #{page}
+            each nextpage in nextpagetab
+              if curpage < lastpage
+                p.control
+                  a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/account-verified/'+ nextpage ) Next >>
+        else if status == 'not verified'
+          if curpage > 1
+            each prevpage in prevpagetab
+              p.control
+                a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/account-notverified/'+ prevpage ) << Previous
+          each lastpage in lastpagetab
+            each page in pagetab
+              if page == curpage
+                p.control
+                  a.button.is-warning.is-inverted.is-hovered() #{page}
+              else
+                if page <= lastpage
+                  p.control
+                    a.button.is-warning.is-inverted.is-outlined(href='/admin/account-notverified/'+ page ) #{page}
+            each nextpage in nextpagetab
+              if curpage < lastpage
+                p.control
+                  a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/account-notverified/'+ nextpage ) Next >>
+
+        else
+          if curpage > 1
+            each prevpage in prevpagetab
+              p.control
+                a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/account-banned/'+ prevpage ) << Previous
+          each lastpage in lastpagetab
+            each page in pagetab
+              if page == curpage
+                p.control
+                  a.button.is-warning.is-inverted.is-hovered() #{page}
+              else
+                if page <= lastpage
+                  p.control
+                    a.button.is-warning.is-inverted.is-outlined(href='/admin/account-banned/'+ page ) #{page}
+            each nextpage in nextpagetab
+              if curpage < lastpage
+                p.control
+                  a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/account-banned/'+ nextpage ) Next >>

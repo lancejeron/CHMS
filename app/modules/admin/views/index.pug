@@ -1,0 +1,48 @@
+extends ../../../templates/navbaradmin.pug
+
+block content
+  each user in usertab
+    div(align='center')
+      h3.title
+        b PUP Student Market Admin Page
+      h3.subtitle &nbsp#{user.strName}
+      hr(style='border: 0.5px solid #000105')
+      h3.subtitle
+        b Excluding Admin Accounts:
+    hr(style='border: 0.5px solid #000105')
+    each reg in regtab
+      each ver in vertab
+        each nver in nvertab
+          each ban in bantab
+            each unreg in unregtab
+              each rej in rejtab
+                div(style='width: 58%; float: left', align='right')
+                  h3.subtitle
+                    b Registered Student Count:
+                  p &nbsp&nbsp&nbsp&nbsp&nbsp
+                    b Verified Count:
+                  p &nbsp&nbsp&nbsp&nbsp&nbsp
+                    b Not Verified Count:
+                  br
+                  h3.subtitle
+                    b Banned Account Count:
+                  h3.subtitle
+                    b Unregistered Account Count:
+                  h3.subtitle
+                    b Rejected Registration Count:
+                div(style='width: 42%; float: right')
+                  h3.subtitle &nbsp&nbsp
+                    b #{reg.CNT}
+                  p &nbsp&nbsp
+                    b #{ver.CNT}
+                  p &nbsp&nbsp
+                    b #{nver.CNT}
+                  br
+                  h3.subtitle &nbsp&nbsp
+                    b #{ban.CNT}
+                  h3.subtitle &nbsp&nbsp
+                    b #{unreg.CNT}
+                  h3.subtitle &nbsp&nbsp
+                    b #{rej.CNT}
+    p &nbsp
+    hr(style='border: 0.5px solid #000105')

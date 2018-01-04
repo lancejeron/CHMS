@@ -1,0 +1,13 @@
+extends ../../../templates/navbar.pug
+
+block content
+  h2.title Order Success!
+  hr(style='border: 0.5px solid #990000')
+  each post in posttab
+    .field.is-grouped
+      link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/order.css")
+      each trans in transposttab
+        p.control
+          a.button(href='/orderslip/' + trans.intTransID) ORDER SLIP
+        p.control
+          a.button(href='/categories/' + post.strCatName + '/' + post.intItemID ) BACK TO POST

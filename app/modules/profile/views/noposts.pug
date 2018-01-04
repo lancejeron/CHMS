@@ -1,0 +1,10 @@
+extends ../../../templates/navbar.pug
+
+block content
+  each user in usertab
+    div(align='center')
+      h3.title #{user.strName}'s posts
+    hr(style='border: 0.5px solid #990000')
+    div(align='center')
+      p
+        i No posts were found

@@ -1,0 +1,40 @@
+extends ../../../templates/navbar.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/profile_post.css")
+  h3.title Update your information:
+  section.hero.is-info.is-bold
+    .hero-body
+      h3.subtitle Note: You can use your old password as your new password.
+  each user in usertab
+    form(method="POST" action="/profile/-/edit" enctype='multipart/form-data')
+        .field
+            .control
+                input.input(type="text" placeholder="Full Name (John S. Doe)" maxlength="50" value=user.strName name="studname" readonly)
+        .field
+            .control
+                label Profile Picture
+                br
+                input.file-input(type='file', name='profilepic', accept='image/*')
+        hr(style='border: 0.5px solid #990000')
+        .field
+            .control
+                input.input(type="password" placeholder="Old Password" minlength="8" maxlength="50" name="oldpass" required)
+        .field
+            .control
+                input.input(type="password" placeholder="New Password:  (minimum of 8 characters)" minlength="8" maxlength="50" name="newpass" required)
+        .field
+            .control
+                input.input(type="password" placeholder="Confirm Password" minlength="8" maxlength="50" name="confirm" required)
+        .field
+            .control
+                input.input(type="email" placeholder="E-mail Address" maxlength="45" value=user.strEmail name="email" required)
+        .field
+            .control
+                textarea#form8.md-textarea(type="text" maxlength="250" name="contact") #{user.txtContact}
+                label(for='form8') Contact Information (Optional, Maximum of 250 characters.)
+        .field.is-grouped
+            .control
+                input.button(type="submit" value="Save")
+            .control
+                a.button(class="button", href="/profile") Back

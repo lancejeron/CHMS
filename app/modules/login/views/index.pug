@@ -1,0 +1,38 @@
+extends ../../../templates/master.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/login.css")
+  .login-wrap
+    .login-html
+      //- i.fa.fa-shopping-cart.fa-2x.fa-inverse
+      label.tab &nbsp Coffeemate!
+      br
+      br
+      br
+      label.tab Sign In
+      form(method="POST" action="/login")
+        .group
+        label.label(for='email')
+        h2 E-mail
+        input.input1(type="email" maxlength="45" name="email" )
+        .group
+        label.label(for='pass')
+        h2 Password
+        br
+        input.input2(type="password" minlength="8" name="password" )
+        br
+        br
+        br
+        .group
+        input.button.is-info.is-inverted.is-outlined(type='submit', value='Sign In')
+        br
+        br
+        br
+        .dropdown
+          button.dropbtn Register
+          .dropdown-content
+            a(href='/register') User
+            a(href='#') Coffee Shop
+
+
+        //- a.button.is-info.is-inverted.is-outlined(href="/register") Register

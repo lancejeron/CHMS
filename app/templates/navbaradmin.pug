@@ -1,0 +1,28 @@
+html
+    head
+        //- link(rel='icon', type='image/png', href='/assets/images/upload_images/logo.ico')
+        title Coffeemate!
+
+        link(rel="stylesheet" href="/assets/bulma/bulma.css")
+        link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/font-awesome.min.css")
+
+    body
+        nav.navbar
+            div.navbar-brand
+                a.navbar-item(href="/admin") PUP STUDENT MARKET
+            div.navbar-brand
+                a.navbar-item(href="/admin/registration-unregistered/1") Registrations
+            div.navbar-brand
+                a.navbar-item(href="/admin/account-verified/1") Accounts
+            div.navbar-brand
+                a.navbar-item(href="/admin/post-reported/1") Reported Posts
+
+            div.navbar-end
+                div.navbar-item
+                    a.navbar-item(href="/login") Log-Out
+
+        section.hero.is-warning.is-bold
+          .hero-body
+              div.container
+                #wrapper
+                  block content

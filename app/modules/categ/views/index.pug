@@ -1,0 +1,40 @@
+extends ../../../templates/navbar.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/category.css")
+  div(align='center')
+    h2.title CATEGORIES
+    h2.subtitle &nbspSelect a Category to view posts in it
+    hr(style='border: 0.5px solid #990000')
+    .hero-body
+        //- #wrapper
+        br
+        .card
+          p.field
+            a.big-btn.button.is-warning(class="button", href="/categories/"+ "Books" +'/page/1')
+              i.fa.fa-book
+              span &nbsp Books
+        br
+        .card
+          p.field
+            a.big-btn.button.is-warning(class="button", href="/categories/"+ "School Supplies" +'/page/1')
+              i.fa.fa-pencil
+              span &nbsp School Supplies
+        br
+        .card
+          p.field
+            a.big-btn.button.is-warning(class="button", href="/categories/"+ "Food" +'/page/1')
+              i.fa.fa-birthday-cake
+              span &nbsp Food
+        br
+        .card
+          p.field
+            a.big-btn.button.is-warning(class="button", href="/categories/"+ "Misc." +'/page/1')
+              i.fa.fa-asterisk
+              span &nbsp Misc.
+             
+        //- each cat in cattab
+        //-   br
+        //-   .card
+        //-     a.big-btn.button.is-warning(class="button", href="/categories/"+ cat.strCatName +'/page/1') #{cat.strCatName}
+        //- ^^old patch.

@@ -1,0 +1,42 @@
+extends ../../../templates/navbar.pug
+
+block content
+  each user in usertab
+    h3.title Welcome to PUP Student Market, #{user.strName}
+    hr
+    each item in itemtab
+        if item.page == item.curpage
+            .card
+                h3.card-header.primary-color.white-text 
+                    h3.subtitle &nbsp#{item.strCatName}
+                .card-body
+                    h4.card-title
+                        a(href='/categories/' + item.strCatName + '/' + item.intItemID) #{item.strItemTitle}
+                    p.card-text 
+                        ul 
+                            b Price: Php #{item.price}
+                            b Date: #{item.date}
+                            p Seller: &nbsp
+                            u
+                                a(href='/profile/'+ item.strItemSNum ) #{item.strName} ( #{item.strItemSNum} )
+                    a.btn.btn-primary Go somewhere
+                    hr
+    each curpage in curpagetab
+        .field.is-grouped
+        if curpage > 1
+            each prevpage in prevpagetab
+            p.control
+                a.button.is-primary.is-inverted.is-outlined.is-hovered(href='/home/page/'+ prevpage ) << Previous
+        each lastpage in lastpagetab
+            each page in pagetab
+            if page == curpage
+                p.control
+                a.button.is-primary.is-inverted.is-hovered() #{page}
+            else
+                if page <= lastpage
+                p.control
+                    a.button.is-primary.is-inverted.is-outlined(href='/home/page/'+ page ) #{page}
+            each nextpage in nextpagetab
+            if curpage < lastpage
+                p.control
+                a.button.is-primary.is-inverted.is-outlined.is-hovered(href='/home/page/'+ nextpage ) Next >>

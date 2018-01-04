@@ -1,0 +1,25 @@
+extends ../../../templates/navbar.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/profile_post.css")
+  h2.title Finish Transaction?
+  hr(style='border: 0.5px solid #990000')
+  each trans in transtab
+    each user in usertab
+      if trans.strBuyerSNum == user.strSNum
+        h2.subtitle Seller: &nbsp
+          u
+            a(href='/profile/'+ trans.strItemSNum ) #{trans.strName} ( #{trans.strItemSNum} )
+      else
+        h2.subtitle Buyer: &nbsp
+          u
+            a(href='/profile/'+ trans.strBuyerSNum ) #{trans.strName} ( #{trans.strBuyerSNum} )
+      .field.is-grouped
+        p.control
+          a.button.is-outlined(href='/profile/-/commend/'+ trans.intTransID) COMMEND & FINISH
+        p.control
+          a.button.is-outlined(href='/profile/-/report/'+ trans.intTransID) REPORT & FINISH
+        p.control
+          a.button.is-outlined(href='/profile/-/finishtrans/'+ trans.intTransID) FINISH TRANSACTION
+        p.control
+          a.button.is-outlined(href='/profile/-/transactions/1') BACK TO TRANSACTIONS

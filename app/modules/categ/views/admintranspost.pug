@@ -1,0 +1,72 @@
+extends ../../../templates/navbarnofooter.pug
+
+block content
+    meta(http-equiv='content-type', content='text/html; charset=UTF-8')
+    meta(charset='utf-8')
+    meta(content='IE=edge,chrome=1', http-equiv='X-UA-Compatible')
+    meta(name='viewport', content='width=device-width')
+    link(rel='shortcut icon', href='../favicon.ico')
+    meta(name='description', content="In this css image slider tutorials we build pure css image slider without using any javascript. Let's have a look the demo and download source code.")
+    meta(name='keywords', content='tutorial,css3,image slider,css,html,html5,css slider,slider,gallery,css transitions')
+    link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/column.css")
+    each post in posttab
+      .site
+        header.masthead
+          h2.site-title #{post.strCatName}
+        main#content.main-content
+          h2.title #{post.strItemTitle}
+              link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/component.css")
+              link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/demo.css")
+              article#cc-slider
+                  input#slide1(checked='checked', name='cc-slider', type='radio')
+                  input#slide2(name='cc-slider', type='radio')
+                  input#slide3(name='cc-slider', type='radio')
+                  #cc-slides
+                    #overflow
+                      .inner
+                        article
+                          .cctooltip
+                            h3 Date: #{post.date}
+                            h4 <b> Price: Php #{post.price}
+                          img(src='/images/uploaded_images/'+ post.strFirstPic)
+                        article
+                          .cctooltip
+                            h3 Date: #{post.date}
+                            h4 <b> Price: Php #{post.price}
+                          img(src='/images/uploaded_images/'+ post.strSecondPic)
+                        article
+                          .cctooltip
+                            h3 Date: #{post.date}
+                            h4 <b> Price: Php #{post.price}
+                          img(src='/images/uploaded_images/'+ post.strThirdPic)
+                  #controls
+                    label(for='slide1')
+                    label(for='slide2')
+                    label(for='slide3')
+        aside.sidebar
+          br
+          br
+          h3 Other Details:
+          ul
+            li Contact Information:
+            li #{post.strName} ( #{post.strItemSNum} )
+            li Status: #{post.strStatus}
+            li Commends : #{post.intCommend} &nbsp|&nbsp Reports : #{post.intReport}
+            li Email : #{post.strEmail}
+            li Contact no : #{post.txtContact}
+          hr
+          h4 Item Description :
+            p #{post.txtItemDesc}
+        aside.twin
+          p.whitetxt(style='display:inline') Item has Ongoing / Onhold Transaction
+        aside.twin
+          a.button.is-info.is-inverted.is-outlined(href='/admin/post-reported/1') BACK TO REPORTED POSTS
+        footer.colophon.grid
+          aside
+            p(style='color:white;')
+              b PUP Student Market
+              | &nbspis a project made by&nbsp
+              b PSM Team
+            p(style='color:white;')
+              b Contact Us:
+              | &nbsppsm.sup.adm@gmail.com

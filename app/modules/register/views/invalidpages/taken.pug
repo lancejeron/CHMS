@@ -1,0 +1,39 @@
+extends ../../../../templates/master.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/register.css")
+  .signup-wrap
+    .signup-html
+        label1.tab Create Account
+            br
+            br
+            label7.tab &nbsp&nbsp SUBMISSION FAILED
+            br
+            label7.tab &nbsp&nbsp *Student number is already registered
+            br
+            label2.tab &nbsp&nbsp All fields are required in order to successfully register, unless stated optional
+        hr
+        form(method="POST" action="/register")
+            .group
+                input.input1(type="text" maxlength="15" minlength="15" placeholder="Student Number: ex. 2015-04834-MN-0" name="studnum", required)
+            br
+            .group
+                input.input2(type="password" placeholder="Password: (minimum of 8 characters)" minlength="8" name="password", required)
+            br
+            .group
+
+                input.input2(type="password" placeholder="Confirm Password" minlength="8" name="confirm", required)
+            br
+            .group
+                input.input1(type="text" placeholder="Full Name: ex. John S. Doe" maxlength="100" name="studname", required)
+            br
+            .group
+                input.input1(type="text" placeholder="E-mail Address: ex. john@xyz.com" maxlength="45" name="email", required)
+            br
+            .group
+                 textarea#form8.md-textarea(type="text" placeholder="Contact Information (Optional)" maxlength="250" name="contact")
+                 label(for='form8') Maximum of 250 characters
+            br
+            .group
+            input.button.is-info.is-inverted.is-outlined(type='submit', value='Register')
+            a.button.is-info.is-inverted.is-outlined(href="/login") Back

@@ -1,0 +1,14 @@
+extends ../../../templates/navbar.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/posts.css")
+  h2.title Item Successfully Posted
+  hr(style='border: 0.5px solid #990000')
+  each post in posttab
+    .field.is-grouped
+      p.control
+        a.button(href='/categories/' +post.strCatName +'/' +post.intItemID) VIEW POST
+      p.control
+        a.button(href='/sell') SELL ANOTHER ITEM
+      p.control
+        a.button(href='/home/page/1') HOME

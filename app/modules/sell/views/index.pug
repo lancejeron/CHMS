@@ -1,0 +1,54 @@
+extends ../../../templates/navbar.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/sell.css")
+  h3.title Sell an Item:
+  h3.subtitle &nbspAll fields are required
+  form(method="POST" action="/sell" enctype='multipart/form-data')
+      .field
+          .control
+              .select.is-danger
+                  select(name="category")
+                    option(value='') -- Category --
+                    option(value='Books') Books
+                    option(value='School Supplies') School Supplies
+                    option(value='Food') Food
+                    option(value='Misc.') Misc.
+      hr(style='border: 0.5px solid #990000')
+      p Upload atleast One(1) Picture of the Item to be posted
+      br
+      .field
+          .control
+            div(style='width: 33%; float: left')
+              label PICTURE 1
+              br
+              input.file-input(type='file', name='pic1', accept='image/*')
+            div(style='width: 33%; float: left')
+              label PICTURE 2
+              br
+              input.file-input(type='file', name='pic2', accept='image/*')
+            div(style='width: 34%; float: right')
+              label PICTURE 3
+              br
+              input.file-input(type='file', name='pic3', accept='image/*')
+      br
+      br
+      hr(style='border: 0.5px solid #990000')
+      .field
+          .control
+              input.input(type="text" placeholder="Item Title" maxlength="50" name="title", required)
+      .field
+          .control
+              input.input(type="number" step="any" placeholder="Item Price" max="9999999" min="0" name="price", required)
+      .field
+          .control
+               textarea#form8.md-textarea(type="text" maxlength="250" name="description", required)
+               label(for='form8') Description (Maximum of 250 characters.)
+      .field
+          .control
+              input.input(type="password" placeholder="Order Password: (minimum of 8 characters)" minlength="8" maxlength="45" name="orderpass", required)
+      .field.is-grouped
+          .control
+              input.button(type="submit" value="Post")
+          .control
+              a.button(href='/profile') Cancel

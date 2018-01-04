@@ -1,0 +1,10 @@
+extends ../../../templates/navbar.pug
+
+block content
+  each catname in catnametab
+    div(align='center')
+      h2.title #{catname.strCatName}
+    hr(style='border: 0.5px solid #990000')
+    div(align='center')
+      p
+        i No posts were found

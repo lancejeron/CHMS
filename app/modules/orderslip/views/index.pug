@@ -1,0 +1,76 @@
+br
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+  body
+    link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/voucher.css")
+    each invoice in invoicetab
+      #page-wrap
+        div(align="center")
+          h1.title PUP STUDENT MARKET
+        br
+        br
+        #identity
+          #address
+            | Seller Details
+            br
+            | Name : #{invoice.SName}
+            br
+            | Student Number : #{invoice.Seller}
+            br
+            | E-mail : #{invoice.SEmail}
+        #customer
+          #customer-title
+            | Buyer Details
+            br
+            | Name : #{invoice.BName}
+            br
+            | Student Number : #{invoice.Buyer}
+            br
+            | E-mail : #{invoice.BEmail}
+          table#meta
+            tr
+              td.meta-head Transaction #
+              td #{invoice.intTransID}
+            tr
+              td.meta-head Date
+              td #{invoice.date}
+            tr
+              td.meta-head Amount Due
+              td Php #{invoice.price}
+        div(align="center")
+          Label &nbspORDER SLIP
+        table#items
+          tr
+            th Item &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            th Category
+            th Price
+          tr.item-row
+            td
+              text #{invoice.strItemTitle}
+            td
+              text #{invoice.strCatName}
+            td
+              text Php #{invoice.price}
+              br
+              br
+              br
+              br
+              br
+        br
+        br
+        h8
+          |#{invoice.SName}
+        h9
+          |#{invoice.BName}
+        #terms
+          h5 Terms
+          text
+            | Print This Form.
+            br
+            | Must be signed  by the Seller and Buyer.
+            br
+            |(Ctrl + p)
+        p &nbsp
+        h1.subtitle ---------------------------------------------------------------------------
+        p
+          sup Cut Here

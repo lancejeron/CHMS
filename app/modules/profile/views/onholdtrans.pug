@@ -1,0 +1,166 @@
+extends ../../../templates/navbar.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/posts.css")
+  div(align='center')
+    h2.title Onhold Transactions
+  hr(style='border: 0.5px solid #990000')
+  div(style='width: 38%; float: left' , align='right')
+    a.button(class="button", href="/profile/-/transactions/1") ONGOING TRANSACTIONS
+  div(style='width: 38%; float: right' , align='left')
+    a.button(class="button", href="/profile/-/transactions/history/1") PREVIOUS TRANSACTIONS
+  div(style='width: 24%; float: right' , align='center')
+    a.button(class="button", href="/profile/-/transactions/hold/1") ON HOLD TRANSACTIONS
+  br
+  br
+  br
+  each trans in transtab
+    if trans.page == trans.curpage
+      each viewer in viewertab
+        if trans.strBuyerSNum == viewer.strSNum
+          if trans.strTransStatus == 'BFinished'
+            .card
+              h3.card-header
+                h3.subtitle &nbsp#{trans.strCatName}
+              .card-body
+                h4.card-title
+                  h9 &nbsp&nbsp( Buyer ) #{trans.strItemTitle}
+                  #image-container
+                    if trans.strFirstPic != 'blank.jpg'
+                      img(src='/images/uploaded_images/'+trans.strFirstPic)
+                    else if trans.strSecondPic != 'blank.jpg'
+                      img(src='/images/uploaded_images/'+trans.strSecondPic)
+                    else
+                      img(src='/images/uploaded_images/'+trans.strThirdPic)
+                  p.card-text
+                      ul1
+                        b &nbsp&nbsp Price: Php #{trans.price}
+                        br
+                      ul1
+                        b &nbsp&nbsp Seller: &nbsp
+                          u
+                            a.lan(href='/profile/'+ trans.strItemSNum ) #{trans.strName} ( #{trans.strItemSNum} )
+                        br
+                      ul1
+                        b &nbsp&nbsp Date Started: #{trans.date}
+                  p &nbsp&nbsp You Marked this as Finished Transaction
+                  .field.is-grouped
+                    p.control
+                      a.btn.btn-primary(href='/categories/' + trans.strCatName + '/' + trans.intItemID) View Details
+                    p.control
+                      a.btn.btn-primary(href="/orderslip/" + trans.intTransID) Order Slip
+            br
+          else
+            .card
+              h3.card-header
+                h3.subtitle &nbsp#{trans.strCatName}
+              .card-body
+                h4.card-title
+                  h9 &nbsp&nbsp( Buyer ) #{trans.strItemTitle}
+                  #image-container
+                    img(src='/images/uploaded_images/'+trans.strFirstPic)
+                  p.card-text
+                      ul1
+                        b &nbsp&nbsp Price: Php #{trans.price}
+                        br
+                      ul1
+                        b &nbsp&nbsp Seller: &nbsp
+                          u
+                            a.lan(href='/profile/'+ trans.strItemSNum ) #{trans.strName} ( #{trans.strItemSNum} )
+                        br
+                      ul1
+                        b &nbsp&nbsp Date Started: #{trans.date}
+                  if trans.strStatus == 'banned'
+                    p(style='display:inline') &nbsp&nbsp Seller Marked this as Finished Transaction
+                    p &nbsp&nbsp Seller Has Been banned by the Admin
+                  else
+                    p &nbsp&nbsp Seller Marked this as Finished Transaction
+                  .field.is-grouped
+                    p.control
+                      a.btn.btn-primary(href='/categories/' + trans.strCatName + '/' + trans.intItemID) View Details
+                    p.control
+                      a.btn.btn-primary(href="/orderslip/" + trans.intTransID) Order Slip
+                    p.control
+                      a.btn.btn-primary(href="/profile/-/confirmtrans/" + trans.intTransID) End Transaction
+            br
+        else
+          if trans.strTransStatus == 'SFinished'
+            .card
+              h3.card-header
+                h3.subtitle &nbsp#{trans.strCatName}
+              .card-body
+                h4.card-title
+                  h9 &nbsp&nbsp( Seller ) #{trans.strItemTitle}
+                  #image-container
+                    img(src='/images/uploaded_images/'+trans.strFirstPic)
+                  p.card-text
+                      ul1
+                        b &nbsp&nbsp Price: Php #{trans.price}
+                        br
+                      ul1
+                        b &nbsp&nbsp Buyer: &nbsp
+                          u
+                            a.lan(href='/profile/'+ trans.strBuyerSNum ) #{trans.strName} ( #{trans.strBuyerSNum} )
+                        br
+                      ul1
+                        b &nbsp&nbsp Date Started: #{trans.date}
+                  p &nbsp&nbsp You Marked this as Finished Transaction
+                  .field.is-grouped
+                    p.control
+                      a.btn.btn-primary(href='/categories/' + trans.strCatName + '/' + trans.intItemID) View Details
+                    p.control
+                      a.btn.btn-primary(href="/orderslip/" + trans.intTransID) Order Slip
+            br
+          else
+            .card
+              h3.card-header
+                h3.subtitle &nbsp#{trans.strCatName}
+              .card-body
+                h4.card-title
+                  h9 &nbsp&nbsp( Seller ) #{trans.strItemTitle}
+                  #image-container
+                    img(src='/images/uploaded_images/'+trans.strFirstPic)
+                  p.card-text
+                      ul1
+                        b &nbsp&nbsp Price: Php #{trans.price}
+                        br
+                      ul1
+                        b &nbsp&nbsp Buyer: &nbsp
+                          u
+                            a.lan(href='/profile/'+ trans.strBuyerSNum ) #{trans.strName} ( #{trans.strBuyerSNum} )
+                        br
+                      ul1
+                        b &nbsp&nbsp Date Started: #{trans.date}
+                  if trans.strStatus == 'banned'
+                    p(style='display:inline') &nbsp&nbsp Buyer Marked this as Finished Transaction
+                    p &nbsp&nbsp Buyer Has Been banned by the Admin
+                  else
+                    p &nbsp&nbsp Buyer Marked this as Finished Transaction
+                  .field.is-grouped
+                    p.control
+                      a.btn.btn-primary(href='/categories/' + trans.strCatName + '/' + trans.intItemID) View Details
+                    p.control
+                      a.btn.btn-primary(href="/orderslip/" + trans.intTransID) Order Slip
+                    p.control
+                      a.btn.btn-primary(href="/profile/-/confirmtrans/" + trans.intTransID) End Transaction
+            br
+  br
+  each curpage in curpagetab
+    .field.is-grouped
+      if curpage > 1
+        each prevpage in prevpagetab
+          p.control
+            a.button.is-hovered(href='/profile/-/transactions/hold/'+ prevpage ) << Previous
+      each lastpage in lastpagetab
+        each page in pagetab
+          if page == curpage
+            p.control
+              a.jon.button.is-hovered() #{page}
+          else
+            if page <= lastpage
+              p.control
+                a.button(href='/profile/-/transactions/hold/'+ page ) #{page}
+        each nextpage in nextpagetab
+          if curpage < lastpage
+            p.control
+              a.button.is-hovered(href='/profile/-/transactions/hold/'+ nextpage ) Next >>

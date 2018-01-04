@@ -1,0 +1,13 @@
+extends ../../../templates/navbaradmin.pug
+
+block content
+  h3.title Registration Manipulation
+  hr(style='border: 0.5px solid #000105')
+  .field.is-grouped
+    p.control
+      a.button.is-warning.is-inverted.is-hovered(class="button") UNREGISTERED
+    p.control
+      a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/registration-rejected/1") REJECTED REGISTRATIONS
+  hr(style='border: 0.5px solid #000105')
+  p
+    i No accounts were found

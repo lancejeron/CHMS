@@ -1,0 +1,14 @@
+extends ../../../templates/navbaradmin.pug
+
+block content
+  h3.title Reported Posts Manager
+  h3.subtitle &nbsp Active Posts and Transactions
+  hr(style='border: 0.5px solid #000105')
+  .field.is-grouped
+    p.control
+      a.button.is-warning.is-inverted.is-hovered(class="button") REPORTED POSTS
+    p.control
+      a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/post-reportlog/1") REPORT POST LOG
+  hr(style='border: 0.5px solid #000105')
+  p
+    i No posts were reported
