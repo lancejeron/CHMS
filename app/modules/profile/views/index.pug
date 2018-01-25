@@ -1,54 +1,61 @@
-extends ../../../templates/navbarnocontainer.pug
+doctype html
+html
+  head
+    title Generic - Spectral by HTML5 UP
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/assets/css/main.css')
+    link(rel='stylesheet', href='/assets/css/profile.css')
+  body
+    // Page Wrapper
+    #page-wrapper
+      // Header
+      header#header
+        h1 PROFILE
+        nav#nav
+          ul
+            li.special
+              a.menuToggle(href='#menu')
+                span Menu
+              #menu
+                ul
+                  li
+                    a(href='#') FAQ
+                  li
+                    a(href='index.html') Log out
+      ul.ul
+        li.li
+          a(href='/home/page/1') HOME
+        li.li.active
+          a(href='PROFILE.HTML') PROFILE
+        li.li
+          a(href='COFFEESHOP.HTML') COFFEESHOP
+      br
+      ul.ul
+        li#li
+          a(href='#') chat
+        li#li
+          a(href='#') history
+        li#li
+          a(href='#') coffeemates
+        li#li
+          a(href='#') invites
+      br
+      each user in usertab
 
-block content
-  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/profile.css")
-  h1 profile to
-  //- body
-  //-   each user in usertab
-  //-     .container
-  //-         section.section1.clearfix
-  //-           div
-  //-             .row.clearfix
-  //-               .col2.first
-  //-                 if user.strProfilePicture == 'blank.jpg'
-  //-                   div(style='width: 30%; float: left')
-  //-                     #yourContainer
-  //-                       img(src='/images/profile_pictures/'+ user.strProfilePicture, alt='')
-  //-                 else
-  //-                   div(style='width: 30%; float: left')
-  //-                     #yourContainer
-  //-                       img(src='/images/profile_pictures/'+ user.strProfilePicture, alt='')
-  //-               .col2.last
-  //-                 .grid.clearfix
-  //-                   .col3.first
-  //-                     h1 #{user.intCommend}
-  //-                     span Commend
-  //-                   .col3
-  //-                     h1 #{user.intReport}
-  //-                     span Report
-  //-                   p5
-  //-                     ul4|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp#{user.strName}
-  //-                     ul|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp#{user.strSNum} [ #{user.strStatus} ]
-  //-         div
-  //-           section.hero
-  //-             .hero-body
-  //-               div#w74(style='width: 83%; float: right')
-  //-                 p
-  //-                   b Contact Information :
-  //-                 p
-  //-                   i E-mail: &nbsp
-  //-                   | #{user.strEmail}
-  //-                 p
-  //-                   i Others: &nbsp
-  //-                   | #{user.txtContact}
-  //-               div(style='width: 2%; float: right')
-  //-                 p &nbsp
-  //-               div(style='width: 15%; float: left', align='center')
-  //-                 p
-  //-                   a.button.is-info.is-inverted.is-outlined(class="button", href="/profile/-/edit") &nbsp Edit Profile &nbsp
-  //-                 p &nbsp
-  //-                 p
-  //-                   a.button.is-info.is-inverted.is-outlined(class="button", href="/profile/-/transactions/1") Transactions
-  //-                 p &nbsp
-  //-                 p
-  //-                   a.button.is-info.is-inverted.is-outlined(class="button", href="/profile/"+ user.strSNum +"/posts/1") &nbsp&nbsp&nbsp&nbsp&nbsp Posts &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        section#two.wrapper.alt.style2
+          section.spotlight
+            .image
+              img(src='/images/'+ user.strProfilePicture,  alt='', width=200, height=300)
+            .content
+              h2 #{user.strName}
+              li #{user.Age}
+              li #{user.strLocation}
+              li #{user.strFavCoffee}
+    // Scripts
+    script(src='/assets/js/jquery.min.js')
+    script(src='/assets/js/jquery.scrollex.min.js')
+    script(src='/assets/js/jquery.scrolly.min.js')
+    script(src='/assets/js/skel.min.js')
+    script(src='/assets/js/util.js')
+    script(src='/assets/js/main.js')

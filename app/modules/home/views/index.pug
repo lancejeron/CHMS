@@ -1,20 +1,64 @@
-extends ../../../templates/navbar.pug
-
-block content
+doctype html
+//
+  Spectral by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+html
+  head
+    title Generic - Spectral by HTML5 UP
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    //if lte IE 8
+      script(src='assets/js/ie/html5shiv.js')
+    link(rel='stylesheet', href='/assets/css/main.css')
+    link(rel='stylesheet', href='/assets/css/home.css')
     link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/posts.css")
-    each user in usertab
-        div(align='center')
+    //if lte IE 8
+      link(rel='stylesheet', href='assets/css/ie8.css')
+    //if lte IE 9
+      link(rel='stylesheet', href='assets/css/ie9.css')
+  body
+    // Page Wrapper
+    #page-wrapper
+      // Header
+      header#header
+        h1 HOME
+        nav#nav
+          ul
+            li.special
+              a.menuToggle(href='#menu')
+                span Menu
+              #menu
+                ul
+                  li
+                    a(href='#') FAQ
+                  li
+                    a(href='/login') Log out
+      ul.ul
+        li.li.active
+          a(href='/home/page/1') HOME
+        li.li
+          a(href='/profile') PROFILE
+        li.li
+          a(href='COFFEESHOP.HTML') COFFEESHOP
+    br
+    // Main
+    article#main
+      header
+        h1 CHOOSE SOME PEOPLE WHO YOU WANTS TO HAVE A COFFEE BREAK 
+        each user in usertab
           h3.title Welcome to Coffeemate! #{user.strName}
-    hr(style='border: 0.5px solid #990000')
-    each others in otherstab
-        if others.page == others.curpage
-        .card
-            h3.card-header
-            h3.subtitle &nbsp#{others.strName}
-            .card-body
-                h4.card-title
-                h9 &nbsp&nbsp &nbsp #{others.strEmail}
+
+          each stud in studtab
+            if stud.page == stud.curpage
+            .card
+              h3.card-header
+              h3.subtitle 
+                |
+                a(href='/profile/'+ stud.intID) #{stud.strName}
+              .card-body
                 #image-container
+                  img(src='/images/'+ stud.strProfilePicture,  alt='')
                 //-   if item.strFirstPic != 'blank.jpg'
                 //-     img(src='/images/uploaded_images/'+item.strFirstPic)
                 //-   else if item.strSecondPic != 'blank.jpg'
@@ -22,46 +66,32 @@ block content
                 //-   else
                 //-     img(src='/images/uploaded_images/'+item.strThirdPic)
                 p.card-text
-                ul1
-                    b &nbsp&nbsp Details:  #{others.txtContact}
+                h9 Details:
+                ul
+                  li Age: #{stud.Age}
+                  li Location: #{stud.strLocation}
+                  li Favorite Coffee: #{stud.strFavCoffee}
                 br
 
-    //-                 ul1
-    //-                   b &nbsp&nbsp Date: #{item.date}
-    //-                   br
-    //-                 ul1
-    //- //-                   b &nbsp&nbsp Seller: &nbsp
-    //-                     u
-    //-                       a.lan(href='/profile/'+ item.strItemSNum ) #{item.strName} ( #{item.strItemSNum} )
-    //-             br
-    //-             a.btn.btn-primary(href='/categories/' + item.strCatName + '/' + item.intItemID) View Details
-    //-       br
-    //- br
-    //- each curpage in curpagetab
-    //-   .field.is-grouped
-    //-     if curpage > 1
-    //-       each prevpage in prevpagetab
-    //-         p.control
-    //-           a.button.is-inverted.is-hovered(href='/home/page/'+ prevpage ) << Previous
-    //-     each lastpage in lastpagetab
-    //-       each page in pagetab
-    //-         if page == curpage
-    //-           p.control
-    //-             a.jon.button.is-hovered() #{page}
-    //-         else
-    //-           if page <= lastpage
-    //-             p.control
-    //-               a.button.is-inverted(href='/home/page/'+ page ) #{page}
-    //-       each nextpage in nextpagetab
-    //-         if curpage < lastpage
-    //-           p.control
-    //-             a.button.is-inverted.is-hovered(href='/home/page/'+ nextpage ) Next >>
 
-    //- table.table.is-fullwidth
-    //-     thead
-    //-         tr
-    //-             th Name
-    //-     tbody
-    //-         each others in otherstab
-    //-             tr
-    //-                 td= others.strName
+      //- .gallery
+      //-   a(target='_self', href='#')
+      //-     img(src='/images/lance.jpg', alt='LANCE', width='300', height='300')
+      //-   .desc LANCE SAN PABLO
+      //- .gallery
+      //-   a(target='_self', href='#')
+      //-     img(src='/images/hannah.jpg', alt='HANNAH', width='300', height='300')
+      //-   .desc HANNAH CORDERO
+      //- .gallery
+      //-   a(target='_self', href='#')
+      //-     img(src='/images/loven.jpg', alt='LOVEN', width='300', height='300')
+      //-   .desc LOVEN BUNQUE
+    // Scripts
+    script(src='/assets/js/jquery.min.js')
+    script(src='/assets/js/jquery.scrollex.min.js')
+    script(src='/assets/js/jquery.scrolly.min.js')
+    script(src='/assets/js/skel.min.js')
+    script(src='/assets/js/util.js')
+    //if lte IE 8
+      script(src='assets/js/ie/respond.min.js')
+    script(src='/assets/js/main.js')

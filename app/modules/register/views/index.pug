@@ -4,31 +4,48 @@ block content
   link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/register.css")
   .signup-wrap
     .signup-html
-        label1.tab Create Account
+        label1.tab Create Account - User
             br
             br
             label2.tab &nbsp&nbsp All fields are required in order to successfully register, unless stated optional
         hr
         form(method="POST" action="/register")
-            //- .group
-            //-     input.input1(type="text" maxlength="15" minlength="15" placeholder="Student Number: ex. 2015-04834-MN-0" name="studnum", required)
-            //- br
             .group
-                input.input1(type="text" placeholder="Full Name: ex. John S. Doe" maxlength="50" name="name", required)
+                label Name
+                input.input1(type="text" placeholder="ex. John S. Doe" name="name")
             br
             .group
-                input.input1(type="email" placeholder="E-mail Address: ex. john@xyz.com" maxlength="45" name="email", required)
+                label Birthday
+                input.input1(type="date" name="bday")
             br
             .group
-                input.input2(type="password" placeholder="Password: (minimum of 8 characters)" minlength="8" name="password", required)
+                label Location
+                br
+                select(name='location' placeholder="Location")
+                    option(value='Manila') Manila
+                    option(value='Makati') Makati
+                    option(value='Pasay') Pasay
+                    option(value='Pasig') Pasig
             br
             .group
-
-                input.input2(type="password" placeholder="Confirm Password" minlength="8" name="confirm", required)
+                label Email Address
+                input.input1(type="email" placeholder="ex. john@xyz.com" name="email")
             br
             .group
-                 textarea#form8.md-textarea(type="text" placeholder="Contact Information (Optional)" maxlength="250" name="contact")
-                 label(for='form8') Maximum of 250 characters
+                label Password
+                input.input2(type="password" placeholder="(minimum of 8 characters)" name="password")
+            br
+            .group
+                label Confirm Password
+                input.input2(type="password" placeholder="Confirm Password" name="confirm")
+            br
+            .group
+                 label Favorite Coffee
+                 input.input1(type="text" placeholder="ex. Kapeng Barako" name="favcoffee")
+            br
+            .group
+                label Upload Your Best Picture
+                input.file-input(type='file', name='profilepic', accept='image/*')
             br
             .group
             input.button.is-info.is-inverted.is-outlined(type='submit', value='Register')

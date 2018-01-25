@@ -1,0 +1,40 @@
+extends ../../../templates/master.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/login.css")
+  .login-wrap
+    .login-html
+        label Welcome 
+        br
+        br
+        label.tab Create Account
+        label.tab All fields are required in order to successfully register, unless stated optional
+        form(method="POST" action="/register")
+            .group
+            label.label(for='user') 
+            .bg-red Student Number
+                input.input(type="text" placeholder="Student Number" name="studnum")
+            .group
+            label.label(for='pass') 
+            .bg-red Password
+                input.input(type="password" placeholder="Password" name="password")
+            .group 
+            .bg-red Confirm Password
+                input.input(type="password" placeholder="COnfirm Password" name="confirm")
+            .group
+            label.label(for='pass') 
+            .bg-red Password
+                input.input(type="text" placeholder="Full Name (John S. Doe" name="studname",i.fa.fa-user)
+                
+            .group
+            label.label(for='pass') 
+            .bg-red Password
+                input.input(type="text" placeholder="E-mail Address" name="email")
+            .bg-red Password
+                input.input(type="text" placeholder="Contact Info (Optional)" name="contact")
+            br
+            .group
+            input.button.is-primary.is-inverted.is-outlined(type='submit', value='Sign In')
+
+            input.button.is-primary.is-inverted.is-outlined(type='submit', value='Register')
+            a.button.is-info.is-inverted.is-outlined(href="/login") SIGN-IN

@@ -19,20 +19,19 @@ block content
   each stud in studtab
     if stud.page == stud.curpage
       h3.title
-        b #{stud.strSNum}
+        b #{stud.intID}
       h3.subtitle &nbsp#{stud.strName}
       p Email: #{stud.strEmail}
-      p Results: #{stud.TotalScore}
       br
       .field.is-grouped
         if stud.strStatus == 'unregistered'
           p.control
-            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/registration/approve/"+ stud.strSNum) Approve
+            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/registration/approve/"+ stud.intID) Approve
           p.control
-            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/registration/reject/"+ stud.strSNum) Reject
+            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/registration/reject/"+ stud.intID) Reject
         else
           p.control
-            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/registration/revert/"+ stud.strSNum) Revert
+            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/registration/revert/"+ stud.intID) Revert
       hr(style='border: 0.5px solid #000105')
   each curpage in curpagetab
     .field.is-grouped

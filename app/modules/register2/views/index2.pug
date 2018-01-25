@@ -1,0 +1,29 @@
+extends ../../../templates/master.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/register.css")
+  .signup-wrap
+    .signup-html
+        label1.tab Create Account - Coffeeshop
+            br
+            br
+            label2.tab &nbsp&nbsp All fields are required in order to successfully register, unless stated optional
+        hr
+        form(method="POST" action="/register2/next")
+            h1 Coffeeshop Details
+            .group
+                label Coffeeshop Name
+                input.input1(type="text" placeholder="ex. Star BOX" maxlength="50" name="Cname", required)
+                br
+            .group
+                label Coffeeshop Address
+                br
+                input(type="textarea" maxlength="100" name="Caddress", required)
+                br
+            .group
+                label Telephone Number
+                input.input1(type="text" placeholder="" maxlength="10" name="Ctnumber", required)
+                br
+            .group
+            input.button.is-info.is-inverted.is-outlined(type='submit', value='Register')
+            a.button.is-info.is-inverted.is-outlined(href="/login") Back

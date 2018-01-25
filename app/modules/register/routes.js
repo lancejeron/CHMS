@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 
 router.post('/',(req, res) => {
 var db = require('../../lib/database')();
-db.query(`INSERT INTO tbluser (strName, strEmail, txtContact, strPassword, strStatus, intCommend, intReport, strProfilePicture)  VALUES ("${req.body.name}", "${req.body.email}", "${req.body.contact}", "${req.body.password}", "unregistered", "0", "0", "blank.jpg" )`, (err, results, fields) => {
+db.query(`INSERT INTO tbluser (strName, datBirthday, strLocation, strEmail, strPassword, strFavCoffee, strType, strStatus, strProfilePicture)  VALUES ("${req.body.name}","${req.body.bday}","${req.body.location}", "${req.body.email}", "${req.body.password}","${req.body.favcoffee}","1", "unregistered", "${req.body.profilepic}" )`, (err, results, fields) => {
     if (err) console.log(err);
     res.redirect('/login');
 });

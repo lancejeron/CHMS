@@ -1,0 +1,61 @@
+doctype html
+html
+  head
+    title Generic - Spectral by HTML5 UP
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/assets/css/main.css')
+    link(rel='stylesheet', href='/assets/css/profile.css')
+  body
+    // Page Wrapper
+    #page-wrapper
+      // Header
+      header#header
+        h1 PROFILE
+        nav#nav
+          ul
+            li.special
+              a.menuToggle(href='#menu')
+                span Menu
+              #menu
+                ul
+                  li
+                    a(href='#') FAQ
+                  li
+                    a(href='index.html') Log out
+      ul.ul
+        li.li
+          a(href='/home/page/1') HOME
+        li.li.active
+          a(href='PROFILE.HTML') PROFILE
+        li.li
+          a(href='COFFEESHOP.HTML') COFFEESHOP
+      br
+      ul.ul
+        li#li
+          a(href='#') chat
+        li#li
+          a(href='#') history
+        li#li
+          a(href='#') coffeemates
+        li#li
+          a(href='#') invites
+      br
+      each user in usertab
+
+        section#two.wrapper.alt.style2
+          section.spotlight
+            .image
+              img(src='/images/lance.jpg', alt='arjay', width='200', height='300')
+            .content
+              h2 #{user.strName}
+              li #{user.Age}
+              li #{user.strLocation}
+              li #{user.strFavCoffee}
+    // Scripts
+    script(src='/assets/js/jquery.min.js')
+    script(src='/assets/js/jquery.scrollex.min.js')
+    script(src='/assets/js/jquery.scrolly.min.js')
+    script(src='/assets/js/skel.min.js')
+    script(src='/assets/js/util.js')
+    script(src='/assets/js/main.js')

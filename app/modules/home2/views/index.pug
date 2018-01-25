@@ -1,0 +1,101 @@
+doctype html
+//
+  Spectral by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+html
+  head
+    title Elements - Spectral by HTML5 UP
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    //if lte IE 8
+      script(src='assets/js/ie/html5shiv.js')
+    link(rel='stylesheet', href='/assets/css/main.css')
+    link(rel='stylesheet', href='/assets/css/profile.css')
+    link(href='/assets/css/bootstrap.min.css', rel='stylesheet')
+    link(href='/assets/css/coffeeshop/portfolio-item.css', rel='stylesheet')
+    link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/font-awesome.min.css")
+    //if lte IE 8
+      link(rel='stylesheet', href='assets/css/ie8.css')
+    //if lte IE 9
+      link(rel='stylesheet', href='assets/css/ie9.css')
+  body
+    // Page Wrapper
+    #page-wrapper
+      // Header
+      header#header
+        h1 COFFEE SHOP
+
+        nav#nav
+          ul
+            li.special
+              a.menuToggle(href='#menu')
+                span Menu
+              #menu
+                ul
+                  li
+                    a(href='#') FAQ
+                  li
+                    a(href='/login') Log out
+      ul.ul
+        li.li
+          a(href='/home2/page/1') MY COFFEESHOPS
+        li.li
+          a(href='/home2') MY Profile
+        
+    br
+    ul.ul
+      form(action='add_shop.html')
+        li
+            a(href="/home2/addcoffeeshop") ADD a Coffeeshop
+        li
+        button.button DELETE
+    br
+    each user in usertab
+      h6 hello #{user.strName}, These are your coffeeshops
+        
+          table
+            tr
+              th Coffeeshop Name
+              th Address
+              th Telephone Number
+              th Action
+            each stud in studtab
+              tr
+                td #{stud.strCName}
+                td #{stud.strCAddress}
+                td #{stud.strCTnumber}
+                td 
+                  a(href=`/admin/users/${stud.id}`): span.fa.fa-edit
+                  | &nbsp;
+                  a(href=`/admin/users/${stud.id}/remove`): span.fa.fa-remove
+    
+    // Footer
+    footer#footer
+      ul.icons
+        li
+          a.icon.fa-twitter(href='#')
+            span.label Twitter
+        li
+          a.icon.fa-facebook(href='#')
+            span.label Facebook
+        li
+          a.icon.fa-instagram(href='#')
+            span.label Instagram
+        li
+          a.icon.fa-dribbble(href='#')
+            span.label Dribbble
+        li
+          a.icon.fa-envelope-o(href='#')
+            span.label Email
+      ul.copyright
+        li © COFFEEMATE
+    // Scripts
+    script(src='/assets/js/jquery.min.js')
+    script(src='/assets/js/jquery.scrollex.min.js')
+    script(src='/assets/js/jquery.scrolly.min.js')
+    script(src='/assets/js/skel.min.js')
+    script(src='/assets/js/util.js')
+    //if lte IE 8
+      script(src='assets/js/ie/respond.min.js')
+    script(src='/assets/js/main.js')

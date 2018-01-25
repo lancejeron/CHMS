@@ -23,14 +23,14 @@ var fs = require('fs');
 //   return text;
 // }
 
-function fuser(req,res,next){
-  var db = require('../../lib/database')();
-  db.query("SELECT * FROM tbluser WHERE intID= ?",[req.params.userid], (err, results, fields) => {
-      if (err) console.log(err);
-      req.user= results;
-      return next();
-    });
-}
+// function fuser(req,res,next){
+//   var db = require('../../lib/database')();
+//   db.query("SELECT * FROM tbluser WHERE intID= ?",[req.params.userid], (err, results, fields) => {
+//       if (err) console.log(err);
+//       req.user= results;
+//       return next();
+//     });
+// }
 // function fedituser(req,res,next){
 //   var db = require('../../lib/database')();
 //   db.query("SELECT * FROM tbluser WHERE strSNum= ?",[req.session.user], (err, results, fields) => {
@@ -213,7 +213,33 @@ function fuser(req,res,next){
 //     });
 // }
 
-function profilerender(req,res){
+// function profilerender(req,res){
+//   if(req.valid==3){
+//     res.render('login/views/invalidpages/banned');
+//   }
+//   else if(req.valid==1){
+//     if (!req.user[0])
+//       res.render('login/views/noroute');
+//     else if(req.user[0].intID == req.session.user)
+//       res.render('profile/views/index',{usertab: req.user, transtab: req.trans});
+//     else
+//       res.render('profile/views/otherprofile',{usertab: req.user, transtab: req.trans});
+//   }
+//   else if(req.valid==2)
+//     res.render('home/views/invalidpages/adminonly');
+//   else
+//     res.render('login/views/invalid');
+// }
+
+function findmyuser(req,res,next){
+  var db = require('../../lib/database')();
+  db.query("SELECT *,CURDATE(), TIMESTAMPDIFF(YEAR,datBirthday,CURDATE()) AS Age FROM tbluser WHERE intID= ?",[req.params.userid], (err, results, fields) => {
+      if (err) console.log(err);
+      req.user= results;
+      return next();
+    });
+}
+function rendermyuser(req,res){
   if(req.valid==3){
     res.render('login/views/invalidpages/banned');
   }
@@ -222,7 +248,6 @@ function profilerender(req,res){
       res.render('login/views/noroute');
     else if(req.user[0].intID == req.session.user)
       res.render('profile/views/index',{usertab: req.user, transtab: req.trans});
-      // ,{usertab: req.user, transtab: req.trans}
     else
       res.render('profile/views/otherprofile',{usertab: req.user, transtab: req.trans});
   }
@@ -231,6 +256,11 @@ function profilerender(req,res){
   else
     res.render('login/views/invalid');
 }
+router.get('/', flog, (req, res) => {
+  res.redirect('/profile/'+req.session.user);
+
+});
+router.get('/:userid',flog,findmyuser,rendermyuser);
 // function editprofilerender(req,res){
 //   if(req.valid==3){
 //     res.render('login/views/invalidpages/banned');
@@ -588,7 +618,7 @@ function profilerender(req,res){
 //       res.redirect('/profile/'+req.session.user);
 
 // });
-router.get('/:userid', flog, fuser, profilerender);
+// router.get('/:userid', flog, fuser, profilerender);
 // router.get('/-/edit', flog, fedituser, editprofilerender);
 // router.get('/-/transactions/:page', flog, ftrans, fedituser, transrender);
 // router.get('/-/transactions/hold/:page', flog, fholdtrans, fedituser, transholdrender);

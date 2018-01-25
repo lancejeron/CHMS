@@ -1,38 +1,123 @@
-extends ../../../templates/master.pug
+doctype html
+html
+  head
+    title COFFEEMATE
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet' href='/assets/css/main.css')
+    link(rel='stylesheet' href='/assets/css/login.css')
+  body.landing
+    #id01.modal
+      form.modal-content.animate(method="POST" action='/login')
+        .imgcontainer
+          span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') ×
+          img.avatar(src='/images/people.png', alt='Avatar')
+        .container
+          label
+            b Email
+          input(type='email', placeholder='Enter Email', name='email')
+          label
+            b Password
+          input(type='password', placeholder='Enter Password', name='password')
+          button(type='submit') Login
+        .container(style='background-color:#f1f1f1')
+          button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
+          span.psw
+            | Forgot 
+            a(href='#') password?
+    // Page Wrapper
+    #page-wrapper
+      // Header
+      header#header.alt
+        h1
+          a(href='index.html') COFFEEMATE
+        nav#nav
+          ul
+            li.special
+              a.menuToggle(href='#menu')
+                span Menu
+              #menu
+                br
+                br
+                ul
+                  li
+                    button(onclick="document.getElementById('id01').style.display='block'", style='width:auto;') Login
+                  li
+                    u Registration
+                  li
+                    ul
+                      li
+                        a(href='/register') User
+                      li
+                        a(href='/register2') Coffeeshop
+      // Banner
+      section#banner
+        .inner
+          h2 COFFEEMATE
+          p A Friendly coffee mate finder
+        a.more.scrolly(href='#one') About us
+      // One
+      section#one.wrapper.style1.special
+        .inner
+          header.major
+            h2 COFFEEMATE
+            p
+              | Having this coffeemate, will help the person who are struggling
+              br
+              | 								 to talk to other people and to socialize by trying to invite the person to
+              br
+              | 								 drink coffee and to have some conversation.
+      // Two
+      section#two.wrapper.alt.style2
+        section.spotlight
+          .image
+            img(src='/images/pic02.jpg', alt='')
+          .content
+            h2 FACILITIES
+            p The coffee shop we recommend have good quality of tables and chairs.
+        section.spotlight
+          .image
+            img(src='/images/pic01.jpg', alt='')
+          .content
+            h2 MENU
+            p We have differents kinds of coffee with great taste.
+        section.spotlight
+          .image
+            img(src='/images/pic03.jpg', alt='')
+          .content
+            h2 COFFEE MATE
+            p We will give a best coffee mate you will ever have.
+      // Footer
+      footer#footer
+        ul.icons
+          li
+            a.icon.fa-twitter(href='#')
+              span.label Twitter
+          li
+            a.icon.fa-facebook(href='#')
+              span.label Facebook
+          li
+            a.icon.fa-instagram(href='#')
+              span.label Instagram
+          li
+            a.icon.fa-dribbble(href='#')
+              span.label Dribbble
+          li
+            a.icon.fa-envelope-o(href='#')
+              span.label Email
 
-block content
-  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/login.css")
-  .login-wrap
-    .login-html
-      //- i.fa.fa-shopping-cart.fa-2x.fa-inverse
-      label.tab &nbsp Coffeemate!
-      br
-      br
-      br
-      label.tab Sign In
-      form(method="POST" action="/login")
-        .group
-        label.label(for='email')
-        h2 E-mail
-        input.input1(type="email" maxlength="45" name="email" )
-        .group
-        label.label(for='pass')
-        h2 Password
-        br
-        input.input2(type="password" minlength="8" name="password" )
-        br
-        br
-        br
-        .group
-        input.button.is-info.is-inverted.is-outlined(type='submit', value='Sign In')
-        br
-        br
-        br
-        .dropdown
-          button.dropbtn Register
-          .dropdown-content
-            a(href='/register') User
-            a(href='#') Coffee Shop
-
-
-        //- a.button.is-info.is-inverted.is-outlined(href="/register") Register
+    script.
+      // Get the modal
+      var modal = document.getElementById('id01');
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+      if (event.target == modal) {
+      modal.style.display = "none";
+      }
+      }
+    script(src='/assets/js/jquery.min.js')
+    script(src='/assets/js/jquery.scrollex.min.js')
+    script(src='/assets/js/jquery.scrolly.min.js')
+    script(src='/assets/js/skel.min.js')
+    script(src='/assets/js/util.js')
+    script(src='/assets/js/main.js')

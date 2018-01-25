@@ -1,0 +1,48 @@
+extends ../../../templates/master.pug
+
+block content
+  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/register.css")
+  .signup-wrap
+    .signup-html
+        label1.tab Create Account - Coffeeshop
+            br
+            br
+            label2.tab &nbsp&nbsp All fields are required in order to successfully register, unless stated optional
+        hr
+        form(method="POST" action="/register2")
+            h1 Coffeeshop Account Detail
+            .group
+                label Name
+                input.input1(type="text" placeholder="ex. John S. Doe" name="name")
+            br
+            .group
+                label Birthday
+                input.input1(type="date" name="bday")
+            br
+            .group
+                label Location
+                br
+                select(name='location' placeholder="Location")
+                    option(value='Manila') Manila
+                    option(value='Makati') Makati
+                    option(value='Pasay') Pasay
+                    option(value='Pasig') Pasig
+            br
+            .group
+                label Email Address
+                input.input1(type="email" placeholder="ex. john@xyz.com" name="email")
+            br
+            .group
+                label Password
+                input.input2(type="password" placeholder="(minimum of 8 characters)" name="password")
+            br
+            .group
+                label Confirm Password
+                input.input2(type="password" placeholder="Confirm Password" name="confirm")
+            br
+            .group
+                 labal Favorite Coffee
+                 input.input1(type="text" placeholder="ex. Kapeng Barako" name="favcoffee")
+            .group
+            input.button.is-info.is-inverted.is-outlined(type='submit', value='Register')
+            a.button.is-info.is-inverted.is-outlined(href="/login") Back

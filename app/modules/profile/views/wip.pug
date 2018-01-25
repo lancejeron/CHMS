@@ -1,0 +1,83 @@
+doctype html
+html
+  head
+    title Generic - Spectral by HTML5 UP
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/assets/css/main.css')
+    link(rel='stylesheet', href='/assets/css/profile.css')
+    link(rel='stylesheet' href='/assets/css/login.css')
+  body
+    #id01.modal
+      form.modal-content.animate(method="POST" action='/invite')
+        .imgcontainer
+          span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') ×
+          //- img.avatar(src='/images/people.png', alt='Avatar')
+        .container
+          h1 Fill the details of your invitation
+          label
+            b Additional message
+          input(type='text', placeholder='Say Hi!', name='message')
+          label
+            b Choose Coffeeshop
+          input(type='password', placeholder='Enter Password', name='password')
+          button(type='submit') Login
+        .container(style='background-color:#f1f1f1')
+          button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
+          span.psw
+            | Forgot 
+            a(href='#') password?
+    // Page Wrapper
+    #page-wrapper
+      // Header
+      header#header
+        h1 PROFILE
+        nav#nav
+          ul
+            li.special
+              a.menuToggle(href='#menu')
+                span Menu
+              #menu
+                ul
+                  li
+                    a(href='#') FAQ
+                  li
+                    a(href='/login') Log out
+      ul.ul
+        li.li
+          a(href='/home/page/1') HOME
+        li.li.active
+          a(href='/profile') PROFILE
+        li.li
+          a(href='COFFEESHOP.HTML') COFFEESHOP
+      br
+      each user in usertab
+
+        section#two.wrapper.alt.style2
+          section.spotlight
+            .image
+              img(src='/images/'+ user.strProfilePicture,  alt='', width=200, height=300)
+            .content
+              h2 #{user.strName}
+              li #{user.Age}
+              li #{user.strLocation}
+              li #{user.strFavCoffee}
+              li
+              |
+              button(onclick="document.getElementById('id01').style.display='block'", style='width:auto;') Invite
+    // Scripts
+    script.
+      // Get the modal
+      var modal = document.getElementById('id01');
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+      if (event.target == modal) {
+      modal.style.display = "none";
+      }
+      }
+    script(src='/assets/js/jquery.min.js')
+    script(src='/assets/js/jquery.scrollex.min.js')
+    script(src='/assets/js/jquery.scrolly.min.js')
+    script(src='/assets/js/skel.min.js')
+    script(src='/assets/js/util.js')
+    script(src='/assets/js/main.js')
