@@ -4,14 +4,14 @@ html
     title Generic - Spectral by HTML5 UP
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='/assets/css/main.css')
-    link(rel='stylesheet', href='/assets/css/profile.css')
+    link(rel='stylesheet', href='/assets/css/main.2.css')
+    link(rel='stylesheet', href='/assets/css/profile.2.css')
+
   body
     // Page Wrapper
     #page-wrapper
       // Header
       header#header
-        h1 PROFILE
         nav#nav
           ul
             li.special
@@ -20,17 +20,15 @@ html
               #menu
                 ul
                   li
-                    a(href='#') FAQ
+                    a(href='#') Help
                   li
-                    a(href='index.html') Log out
-      ul.ul
-        li.li
-          a(href='/home/page/1') HOME
-        li.li.active
-          a(href='PROFILE.HTML') PROFILE
-        li.li
-          a(href='COFFEESHOP.HTML') COFFEESHOP
-      br
+                    a(href='/login') Log out
+            li.li
+              a(href='/home/page/1') HOME
+            li.li
+              a(href='/profile') PROFILE
+            li.li
+              a(href='/coffeeshops/page/1') COFFEESHOP  
       ul.ul
         li#li
           a(href='#') chat
@@ -40,18 +38,17 @@ html
           a(href='#') coffeemates
         li#li
           a(href='#') invites
-      br
+        br
       each user in usertab
 
         section#two.wrapper.alt.style2
-          section.spotlight
+          section
             .image
-              img(src='/images/'+ user.strProfilePicture,  alt='', width=200, height=300)
-            .content
-              h2 #{user.strName}
-              li #{user.Age}
-              li #{user.strLocation}
-              li #{user.strFavCoffee}
+              img(src='/images/'+ user.strProfilePicture,  alt='' style=" width: 300px; border-radius: 300px;")
+          .content
+            h2 #{user.strName}
+            button Edit Profile
+            
     // Scripts
     script(src='/assets/js/jquery.min.js')
     script(src='/assets/js/jquery.scrollex.min.js')

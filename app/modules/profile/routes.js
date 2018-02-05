@@ -254,7 +254,7 @@ function rendermyuser(req,res){
   else if(req.valid==2)
     res.render('home/views/invalidpages/adminonly');
   else
-    res.render('login/views/invalid');
+    res.render('login/views/noroute');
 }
 router.get('/', flog, (req, res) => {
   res.redirect('/profile/'+req.session.user);

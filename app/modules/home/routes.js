@@ -67,7 +67,7 @@ function finduser(req, res, next){
     });
   }
   
-  function renderuser(req,res){
+function renderuser(req,res){
     if(req.valid==3){
     res.render('login/views/invalidpages/banned');
   }

@@ -1,55 +1,41 @@
-doctype html
 html
   head
-    title COFFEEMATE
+    title Coffeemate
     meta(charset='utf-8')
+    script(src='https://use.fontawesome.com/2414129dc7.js')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet' href='/assets/css/main.css')
     link(rel='stylesheet' href='/assets/css/login.css')
+    link(rel='stylesheet', href='/assets/font-awesome-4.7.0/font-awesome.min.css')   
   body.landing
-    #id01.modal
-      form.modal-content.animate(method="POST" action='/login')
-        .imgcontainer
-          span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') ×
-          img.avatar(src='/images/people.png', alt='Avatar')
-        .container
-          label
-            b Email
-          input(type='email', placeholder='Enter Email', name='email')
-          label
-            b Password
-          input(type='password', placeholder='Enter Password', name='password')
-          button(type='submit') Login
-        .container(style='background-color:#f1f1f1')
-          button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
-          span.psw
-            | Forgot 
-            a(href='#') password?
+   
     // Page Wrapper
     #page-wrapper
       // Header
       header#header.alt
-        h1
-          a(href='index.html') COFFEEMATE
         nav#nav
           ul
-            li.special
+            li.special  
               a.menuToggle(href='#menu')
                 span Menu
               #menu
                 br
                 br
+                h6 Sign-in here:
+                ul
+                  li                  
+                    button(onclick="document.getElementById('id01').style.display='block'", style='width:auto;')
+                      i.fa.fa-sign-in
+                      | Log-in  
+                br    
+                h6 Don't have an account yet? Register:
                 ul
                   li
-                    button(onclick="document.getElementById('id01').style.display='block'", style='width:auto;') Login
+                  |
+                  a(href='/register') as User
                   li
-                    u Registration
-                  li
-                    ul
-                      li
-                        a(href='/register') User
-                      li
-                        a(href='/register2') Coffeeshop
+                  |
+                  a(href='/register2') as Coffeeshop Owner
       // Banner
       section#banner
         .inner
@@ -64,9 +50,9 @@ html
             p
               | Having this coffeemate, will help the person who are struggling
               br
-              | 								 to talk to other people and to socialize by trying to invite the person to
+              | to talk to other people and to socialize by trying to invite the person to
               br
-              | 								 drink coffee and to have some conversation.
+              | drink coffee and to have some conversation.
       // Two
       section#two.wrapper.alt.style2
         section.spotlight
@@ -85,7 +71,7 @@ html
           .image
             img(src='/images/pic03.jpg', alt='')
           .content
-            h2 COFFEE MATE
+            h2 COFFEEMATE
             p We will give a best coffee mate you will ever have.
       // Footer
       footer#footer
@@ -105,6 +91,22 @@ html
           li
             a.icon.fa-envelope-o(href='#')
               span.label Email
+    #id01.modal
+      form.modal-content.animate(method="POST" action='/login')
+        .imgcontainer
+          span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') ×
+          img.avatar(src='/images/people.png', alt='Avatar')
+        .container
+          label.label Email
+          input(type='email', name='email')
+          label.label Password
+          input(type='password', name='password')
+          button(type='submit') Login
+        .container(style='background-color:#f1f1f1')
+          button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
+          span.psw
+            | Forgot 
+            a(href='#') password?        
 
     script.
       // Get the modal

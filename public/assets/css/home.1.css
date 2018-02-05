@@ -1,0 +1,46 @@
+div.gallery {
+	margin: 5px;
+	border: 1px solid #ccc;
+    float: left;							
+    width: 180px;
+}
+						
+div.gallery:hover {
+    border: 1px solid #777;
+}
+						
+div.gallery img {
+	width: 100%;
+	height: auto;
+}
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+.ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #1d242a;
+}
+
+.li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #ddd;
+}
+.active {
+    background-color: #008CBA;
+    color: white;
+}

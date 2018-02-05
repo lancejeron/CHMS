@@ -1,37 +1,17 @@
-doctype html
+octype html
 html
   head
     title Generic - Spectral by HTML5 UP
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='/assets/css/main.css')
-    link(rel='stylesheet', href='/assets/css/profile.css')
-    link(rel='stylesheet' href='/assets/css/login.css')
+    link(rel='stylesheet', href='/assets/css/main.2.css')
+    link(rel='stylesheet', href='/assets/css/profile.2.css')
+
   body
-    #id01.modal
-      form.modal-content.animate(method="POST" action='/invite')
-        .imgcontainer
-          span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') ×
-          //- img.avatar(src='/images/people.png', alt='Avatar')
-        .container
-          h1 Fill the details of your invitation
-          label
-            b Email
-          input(type='text', placeholder='Enter Email', name='email')
-          label
-            b Password
-          input(type='password', placeholder='Enter Password', name='password')
-          button(type='submit') Login
-        .container(style='background-color:#f1f1f1')
-          button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
-          span.psw
-            | Forgot 
-            a(href='#') password?
     // Page Wrapper
     #page-wrapper
       // Header
       header#header
-        h1 PROFILE
         nav#nav
           ul
             li.special
@@ -40,29 +20,25 @@ html
               #menu
                 ul
                   li
-                    a(href='#') FAQ
+                    a(href='#') Help
                   li
                     a(href='/login') Log out
-      ul.ul
-        li.li
-          a(href='/home/page/1') HOME
-        li.li.active
-          a(href='/profile') PROFILE
-        li.li
-          a(href='COFFEESHOP.HTML') COFFEESHOP
+            li.li
+              a(href='/home/page/1') HOME
+            li.li
+              a(href='/profile') PROFILE
+            li.li
+              a(href='/coffeeshops/page/1') COFFEESHOP  
       br
       each user in usertab
 
         section#two.wrapper.alt.style2
-          section.spotlight
+          section
             .image
-              img(src='/images/'+ user.strProfilePicture,  alt='', width=200, height=300)
-            .content
-              h2 #{user.strName}
-              li #{user.Age}
-              li #{user.strLocation}
-              li #{user.strFavCoffee}
-              button(onclick="document.getElementById('id01').style.display='block'", style='width:auto;') Invite
+              img(src='/images/'+ user.strProfilePicture,  alt='' style=" width: 300px; border-radius: 300px;")
+          .content
+            h2 #{user.strName}
+            button(onclick="document.getElementById('id01').style.display='block'", style='width:auto;') Invite
     // Scripts
     script.
       // Get the modal

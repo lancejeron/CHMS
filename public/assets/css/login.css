@@ -5,6 +5,10 @@
     background-size: cover;
     padding: 10px 20px 10px 5px;
 } */
+.label{
+    color:black;
+}
+
 input[type=text], input[type=password], input[type=email], input[type=date] {
     width: 100%;
     padding: 12px 20px;
@@ -12,6 +16,7 @@ input[type=text], input[type=password], input[type=email], input[type=date] {
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
+    color:black;
 }
 #location{
     width: 100%;
@@ -25,7 +30,7 @@ input[type=text], input[type=password], input[type=email], input[type=date] {
 
 /* Set a style for all buttons */
 button {
-    background-color: #1e90ff;
+    background-color: #C49430;
     color: white;
     padding: 14px 30px;
     margin: 8px 0;
@@ -63,11 +68,12 @@ img.avatar {
 }
 
 .container {
-    color: black;
+    color: white;
     padding: 16px;
 }
 
 span.psw {
+    color: black;
     float: right;
     padding-top: 16px;
 }
@@ -91,7 +97,7 @@ span.psw {
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: black;
+    background-color: white;
     margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
     border: 1px solid #888;
     width: 50%; /* Could be more or less, depending on screen size */

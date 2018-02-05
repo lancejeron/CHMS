@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var auth = require( './auth');
+var auth = require( '../register/auth');
 
 
 router.get('/', (req, res) => {
@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 router.post('/',(req, res) => {
   var db = require('../../lib/database')();
-  db.query(`INSERT INTO tbluser (strName, datBirthday, strLocation, strEmail, strPassword, strFavCoffee, strType, strStatus, strProfilePicture)  VALUES ("${req.body.name}","${req.body.bday}","${req.body.location}", "${req.body.email}", "${req.body.password}","${req.body.favcoffee}","2", "unregistered", "blank.jpg" )`, (err, results, fields) => {
+  db.query(`INSERT INTO tbluser (strName, datBirthday, strAddress, strEmail, strPassword, strFavCoffee, strType, strStatus, strProfilePicture)  VALUES ("${req.body.name}","${req.body.bday}","${req.body.address}", "${req.body.email}", "${req.body.password}","${req.body.favcoffee}","2", "unregistered", "blank.jpg" )`, (err, results, fields) => {
       if (err) console.log(err);
       res.redirect('/login');
   });

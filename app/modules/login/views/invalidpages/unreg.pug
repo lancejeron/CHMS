@@ -1,15 +1,12 @@
-extends ../../../../templates/master.pug
+extends ../../../../templates/masterdanger.pug
 
 block content
-  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/login.css")
-  .login-wrap
-    .login-html
-      //- i.fa.fa-shopping-cart.fa-2x.fa-inverse
-      label.tab &nbsp Coffeemate!
-      br
-      br
-      br
-      label.tab Sign In
-      label4 Your registration is still under assessment by our team
-      br
-
+  section.hero.is-dark.is-bold
+    .hero-body
+      h1.title Coffeemate!
+  hr
+  h3.title Your registration is still under assessment by our team.
+  p &nbsp
+  //- h3.subtitle &nbsp Contact Us: psm.sup.adm@gmail.com / 091996919603
+  hr
+  a.button.is-danger.is-inverted.is-outlined(href="/login") Back
