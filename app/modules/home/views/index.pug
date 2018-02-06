@@ -50,7 +50,8 @@ html
                   li Age: #{stud.Age}
                   li Address: #{stud.strAddress}
                   li Favorite Coffee: #{stud.strFavCoffee}
-                br
+                  br
+                  a.button(href="/invite/"+stud.intID) Invite
     // Scripts
     script(src='/assets/js/jquery.min.js')
     script(src='/assets/js/jquery.scrollex.min.js')

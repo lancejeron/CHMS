@@ -215,7 +215,7 @@ DROP TABLE IF EXISTS `tbltransaction`;
 CREATE TABLE `tbltransaction` (
   `intTransID` int(6) NOT NULL  AUTO_INCREMENT,
   `intTransID_intID` int(6) NOT NULL,
-  `intTransDetails` varchar(250),
+  `strTransDetails` varchar(250),
   `intTransID_intCID` int(6), 
   `datDateTrans` date NOT NULL,
   `timTimeTrans` time NOT NULL,
@@ -224,10 +224,14 @@ CREATE TABLE `tbltransaction` (
   PRIMARY KEY (`intTransID`),
   KEY `intTransID_intID_idx`(`intTransID_intID`),
   KEY `intTransID_intID2_idx`(`intTransID_intID2`),
+  KEY `intTransID_intCID_idx`(`intTransID_intCID`),
   CONSTRAINT `intTransID_intID` FOREIGN KEY (`intTransID_intID`) REFERENCES `tbluser` (`intID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `intTransID_intID2` FOREIGN KEY (`intTransID_intID2`) REFERENCES `tbluser` (`intID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `intTransID_intID2` FOREIGN KEY (`intTransID_intID2`) REFERENCES `tbluser` (`intID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `intTransID_intCID` FOREIGN KEY (`intTransID_intCID`) REFERENCES `tblcoffeeshop` (`intCID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO `tbltransaction` VALUES ('900001','10000','Meet me at the gate','30000','2018-05-26','2:30:00','10001', 'pending');
 
 --
 DROP TABLE IF EXISTS `tblcoffeeshop`;
@@ -240,16 +244,16 @@ CREATE TABLE `tblcoffeeshop` (
   `strCAddress` varchar(100) NOT NULL,
   `strCTnumber` varchar(20) NOT NULL,
   `intCRating` int NULL,
-  `strSpecial` varchar(100) NULL
+  `strSpecial` varchar(100) NULL,
   PRIMARY KEY (`intCID`),
   KEY `intCID_intID_idx`(`intCID_intID`),
   CONSTRAINT `intCID_intID` FOREIGN KEY (`intCID_intID`) REFERENCES `tbluser` (`intID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `tblcoffeeshop` VALUES ('30000','10004','Star BOX','231 Sta. Mesa Manila','7778888'),
-									('30001','10005','Kape Tayo','SM Mega Mall','1233333'),
-                                    ('30002','10004','Star BOX','PUP Lagoon','7778888');
+INSERT INTO `tblcoffeeshop` VALUES ('30000','10004','Star BOX','231 Sta. Mesa Manila','7778888',null, 'coffeejelly'),
+									('30001','10005','Kape Tayo','SM Mega Mall','1233333',null, 'Frap'),
+                                    ('30002','10004','Star BOX','PUP Lagoon','7778888',null, 'Dark');
 
 DROP TABLE IF EXISTS `tbluser`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

@@ -1,0 +1,101 @@
+doctype html
+html
+  head
+    title Invite
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/assets/css/main.1.css')
+    link(rel='stylesheet', href='/assets/css/home.1.css')
+    link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/posts.css")
+    link(rel='stylesheet' href='/assets/css/login.3.css')
+    // modal
+    //- link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    //- script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+    //- script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+
+  body
+    // Page Wrapper
+    #page-wrapper
+      // Header
+      header#header
+        nav#nav
+          ul
+            li.special
+              a.menuToggle(href='#menu')
+                span Menu
+              #menu
+                ul
+                  li
+                    a(href='#') Help
+                  li
+                    a(href='/login') Log out
+            li.li
+              a(href='/home/page/1') HOME
+            li.li
+              a(href='/profile') PROFILE
+            li.li
+              a(href='/coffeeshops/page/1') COFFEESHOP
+  #div1(style="width:auto; height:auto; margin-left:5%; margin-right:5%; margin-top:5%; background-color:#C8B188; border-radius: 10px; padding: 10px;")
+    each user in usertab
+        form(method="POST" action="/invite/inviterequest")
+          #div2(style="margin-top:2%;")
+            .group(style="margin-top:1%; color:black;") 
+              label Add something...
+              input(type="text" placeholder="ex. Hello! I will wear a blue T-shirt." name="invdetails")
+              br
+            .group(style="margin-top:1%;color:black;") 
+              label Date
+              input(style="color:black;")(type="date" name="invdate")
+              br
+            .group(style="margin-top:1%;color:black;") 
+              label Time
+              input(style="color:black;")(type="time" name="invtime")
+              br
+            .group(style="margin-top:1%; color:black;") 
+              label Choose a Coffeeshop:
+              button(type="button" onclick="document.getElementById('id01').style.display='block'", style='width:auto;')
+                | Browse Coffeeshop
+              input(type="text" placeholder="" id="txt1" name="invcoffeeshop")
+            .group
+            input.button(type='submit', value='Send Request')
+            br
+            br
+            br
+            a.button(href="/home/page/1") Back
+
+  #id01.modal
+    .container(style="background-color:white;")
+      each coffeeshop in coffeeshoptab
+       .card
+          h3.card-header
+          h3.subtitle 
+            |
+            a(href='/viewcoffeeshop/'+ coffeeshop.intCID) #{coffeeshop.strCName}
+          .card-body
+            #image-container
+              img(src='/images/'+ coffeeshop.strProfilePicture,  alt='')
+            p.card-text
+            h9 Details:
+            ul
+              li Address: #{coffeeshop.strCAddress}
+              li Telephone Number: #{coffeeshop.strCTnumber}
+              li Rating: #{coffeeshop.intCRating}
+              li Specialty of the house: #{coffeeshop.strSpecial}
+              br
+              a.button(id=""+coffeeshop.intCID onclick="copyID(this.id)") Select
+    .container(style='background-color:#f1f1f1')
+      button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
+
+  script(src='/assets/js/jquery.min.js')
+  script(src='/assets/js/jquery.scrollex.min.js')
+  script(src='/assets/js/jquery.scrolly.min.js')
+  script(src='/assets/js/skel.min.js')
+  script(src='/assets/js/util.js')
+  script(src='/assets/js/main.js')
+  script(type='text/javascript').
+    function copyID(clicked_id) {
+       document.getElementById("txt1").value = clicked_id;
+       document.getElementById('id01').style.display='none';
+    }
+
+  
