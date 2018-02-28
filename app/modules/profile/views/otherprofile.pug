@@ -6,40 +6,69 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='/assets/css/main.2.css')
     link(rel='stylesheet', href='/assets/css/profile.2.css')
+    link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
 
   body
     // Page Wrapper
     #page-wrapper
       // Header
-      header#header
-        nav#nav
+      //- header#header
+      //-   nav#nav
+      //-     ul
+      //-       li.special
+      //-         a.menuToggle(href='#menu')
+      //-           span Menu
+      //-         #menu
+      //-           ul
+      //-             li
+      //-               a(href='#') Help
+      //-             li
+      //-               a(href='/login') Log out
+      //-       li.li
+      //-         a(href='/home/page/1') HOME
+      //-       li.li
+      //-         a(href='/profile') PROFILE
+      //-       li.li
+      //-         a(href='/coffeeshops/page/1') COFFEESHOP  
+    each user in usertab
+      #div1(style="background-color:#C8B188; margin-left:5%; margin-right:5%; margin-top:5%; padding-top:10px; padding-right:10px; padding-left:10px; border-radius:5px; width:90%; height:auto;")
+        .one(style="width: 30%; height: 300px; float: left;")
+          a(href='/images/'+user.strPicture,target="_blank")
+            img.w3-image.w3-round(src='/images/'+ user.strPicture, width='600', height='400')
+          //- a.button(style="margin-left:15%; margin-top:5%;")(href="/invite/"+user.intID) Invite
+        .two(style="margin-left: 30%; padding-left:20px;")
+          h1 #{user.strName}
+          hr
+          h6 Bio: #{user.strBio}
+          h6 Details:
           ul
-            li.special
-              a.menuToggle(href='#menu')
-                span Menu
-              #menu
-                ul
-                  li
-                    a(href='#') Help
-                  li
-                    a(href='/login') Log out
-            li.li
-              a(href='/home/page/1') HOME
-            li.li
-              a(href='/profile') PROFILE
-            li.li
-              a(href='/coffeeshops/page/1') COFFEESHOP  
-      br
-      each user in usertab
+            li Age: #{user.Age}
+            li Gender: #{user.strGender}
+            li Address: #{user.strAddress}
+            li Favorite Coffee: #{user.strFavCoffee}
+          hr
+          h6 Pictures:
+          br
+          a(href='/images/'+user.strPicture2,target="_blank")
+            img.w3-image.w3-round(style='margin-left-5%; margin-right:5%; margin-top:2%; margin-bottom:2%; width:35%')(src='/images/'+user.strPicture2, alt='')
+          a(href='/images/'+user.strPicture3,target="_blank")
+            img.w3-image.w3-round(style='margin-left-5%; margin-right:5%; margin-top:2%; margin-bottom:2%; width:35%')(src='/images/'+user.strPicture3, alt='')
+          a(href='/images/'+user.strPicture4,target="_blank")
+            img.w3-image.w3-round(style='margin-left-5%; margin-right:5%; margin-top:2%; margin-bottom:2%; width:35%')(src='/images/'+user.strPicture4, alt='')
+          a(href='/images/'+user.strPicture5,target="_blank")
+            img.w3-image.w3-round(style='margin-left-5%; margin-right:5%; margin-top:2%; margin-bottom:2%; width:35%')(src='/images/'+user.strPicture5, alt='')
+         
 
-        section#two.wrapper.alt.style2
-          section
-            .image
-              img(src='/images/'+ user.strProfilePicture,  alt='' style=" width: 300px; border-radius: 300px;")
-          .content
-            h2 #{user.strName}
-            button(onclick="document.getElementById('id01').style.display='block'", style='width:auto;') Invite
-    // Scripts
+    
+      //- each user in usertab
+
+      //-   section#two.wrapper.alt.style2
+      //-     section
+      //-       .image
+      //-         img(src='/images/'+ user.strProfilePicture,  alt='' style=" width: 300px; border-radius: 300px;")
+      //-     .content
+      //-       h2 #{user.strName}
+      //-       a.button(href="/invite/"+user.intID) Invite
     script.
       // Get the modal
       var modal = document.getElementById('id01');

@@ -34,21 +34,19 @@ function rendermyuser(req,res){
     else
       res.render('login/views/noroute');
   }
-  router.get('/', flog, (req, res) => {
-    res.redirect('/invite/'+req.session.user);
-  
-  });
   router.get('/:userid',flog,findmyuser,rendermyuser);
 
 function invite(req,res,next){
-    var db = require('../../lib/database')();
-    db.query(`INSERT INTO tbltransaction (intTransID_intID, strTransDetails, intTransID_intCID, datDateTrans, timTimeTrans, intTransID_intID2, strTransStatus)  VALUES ("${req.session.user}","${req.body.invdetails}","${req.body.invcoffeeshop}","${req.body.invdate},"${req.body.invtime},"${req.body.invdate}","${req.params.userid}","pending")`, (err, results, fields) => {
-        if (err) console.log(err);
-        res.redirect('/home/page/1');
-    });
-  }
+    
+      var db = require('../../lib/database')();
+      db.query(`INSERT INTO tbltransaction (intTransID_intID, strTransDetails, intTransID_intCID, datDateTrans, timTimeTrans, intTransID_intID2, strTransStatus)  VALUES ("${req.session.user}","${req.body.invdetails}","${req.body.invcoffeeshop}","${req.body.invdate}","${req.body.invtime}","${req.params.userid}","pending")`, (err, results, fields) => {
+          if (err) console.log(err);
+          res.redirect('/home/page/1');
+      });
 
-router.post('/inviterequest',flog, invite);
+   
+  }
+router.post('/inviterequest/:userid',flog,invite);
 
 exports.invite=router;
 

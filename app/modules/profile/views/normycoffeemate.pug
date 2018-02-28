@@ -1,0 +1,54 @@
+doctype html
+html
+  head
+    title Generic - Spectral by HTML5 UP
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/assets/css/main.2.css')
+    link(rel='stylesheet', href='/assets/css/profile.2.css')
+    link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/posts.css")
+
+  body
+    // Page Wrapper
+    #page-wrapper
+      // Header
+      header#header
+        nav#nav
+          ul
+            li.special
+              a.menuToggle(href='#menu')
+                span Menu
+              #menu
+                ul
+                  li
+                    a(href='#') Help
+                  li
+                    a(href='/login') Log out
+            li.li
+              a(href='/home/page/1') HOME
+            li.li
+              a(href='/profile') PROFILE
+            li.li
+              a(href='/coffeeshops/page/1') COFFEESHOP  
+      ul.ul
+        li#li
+          a(href='/profile/-/ogtransaction/1') transactions
+        li#li.active
+          a(href='/profile/-/mycoffeemate/1') coffeemates
+        li#li
+          a(href='/profile/-/invite/1') My sent invites
+        li#li
+          a(href='/profile/-/rinvite/1') My received invites
+        br
+    p.control(style="margin-left:20%;margin-top:5%;")
+      a.button( href='/profile/-/mycoffeemate/1') My coffeemates
+      | &nbsp&nbsp&nbsp    
+      a.button( href='/profile/-/rmycoffeemate/1') Coffeemate requests
+    h1 You have no coffeemate requests yet.
+    
+  script(src='/assets/js/jquery.min.js')
+    script(src='/assets/js/jquery.scrollex.min.js')
+    script(src='/assets/js/jquery.scrolly.min.js')
+    script(src='/assets/js/skel.min.js')
+    script(src='/assets/js/util.js')
+    script(src='/assets/js/main.js')

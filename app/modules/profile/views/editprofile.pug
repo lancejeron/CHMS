@@ -1,40 +1,62 @@
-extends ../../../templates/navbar.pug
+doctype html
+html
+  head
+    title Edit Coffeeshop
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/assets/css/main.1.css')
+    link(rel='stylesheet', href='/assets/css/home.1.css')
+    link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/posts.css")
+    link(rel='stylesheet' href='/assets/css/login.css')
+    link(rel='stylesheet', href='/assets/font-awesome-4.7.0/font-awesome.min.css')  
+    script(src='https://use.fontawesome.com/2414129dc7.js')
+    
 
-block content
-  link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/profile_post.css")
-  h3.title Update your information:
-  section.hero.is-info.is-bold
-    .hero-body
-      h3.subtitle Note: You can use your old password as your new password.
-  each user in usertab
-    form(method="POST" action="/profile/-/edit" enctype='multipart/form-data')
-        .field
-            .control
-                input.input(type="text" placeholder="Full Name (John S. Doe)" maxlength="50" value=user.strName name="studname" readonly)
-        .field
-            .control
-                label Profile Picture
-                br
-                input.file-input(type='file', name='profilepic', accept='image/*')
-        hr(style='border: 0.5px solid #990000')
-        .field
-            .control
-                input.input(type="password" placeholder="Old Password" minlength="8" maxlength="50" name="oldpass" required)
-        .field
-            .control
-                input.input(type="password" placeholder="New Password:  (minimum of 8 characters)" minlength="8" maxlength="50" name="newpass" required)
-        .field
-            .control
-                input.input(type="password" placeholder="Confirm Password" minlength="8" maxlength="50" name="confirm" required)
-        .field
-            .control
-                input.input(type="email" placeholder="E-mail Address" maxlength="45" value=user.strEmail name="email" required)
-        .field
-            .control
-                textarea#form8.md-textarea(type="text" maxlength="250" name="contact") #{user.txtContact}
-                label(for='form8') Contact Information (Optional, Maximum of 250 characters.)
-        .field.is-grouped
-            .control
-                input.button(type="submit" value="Save")
-            .control
-                a.button(class="button", href="/profile") Back
+  body
+  #div1(style="width:auto; height:auto; margin-left:5%; margin-right:5%; margin-top:5%; background-color:#C8B188; border-radius: 10px; padding: 10px;")
+    each user in usertab
+        form(method="POST" action="/profile/-/edit/"+user.intID)
+          #div2(style="margin-top:2%;")
+            .group(style="margin-top:1%; color:black;") 
+              label Pictures:
+              label pic1
+              input(type='file', placeholder="", name='picture1', accept='image/*')
+              label pic2
+              input(type='file', placeholder="", name='picture2', accept='image/*')
+              label pic3
+              input(type='file', placeholder="", name='picture3', accept='image/*')
+              label pic4
+              input(type='file', placeholder="", name='picture4', accept='image/*')
+              label pic5
+              input(type='file', placeholder="", name='picture5', accept='image/*')
+              br          
+            .group(style="margin-top:1%; color:black;") 
+              label Name:
+              input(type="text" , value=user.strName, placeholder="", name="name")
+              br
+            .group(style="margin-top:1%; color:black;") 
+              label Address:
+              input(type="text" , value=user.strAddress, placeholder="", name="address")
+              br
+            .group(style="margin-top:1%; color:black;") 
+              label Favorite Coffee:
+              input(type="text" , value=user.strFavCoffee, placeholder="", name="favcoffee")
+              br
+            .group(style="margin-top:1%; color:black;") 
+              label Bio:
+              input(type="text" , value=user.strBio, placeholder="", name="bio")
+              br
+            .group
+            input.button(type='submit', value='Save')
+            br
+            br
+            br
+            a.button(href="/profile/"+user.intID) Back
+
+  
+  script(src='/assets/js/jquery.min.js')
+  script(src='/assets/js/jquery.scrollex.min.js')
+  script(src='/assets/js/jquery.scrolly.min.js')
+  script(src='/assets/js/skel.min.js')
+  script(src='/assets/js/util.js')
+  script(src='/assets/js/main.js')

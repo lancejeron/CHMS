@@ -7,11 +7,12 @@ html
     link(rel='stylesheet', href='/assets/css/main.1.css')
     link(rel='stylesheet', href='/assets/css/home.1.css')
     link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/posts.css")
-    link(rel='stylesheet' href='/assets/css/login.3.css')
-    // modal
-    //- link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-    //- script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
-    //- script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    link(rel='stylesheet' href='/assets/css/login.css')
+    link(rel='stylesheet', href='/assets/font-awesome-4.7.0/font-awesome.min.css')  
+    script(src='https://use.fontawesome.com/2414129dc7.js')
+    link(rel='stylesheet', type='text/css', href='/assets/css/style.css')
+    script(src='/assets/js/tablesearch.js')
+    
 
   body
     // Page Wrapper
@@ -37,55 +38,85 @@ html
               a(href='/coffeeshops/page/1') COFFEESHOP
   #div1(style="width:auto; height:auto; margin-left:5%; margin-right:5%; margin-top:5%; background-color:#C8B188; border-radius: 10px; padding: 10px;")
     each user in usertab
-        form(method="POST" action="/invite/inviterequest")
+        form(method="POST" action="/invite/inviterequest/"+user.intID)
           #div2(style="margin-top:2%;")
-            .group(style="margin-top:1%; color:black;") 
-              label Add something...
-              input(type="text" placeholder="ex. Hello! I will wear a blue T-shirt." name="invdetails")
+             h1 Invite #{user.strName}
+              hr
+              .group(style="margin-top:1%; color:black;") 
+                label Add something...
+                input(type="text" placeholder="ex. Hello! I will wear a blue T-shirt." name="invdetails")
+                br
+              .group(style="margin-top:1%;color:black;") 
+                label Date
+                input(style="color:black;")(id="datefield" type="date" min="" max="2999-12-31" name="invdate" required)
+                br
+              .group(style="margin-top:1%;color:black;") 
+                label Time
+                input(style="color:black;")(id="timefield" type="time" min="" name="invtime" required)
+                br
+              .group(style="margin-top:1%; color:black;") 
+                label Choose a Coffeeshop:
+                p#n2 
+                  i none
+                br
+                button(type="button" onclick="document.getElementById('id01').style.display='block'", style='width:auto;')
+                  | Browse Coffeeshops
+                input(style="display:none;")(type="text" placeholder="" id="txt1" name="invcoffeeshop")
+                //- input(style="color:black;")(type="time" name="invtime")            
+              .group
               br
-            .group(style="margin-top:1%;color:black;") 
-              label Date
-              input(style="color:black;")(type="date" name="invdate")
               br
-            .group(style="margin-top:1%;color:black;") 
-              label Time
-              input(style="color:black;")(type="time" name="invtime")
+              input.button(type='submit', onclick="panksyon()" value='Send Request')
               br
-            .group(style="margin-top:1%; color:black;") 
-              label Choose a Coffeeshop:
-              button(type="button" onclick="document.getElementById('id01').style.display='block'", style='width:auto;')
-                | Browse Coffeeshop
-              input(type="text" placeholder="" id="txt1" name="invcoffeeshop")
-            .group
-            input.button(type='submit', value='Send Request')
-            br
-            br
-            br
-            a.button(href="/home/page/1") Back
+              br
+              br
+              a.button(href="/home/page/1") Back
+    button(onclick='myFunction()') Try it
+    p#demo
+
 
   #id01.modal
-    .container(style="background-color:white;")
-      each coffeeshop in coffeeshoptab
-       .card
-          h3.card-header
-          h3.subtitle 
-            |
-            a(href='/viewcoffeeshop/'+ coffeeshop.intCID) #{coffeeshop.strCName}
-          .card-body
-            #image-container
-              img(src='/images/'+ coffeeshop.strProfilePicture,  alt='')
-            p.card-text
-            h9 Details:
-            ul
-              li Address: #{coffeeshop.strCAddress}
-              li Telephone Number: #{coffeeshop.strCTnumber}
-              li Rating: #{coffeeshop.intCRating}
-              li Specialty of the house: #{coffeeshop.strSpecial}
-              br
-              a.button(id=""+coffeeshop.intCID onclick="copyID(this.id)") Select
-    .container(style='background-color:#f1f1f1')
-      button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
+    #div(style="background-color:#C8B188;margin-top:5%; margin-left:5%; margin-right:5%; padding-top:10px; padding-right:10px; padding-left:10px; border-radius:5px;")
+      input(style="display:none;")(type="text" placeholder="" id="n1")
+      input#searchBox.search_box(type='text')
+      span.reset_hint
+        i Esc
+        |  to reset search
+      #table-wrapper(style="position:relative;")
+        #table-scroll(style="height:400px;overflow:auto;")
+          table(style="")
+            tr
+              td
+                table#dataTable.table(border='1')
+                  tr
+                    th Coffeeshop Name
+                    th Coffeeshop Address
+                    th Specialty 
+                    th Rating
+                    th
+                  each coffeeshop in coffeeshoptab   
+                    tr
+                      td #{coffeeshop.strCName}
+                      td #{coffeeshop.strCAddress}
+                      td #{coffeeshop.strSpecial}
+                      td #{coffeeshop.intRating}
+                      td
+                        | 
+                        a.button(href="/coffeeshops/page/1/viewcoffeeshop/"+coffeeshop.intCID, target="_blank") View Coffeeshop
+                        |&nbsp&nbsp
+                        a.button(id=""+coffeeshop.intCID, name=""+coffeeshop.strCName+" - "+coffeeshop.strCAddress, onclick="copyID(this.id); copy(this.name)") Select
+        button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
 
+
+  script.
+      // Get the modal
+      var modal = document.getElementById('id01');
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+      if (event.target == modal) {
+      modal.style.display = "none";
+      }
+      }
   script(src='/assets/js/jquery.min.js')
   script(src='/assets/js/jquery.scrollex.min.js')
   script(src='/assets/js/jquery.scrolly.min.js')
@@ -93,9 +124,52 @@ html
   script(src='/assets/js/util.js')
   script(src='/assets/js/main.js')
   script(type='text/javascript').
+      new TableSearch('searchBox', 'dataTable', { noResultsText: 'Nothing found! Try again' }).init();
+  script(type='text/javascript').
     function copyID(clicked_id) {
+
        document.getElementById("txt1").value = clicked_id;
        document.getElementById('id01').style.display='none';
+       
+    }
+    function copy(clicked_name)
+      {
+      document.getElementById("n1").value = clicked_name;
+      var n1 = document.getElementById("n1");
+      var n2 = document.getElementById("n2");
+      n2.textContent=n1.value;
+    }
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+      if(dd<10){
+        dd='0'+dd
+      } 
+      if(mm<10){
+          mm='0'+mm
+      } 
+
+    today = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("datefield").setAttribute("min", today);
+
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
     }
 
-  
+    function myFunction() {
+        var x = document.getElementById("timefield").min;
+        document.getElementById("demo").innerHTML = x;
+    }
+
+    var timetoday = new Date();
+    var hr =  timetoday.getHours()+0;
+    var minu = timetoday.getMinutes()+10;
+    timetoday = hr+':'+minu;
+    document.getElementById("timefield").setAttribute("min", timetoday);
+    
+
+ 

@@ -650,4 +650,180 @@ router.get('/account/reinstate/:userid', flog, freguser, reinstaterender);
 // router.get('/post-reportlog/:page', flog, freportlog, postreplogrender);
 // router.get('/post/remove/:postid', flog, fremove, removepostrender);
 
+
+
+
+function fcoffeeunreg(req, res, next){
+  var db = require('../../lib/database')();
+  var sql = "SELECT * FROM dbcfm.tblcoffeeshop WHERE strStatus= 'unregistered'";
+  db.query(sql, function (err, results, fields) {
+      if (err) return res.send(err);
+      var page = 1, pagearr = [1], curpage = [req.params.page], prevpage = [req.params.page - 1], nextpage = [parseInt(req.params.page)+1], lastpage = [], status = [];
+      if (!results[0])
+        console.log('');
+      else{
+        for(count=0;count<results.length;count++){
+          results[count].page = page;
+          results[count].curpage = req.params.page;
+          if((count+1)%5==0){
+            page+=1;
+          }
+        }
+        lastpage[0] = results[results.length-1].page;
+        status[0] = results[results.length-1].strStatus;
+      }
+      if(req.params.page > 5){
+        pagearr[0] = req.params.page - 5;
+      }
+      for(count=1;count<10;count++){
+        pagearr[count] = pagearr[count-1] + 1;
+      }
+      req.status = status;
+      req.lastpage = lastpage;
+      req.curpage = curpage;
+      req.prevpage = prevpage;
+      req.nextpage = nextpage;
+      req.page = pagearr;
+      req.stud = results;
+      return next();
+  });
+}
+function coffeeunregrender(req,res){
+  if(req.valid==2){
+    if(!req.stud[0]){
+      if(req.params.page == 1)
+        res.render('admin/views/nocoffeeunreg');
+      else
+        res.render('login/views/noroute');
+    }
+    else if(req.params.page < 1 || req.params.page > req.lastpage[0])
+      res.render('login/views/noroute');
+    else
+      res.render('admin/views/coffeeshop',{studtab: req.stud, pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage, statustab: req.status});
+  }
+  else if(req.valid==1)
+    res.render('admin/views/invalidpages/normalonly');
+  else
+    res.render('login/views/invalid');
+}
+router.get('/coffeeshop/:page',flog,fcoffeeunreg,coffeeunregrender)
+
+
+
+function fregcoffee(req, res, next){
+  var db = require('../../lib/database')();
+  var sql = "SELECT * FROM tblcoffeeshop WHERE intCID= ?";
+  db.query(sql,[req.params.userid], function (err, results, fields) {
+      if (err) return res.send(err);
+      req.reguser = results;
+      return next();
+  });
+}
+function approvecoffeeshoprender(req,res){
+  if(req.valid==2){
+    var db = require('../../lib/database')();
+    var sql = "UPDATE tblcoffeeshop SET strStatus= 'registered' WHERE intCID= ?";
+    db.query(sql,[req.params.userid], function (err, results, fields) {
+      if (err) return res.send(err);
+      res.redirect('/admin/coffeeshop/1');
+    });
+  }
+  else if(req.valid==1)
+    res.render('admin/views/invalidpages/normalonly');
+  else
+    res.render('login/views/invalid');
+}
+router.get('/coffeeshop/approve/:userid', flog,fregcoffee,approvecoffeeshoprender)
+
+function fcoffeereject(req, res, next){
+  var db = require('../../lib/database')();
+  var sql = "SELECT * FROM tblcoffeeshop WHERE strStatus= 'rejected'";
+  db.query(sql, function (err, results, fields) {
+      if (err) return res.send(err);
+      var page = 1, pagearr = [1], curpage = [req.params.page], prevpage = [req.params.page - 1], nextpage = [parseInt(req.params.page)+1], lastpage = [], status = [];
+      if (!results[0])
+        console.log('');
+      else{
+        for(count=0;count<results.length;count++){
+          results[count].page = page;
+          results[count].curpage = req.params.page;
+          if((count+1)%5==0){
+            page+=1;
+          }
+        }
+        lastpage[0] = results[results.length-1].page;
+        status[0] = results[results.length-1].strStatus;
+      }
+      if(req.params.page > 5){
+        pagearr[0] = req.params.page - 5;
+      }
+      for(count=1;count<10;count++){
+        pagearr[count] = pagearr[count-1] + 1;
+      }
+      req.status = status;
+      req.lastpage = lastpage;
+      req.curpage = curpage;
+      req.prevpage = prevpage;
+      req.nextpage = nextpage;
+      req.page = pagearr;
+      req.stud = results;
+      return next();
+  });
+}
+function coffeerejrender(req,res){
+  if(req.valid==2){
+    if(!req.stud[0]){
+      if(req.params.page == 1)
+        res.render('admin/views/nocoffeeshoprej');
+      else
+        res.render('login/views/noroute');
+    }
+    else if(req.params.page < 1 || req.params.page > req.lastpage[0])
+      res.render('login/views/noroute');
+    else
+      res.render('admin/views/coffeeshop',{studtab: req.stud, pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage, statustab: req.status});
+  }
+  else if(req.valid==1)
+    res.render('admin/views/invalidpages/normalonly');
+  else
+    res.render('login/views/invalid');
+}
+
+router.get('/coffeeshop-rejected/:page', flog, fcoffeereject, coffeerejrender);
+
+
+function rejectcoffeerender(req,res){
+  if(req.valid==2){
+    var db = require('../../lib/database')();
+    var sql = "UPDATE tblcoffeeshop SET strStatus= 'rejected' WHERE intCID= ?";
+    db.query(sql,[req.params.userid], function (err, results, fields) {
+      if (err) return res.send(err);
+      res.redirect('/admin/coffeeshop/1');
+    });
+  }
+  else if(req.valid==1)
+    res.render('admin/views/invalidpages/normalonly');
+  else
+    res.render('login/views/invalid');
+}
+
+router.get('/coffeeshop/reject/:userid', flog, rejectcoffeerender);
+
+
+function revertcoffeerender(req,res){
+  if(req.valid==2){
+    var db = require('../../lib/database')();
+    var sql = "UPDATE tblcoffeeshop SET strStatus= 'unregistered' WHERE intCID= ?";
+    db.query(sql,[req.params.userid], function (err, results, fields) {
+      if (err) return res.send(err);
+      res.redirect('/admin/coffeeshop/1');
+    });
+  }
+  else if(req.valid==1)
+    res.render('admin/views/invalidpages/normalonly');
+  else
+    res.render('login/views/invalid');
+}
+router.get('/coffeeshop/revert/:userid', flog, revertcoffeerender);
+
 exports.admin= router;

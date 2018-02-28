@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var flog = require( '../home/loggedin');
 
+//all coffeeshop
 function finduser(req, res, next){
     var db = require('../../lib/database')();
     db.query("SELECT * FROM tblcoffeeshop", function (err, results, fields) {
@@ -60,5 +61,31 @@ else if(req.valid==2)
 }
 
 router.get('/page/:page', flog, finduser, renderuser);
+
+//view coffeeshop
+function findcoffeeshop(req,res,next){
+  var db = require('../../lib/database')();
+  db.query("SELECT * FROM tblcoffeeshop INNER JOIN tbluser ON tbluser.intID=tblcoffeeshop.intCID_intID WHERE intCID= ?",[req.params.userid], (err, results, fields) => {
+      if (err) console.log(err);
+      req.coffee= results;
+      return next();
+    });
+}
+function rendercoffeeshop(req,res){
+  if(req.valid==3){
+    res.render('login/views/invalidpages/banned');
+  }
+  else if(req.valid==1){
+    if (!req.coffee[0])
+      res.render('login/views/noroute');
+    else
+      res.render('coffeeshops/views/viewcoffeeshop',{coffeetab: req.coffee, transtab: req.trans});
+  }
+  else if(req.valid==2)
+    res.render('home/views/invalidpages/adminonly');
+  else
+    res.render('login/views/noroute');
+}
+router.get('/page/:page/viewcoffeeshop/:userid',flog,findcoffeeshop,rendercoffeeshop)
 
 exports.coffeeshops=router;

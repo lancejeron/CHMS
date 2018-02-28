@@ -231,7 +231,10 @@ CREATE TABLE `tbltransaction` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `tbltransaction` VALUES ('900001','10000','Meet me at the gate','30000','2018-05-26','2:30:00','10001', 'pending');
+INSERT INTO `tbltransaction` VALUES ('900001','10000','Hi Een! Lance to, sana makarating ka..','30000','2018-05-26','2:30','10001', 'ongoing'),
+									('900002','10000','Oi Een! Celebrate natin bday mo!','30000','2018-02-25','2:30','10001', 'finished'),
+									('900003','10001','','30000','2018-02-27','1:00','10000', 'ongoing'),
+                                    ('900004','10001','','30000','2018-05-26','1:00','10000', 'ongoing');
 
 --
 DROP TABLE IF EXISTS `tblcoffeeshop`;
@@ -242,34 +245,51 @@ CREATE TABLE `tblcoffeeshop` (
   `intCID_intID` int(6) NOT NULL	,
   `strCName` varchar(100) NOT NULL,
   `strCAddress` varchar(100) NOT NULL,
-  `strCTnumber` varchar(20) NOT NULL,
-  `intCRating` int NULL,
-  `strSpecial` varchar(100) NULL,
+  `strCTnumber` varchar(20),
+  `intCRating` int,
+  `strSpecial` varchar(100),
+  `strDetails` varchar(100),
+  `strPermit` varchar (100) NOT NULL,
+  `strStatus` varchar(20) NOT NULL,
+  `strPicture` varchar(100),
+  `strPicture2` varchar(100),
+  `strPicture3` varchar(100),
+  `strPicture4` varchar(100),
+  `strPicture5` varchar(100),
+  `strMenu` varchar(100),
+  `strMenu2` varchar(100),
+  `strMenu3` varchar(100),
+  `strMenu4` varchar(100),
+  `strMenu5` varchar(100),
   PRIMARY KEY (`intCID`),
   KEY `intCID_intID_idx`(`intCID_intID`),
   CONSTRAINT `intCID_intID` FOREIGN KEY (`intCID_intID`) REFERENCES `tbluser` (`intID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `tblcoffeeshop` VALUES ('30000','10004','Star BOX','231 Sta. Mesa Manila','7778888',null, 'coffeejelly'),
-									('30001','10005','Kape Tayo','SM Mega Mall','1233333',null, 'Frap'),
-                                    ('30002','10004','Star BOX','PUP Lagoon','7778888',null, 'Dark');
-
+INSERT INTO `tblcoffeeshop` VALUES ('30000','10004','Star BOX','231 Sta. Mesa Manila','7778888','0', 'coffeejelly','OPEN 24 hrs','blank.png','registered','blankcoffeeshop.png','blankcoffeeshop.png','blankcoffeeshop.png','blankcoffeeshop.png','blankcoffeeshop.png','Frap1','Frap2','Frap3','Frap4','Frap5'),
+									('30001','10005','Kape Tayo','SM Mega Mall','1233333','0', 'Frap','OPEN 24 hrs','blank.png','registered','blankcoffeeshop.png','blankcoffeeshop.png','blankcoffeeshop.png','blankcoffeeshop.png','blankcoffeeshop.png','','','','',''),
+                                    ('30002','10004','Star BOX','PUP Lagoon','7778888','0', 'Dark','OPEN 24 hrs','blank.png','registered','blankcoffeeshop.png','blankcoffeeshop.png','blankcoffeeshop.png','blankcoffeeshop.png','blankcoffeeshop.png','','','','','');
 DROP TABLE IF EXISTS `tbluser`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbluser` (
   `intID` int(6) NOT NULL  AUTO_INCREMENT,
-  `strName` varchar(100) NOT NULL,
+  `strName` varchar(50) NOT NULL,
   `datBirthday` date NOT NULL,
-  `strAddress` varchar(100) NOT NULL,
+  `strAddress` varchar(100),
   `strEmail` varchar(45) NOT NULL,
   `strPassword` varchar(50) NOT NULL,
-  `strFavCoffee` varchar(20) NOT NULL,
-  `strBio` varchar(250) NULL,
+  `strGender` varchar(6) NOT NULL,
+  `strFavCoffee` varchar(50),
+  `strBio` varchar(250),
   `strType` varchar(1) NOT NULL,
   `strStatus` varchar(20) NOT NULL,
-  `strProfilePicture` varchar(100) DEFAULT NULL,
+  `strPicture` varchar(100),
+  `strPicture2` varchar(100),
+  `strPicture3` varchar(100),
+  `strPicture4` varchar(100),
+  `strPicture5` varchar(100),
   PRIMARY KEY (`intID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;	
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -278,14 +298,51 @@ CREATE TABLE `tbluser` (
 -- Dumping data for table `tbluser`
 --
 
--- INSERT INTO `tbluser` VALUES ('2015-01216-MN-0','Jon Ervin Balmaceda','balmacedajonervin@gmail.com','09236835707','idolbule','verified',0,0,'blank.jpg'),('2015-01234-MN-0','Niño Escueta','juandelacruz@gmail.com','@juandc','abcde1234','unregistered',0,0,'blank.jpg'),('2015-01341-MN-0','Vince Miguel Oreta','vincemiguel14@yahoo.com','09083586708','niggaidesireu','verified',0,0,'2015-01341-MN-0-daZ7cxTCJ5Gz3EFoR1cbnHmgApDGHecOD72IMxvhqBL8JBIGVx-dp.jpg'),('2015-02043-MN-0','Dennin Mendiola','denninmendiola@yahoo.com','09053194681','DENGGG123','unregistered',0,0,'blank.jpg'),('2015-02766-MN-0','Dustin Alpasar','dustinalpasar69@gmail.com','facebook.com/penoyaquino\r\n09287490026','3223548222','verified',0,0,'2015-02766-MN-0-fuGLQZIgx5P0rcJ1CzWnFYtxUx2RHVsj1tw17dhrZzSFAVLTm9-dp.jpg'),('2015-02820-MN-0','Keynie Mae Orial','keyniemae@yahoo.com','09499451798','gandako123','verified',0,0,'blank.jpg'),('2015-04253-MN-0','Arjay de Guia jr.','sendodeguia@gmail.com','09069301452','ARJAYPOGI','verified',0,0,'blank.jpg'),('2015-04593-MN-0','Jethro Jhay Samson','jethrosamson@yahoo.com','09752264511\r\nhttps://www.facebook.com/jethro.samson.52','wordpass123','verified',0,0,'2015-04593-MN-0-kB6ozZlMqb6PELvhynHo8A7dX9yeWudJF13nUmJkzt5Evv5nsv-dp.jpg'),('2015-04834-MN-0','Lance Jeron San Pablo','lancejeron26@gmail.com','09199691903\r\nhttps://www.facebook.com/lancejeron','kate1434','verified',0,0,'2015-04834-MN-0-LkvJlzZQ5WMLNnDRUxRMTA2MMBegTuiaIOiGTQNsel8P56oTa6-dp.jpg'),('2015-05757-MN-0','John Carlo Doronila','joshuaburnay@gmail.com','https://www.facebook.com/jc.doronila.35','idealgirl','verified',0,0,'blank.jpg'),('2015-08887-MN-0','Crisaldo Ibay Santos','crisaldo.santos.22@gmail.com','09178908490','crisaldopogi','verified',0,0,'2015-08887-MN-0-AGBfGqgAcv5vD5jUYAx3zEeSSpWLkAtDKaOS93fpYKB1D66f7u-dp.jpg'),('2015-11114-MN-0','Matthew James Victore','victorematthew@gmail.com','09481832944','MatthewVictore2','verified',0,0,'2015-11114-MN-0-5fscHcFLOkvWrom51DAjL8q0SNDJs01uESVQPgGUpxOL3Pabuy-dp.jpg'),('admin','Admin User','psm.sup.adm@gmail.com','psm.sup.adm@gmail.com','admin','admin',0,0,NULL);
-INSERT INTO `tbluser` VALUES ('10000','Lance San Pablo','1999-05-26','Makati','lancejeron26@gmail.com','pass','Coffee Jelly',null,'1','verified','blank.jpg'),
-							 ('10001','Een Mercado','2000-01-15','Pasay','e@xyz.com','pass','3 in 1 coffee',null,'1','verified','blank.jpg'),
-                             ('10002','Sendo De Guia','1999-08-21','Makati','s@xyz.com','pass','Kapeng Barako',null,'1','unregistered','blank.jpg'),
-                             ('10004','Jon Loven','1999-12-03','Makati','j@xyz.com','pass','Coffee jelly',null,'2','verified','blank.jpg'),
-                             ('10005','Hannah Cordero','1999-03-23','Makati','h@xyz.com','pass','Frap',null,'2','verified','blank.jpg'),
-                             ('10006','Abceedee','2010-02-02','Makati','a@xyz.com','pass','Coffee jelly',null,'2','banned','blank.jpg'),
-                             ('1','admin','0000-00-00','Uknown','admin@xyz.com','admin','death',null,'0','admin','blank.jpg');
+
+INSERT INTO `tbluser` VALUES ('10000','Lance San Pablo','1999-05-26','Makati','lancejeron26@gmail.com','pass','Male','Coffee Jelly','','1','verified','lance1.jpg','lance2.jpg','lance3.jpg','lance4.jpg','blank.jpg'),
+							               ('10001','Een Mercado','2000-01-15','Pasay','e@xyz.com','pass','Female','3 in 1 coffee','','1','verified','een1.jpg','een2.jpg','een3.jpg','een4.jpg','blank.jpg'),
+                             ('10007','Jethro Samson','2000-01-15','Pasay','jethro@xyz.com','pass','Male','3 in 1 coffee','','1','verified','blank.jpg','blank.jpg','blank.jpg','blank.jpg','blank.jpg'),
+                             ('10008','Jon Ervin Balmaceda','2000-01-15','Pasay','jon@xyz.com','pass','Male','3 in 1 coffee','','1','verified','blank.jpg','blank.jpg','blank.jpg','blank.jpg','blank.jpg'),
+                             ('10009','John Carlo Doronilla','2000-01-15','Pasay','carlo@xyz.com','pass','Male','3 in 1 coffee','','1','verified','blank.jpg','blank.jpg','blank.jpg','blank.jpg','blank.jpg'),
+                             ('10010','Vince Miguel Oreta','2000-01-15','Pasay','vince@xyz.com','pass','Male','3 in 1 coffee','','1','verified','blank.jpg','blank.jpg','blank.jpg','blank.jpg','blank.jpg'),
+                             ('10011','Matthew Victore','2000-01-15','Pasay','matthew@xyz.com','pass','Male','3 in 1 coffee','','1','verified','blank.jpg','blank.jpg','blank.jpg','blank.jpg','blank.jpg'),
+                             ('10012','Jerevon Carreon','2000-01-15','Pasay','jerevon@xyz.com','pass','Male','3 in 1 coffee','','1','verified','blank.jpg','blank.jpg','blank.jpg','blank.jpg','blank.jpg'),
+                             ('10013','Joshua Ganilla','2000-01-15','Pasay','joshua@xyz.com','pass','Male','3 in 1 coffee','','1','verified','blank.jpg','blank.jpg','blank.jpg','blank.jpg','blank.jpg'),
+                             ('10014','Roberto Zulueta','2000-01-15','Pasay','roberto@xyz.com','pass','Male','3 in 1 coffee','','1','verified','blank.jpg','blank.jpg','blank.jpg','blank.jpg','blank.jpg'),
+                             ('10002','Sendo De Guia','1999-08-21','Makati','s@xyz.com','pass','Male','Kapeng Barako','','1','verified','blank.jpg','blank.jpg','blank.jpg','blank.jpg','blank.jpg'),
+                             ('10004','Jon Loven','1999-12-03','Makati','j@xyz.com','pass','Male','Coffee jelly','','2','verified','blank.jpg','blank.jpg','blank.jpg','blank.jpg','blank.jpg'),
+                             ('10005','Hannah Cordero','1999-03-23','Makati','h@xyz.com','pass','Female','Frap','','2','verified','blank.jpg','blank.jpg','blank.jpg','blank.jpg','blank.jpg'),
+                             ('10006','Abceedee','2010-02-02','Makati','a@xyz.com','pass','Male','Coffee jelly','','2','banned','blank.jpg','blank.jpg','blank.jpg','blank.jpg','blank.jpg'),
+                             ('1','admin','0000-00-00','Uknown','admin@xyz.com','admin','Male','death','','0','admin','blank.jpg',null,null,null,null);
+
+DROP TABLE IF EXISTS `tblfriend`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblfriend` (
+  
+  `intID_Me` int(6) NOT NULL,
+  `intID_Friend` int(6) NOT NULL,
+  `strRelasyon` varchar(20),
+  KEY `intID_Me_idx`(`intID_Me`),
+  KEY `intID_Friend_idx`(`intID_Friend`),
+  CONSTRAINT `intID_Me` FOREIGN KEY (`intID_Me`) REFERENCES `tbluser` (`intID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `intID_Friend` FOREIGN KEY (`intID_Friend`) REFERENCES `tbluser` (`intID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tblrating`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblrating` (
+  `intRating_intCID` int(6),
+  `intRating_intID` int(6),
+  `intRating` int,
+  KEY `intRating_intCID_idx`(`intRating_intCID`),
+  KEY `intRating_intID_idx`(`intRating_intID`),
+  CONSTRAINT `intRating_intID` FOREIGN KEY (`intRating_intID`) REFERENCES `tbluser` (`intID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `intRating_intCID` FOREIGN KEY (`intRating_intCID`) REFERENCES `tblcoffeeshop` (`intCID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 -- /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 -- /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 -- /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

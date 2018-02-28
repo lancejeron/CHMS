@@ -1,0 +1,18 @@
+
+each coffee in coffeetab
+    h1 Rate #{coffee.strCName}
+    form(method="POST" action='/profile/coffeeshop/rate/'+coffee.intCID)
+        label Rate coffeeshop with 1 being the lowest and 5 being the highest
+        br
+        input(type='radio', name='rating', value='1')
+        |1
+        input(type='radio', name='rating', value='2')
+        |2
+        input(type='radio', name='rating', value='3')
+        |3
+        input(type='radio', name='rating', value='4')
+        |4
+        input(type='radio', name='rating', value='5')
+        |5
+        br
+        input(type='submit', value="Rate")

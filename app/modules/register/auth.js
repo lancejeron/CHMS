@@ -2,7 +2,7 @@
 module.exports= (req,res,next)=>{
   var db = require('../../lib/database')();
   if (req.body.email === "" || req.body.password === ""){
-    res.render('register/views/invalidpages/blank');
+    res.render('admin/invalid/register_invalid_blank');
   }
   else{
     db.query("SELECT strEmail FROM tbluser WHERE strEmail= ?",[req.body.email], (err, results, fields) => {
@@ -10,7 +10,7 @@ module.exports= (req,res,next)=>{
         if(!results[0])
           next();
         else {
-          res.render('register/views/invalidpages/taken');
+          res.render('admin/invalid/register_invalid_email');
         }
     });
   }

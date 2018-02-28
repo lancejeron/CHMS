@@ -1,0 +1,80 @@
+extends ../../../templates/navbaradmin.pug
+
+block content
+  h3.title Registration Manipulation (Coffeeshop)
+  hr(style='border: 0.5px solid #000105')
+  .field.is-grouped
+    each status in statustab
+      if status == 'unregistered'
+        p.control
+          a.button.is-warning.is-inverted.is-hovered(class="button") UNREGISTERED
+        p.control
+          a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/coffeeshop-rejected/1") REJECTED REGISTRATIONS
+      else
+        p.control
+          a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/coffeeshop/1") UNREGISTERED
+        p.control
+          a.button.is-warning.is-inverted.is-hovered(class="button") REJECTED REGISTRATIONS
+  hr(style='border: 0.5px solid #000105')
+  each stud in studtab
+    if stud.page == stud.curpage
+      h3.title
+        b #{stud.intCID}
+      h3.subtitle &nbsp#{stud.strCName}
+        br
+        //- img#myImg(src='/images/'+stud.strPermit, style="overflow: hidden; width:300px; height:200px;")
+        //- br
+      .field.is-grouped
+        if stud.strStatus == 'unregistered'
+          p.control
+            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/coffeeshop/approve/"+ stud.intCID) Approve
+          p.control
+            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/coffeeshop/reject/"+ stud.intCID) Reject
+        else
+          p.control
+            a.button.is-warning.is-inverted.is-outlined(class="button", href="/admin/coffeeshop/revert/"+ stud.intCID) Revert
+      hr(style='border: 0.5px solid #000105')
+  each curpage in curpagetab
+    .field.is-grouped
+      each status in statustab
+        if status == 'unregistered'
+          if curpage > 1
+            each prevpage in prevpagetab
+              p.control
+                a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/coffeeshop/'+ prevpage ) << Previous
+          each lastpage in lastpagetab
+            each page in pagetab
+              if page == curpage
+                p.control
+                  a.button.is-warning.is-inverted.is-hovered() #{page}
+              else
+                if page <= lastpage
+                  p.control
+                    a.button.is-warning.is-inverted.is-outlined(href='/admin/coffeeshop/'+ page ) #{page}
+            each nextpage in nextpagetab
+              if curpage < lastpage
+                p.control
+                  a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/coffeeshop/'+ nextpage ) Next >>
+        else
+          if curpage > 1
+            each prevpage in prevpagetab
+              p.control
+                a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/coffeeshop-rejected/'+ prevpage ) << Previous
+          each lastpage in lastpagetab
+            each page in pagetab
+              if page == curpage
+                p.control
+                  a.button.is-warning.is-inverted.is-hovered() #{page}
+              else
+                if page <= lastpage
+                  p.control
+                    a.button.is-warning.is-inverted.is-outlined(href='/admin/coffeeshop-rejected/'+ page ) #{page}
+            each nextpage in nextpagetab
+              if curpage < lastpage
+                p.control
+                  a.button.is-warning.is-inverted.is-outlined.is-hovered(href='/admin/coffeeshop-rejected/'+ nextpage ) Next >>
+    //- #myModal.modal
+    //-     // The Close Button
+    //-     span.close ×
+    //-     // Modal Content (The Image)
+    //-     img#img01.modal-content

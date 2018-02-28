@@ -1,0 +1,60 @@
+doctype html
+html(lang='en')
+  head
+    title View Coffeeshop
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    // Bootstrap core CSS
+    link(href='/assets/viewcoffeeshop/vendor/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+    // Custom styles for this template
+    link(href='/assets/viewcoffeeshop/css/portfolio-item.css', rel='stylesheet')
+  body(style="background-color:#E3D7C1;")
+  each coffee in coffeetab
+    // Page Content
+    .container(style="background-color:#C8B188;border-radius:10px;")
+      // Portfolio Item Heading
+      h1.my-4
+        | #{coffee.strCName}
+      // Portfolio Item Row
+      .row
+        .col-md-8
+            a(href='/images/'+coffee.strPicture,target="_blank")
+              img.img-fluid(src='/images/'+coffee.strPicture,target="_blank" alt='')
+        .col-md-4
+          h3.my-3 Details:
+          p
+            | "#{coffee.strDetails}"
+          h3.my-3
+          ul
+            li Address: #{coffee.strCAddress}
+            li Telephone Number: #{coffee.strCTnumber}
+            li Specialty of the House: #{coffee.strSpecial}
+            li Rating: #{coffee.intCRating}  
+          h3.my-3 Menu
+          ul
+            li #{coffee.strMenu}
+            li #{coffee.strMenu2}
+            li #{coffee.strMenu3}
+            li #{coffee.strMenu4}
+            li #{coffee.strMenu5}
+      // /.row
+      // Related Projects Row
+      h3.my-4 Other Pictures
+      .row
+        .col-md-3.col-sm-6.mb-4
+          a(href='/images/'+coffee.strPicture2,target="_blank")
+            img.img-fluid(src='/images/'+coffee.strPicture2, alt='')
+        .col-md-3.col-sm-6.mb-4
+          a(href='/images/'+coffee.strPicture3,target="_blank")
+            img.img-fluid(src='/images/'+coffee.strPicture3, alt='')
+        .col-md-3.col-sm-6.mb-4
+          a(href='/images/'+coffee.strPicture4,target="_blank")
+            img.img-fluid(src='/images/'+coffee.strPicture4, alt='')
+        .col-md-3.col-sm-6.mb-4
+          a(href='/images/'+coffee.strPicture5,target="_blank")
+            img.img-fluid(src='/images/'+coffee.strPicture5, alt='')
+      // /.row
+    // /.container
+    // Bootstrap core JavaScript
+    script(src='/assets/viewcoffeeshop/vendor/jquery/jquery.min.js')
+    script(src='/assets/viewcoffeeshop/vendor/bootstrap/js/bootstrap.bundle.min.js')

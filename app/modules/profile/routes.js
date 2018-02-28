@@ -2,235 +2,7 @@ var express = require('express');
 var router = express.Router();
 var flog = require( '../home/loggedin');
 var fs = require('fs');
-
-// router.get('/', (req, res) => {
-//   var db = require('../../lib/database')();
-//   req.session.user = '';
-//   res.render('profile/views/index');
-// });
-
-
-// function numberWithCommas(x) {
-//     var parts = x.toString().split(".");
-//     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-//     return parts.join(".");
-// }
-// function makeid() {
-//   var text = "";
-//   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-//   for (var i = 0; i < 50; i++)
-//     text += possible.charAt(Math.floor(Math.random() * possible.length));
-//   return text;
-// }
-
-// function fuser(req,res,next){
-//   var db = require('../../lib/database')();
-//   db.query("SELECT * FROM tbluser WHERE intID= ?",[req.params.userid], (err, results, fields) => {
-//       if (err) console.log(err);
-//       req.user= results;
-//       return next();
-//     });
-// }
-// function fedituser(req,res,next){
-//   var db = require('../../lib/database')();
-//   db.query("SELECT * FROM tbluser WHERE strSNum= ?",[req.session.user], (err, results, fields) => {
-//       if (err) console.log(err);
-//       req.user= results;
-//       return next();
-//     });
-// }
-// function ftrans(req,res,next){
-//   var db = require('../../lib/database')();
-//   var page = 1, pagearr = [1], curpage = [req.params.page], prevpage = [req.params.page - 1], nextpage = [parseInt(req.params.page)+1], lastpage = [];
-//   var sqltrans1 = "SELECT B.*, strName FROM(SELECT * FROM (SELECT * FROM tbltransaction INNER JOIN tblitem ON intItemID= intTransItemID WHERE strItemSNum= ? OR strBuyerSNum= ?) AS TRANS INNER JOIN tblcategories ON intItemCat= intCatID WHERE strTransStatus='Ongoing') AS B INNER JOIN tbluser WHERE (strBuyerSNum = strSNum AND strSNum!= ?) OR (strItemSNum = strSNum AND strSNum!= ?) ORDER BY intTransID DESC";
-//   db.query(sqltrans1,[req.session.user,req.session.user,req.session.user,req.session.user],(err, results, fields) => {
-//       if (err) console.log(err);
-//       if (!results[0])
-//         console.log('');
-//       else{
-//         for(count=0;count<results.length;count++){
-//           results[count].date= results[count].datDateStarted.toDateString("en-US").slice(4, 15);
-//           results[count].price = numberWithCommas(results[count].fltItemPrice.toFixed(2));
-//           results[count].page = page;
-//           results[count].curpage = req.params.page;
-//           if((count+1)%5==0){
-//             page+=1;
-//           }
-//         }
-//         lastpage[0] = results[results.length-1].page;
-//       }
-//       if(req.params.page > 5){
-//         pagearr[0] = req.params.page - 5;
-//       }
-//       for(count=1;count<10;count++){
-//         pagearr[count] = pagearr[count-1] + 1;
-//       }
-//       req.lastpage = lastpage;
-//       req.curpage = curpage;
-//       req.prevpage = prevpage;
-//       req.nextpage = nextpage;
-//       req.page = pagearr;
-//       req.trans= results;
-//       return next();
-//     });
-// }
-// function fholdtrans(req,res,next){
-//   var db = require('../../lib/database')();
-//   var page = 1, pagearr = [1], curpage = [req.params.page], prevpage = [req.params.page - 1], nextpage = [parseInt(req.params.page)+1], lastpage = [];
-//   var sqltrans2 = "SELECT B.*, strName, strStatus FROM(SELECT * FROM (SELECT * FROM tbltransaction INNER JOIN tblitem ON intItemID= intTransItemID WHERE strItemSNum= ? OR strBuyerSNum= ?) AS TRANS INNER JOIN tblcategories ON intItemCat= intCatID WHERE strTransStatus!='Ongoing' AND strTransStatus!='Finished') AS B INNER JOIN tbluser WHERE (strBuyerSNum = strSNum AND strSNum!= ?) OR (strItemSNum = strSNum AND strSNum!= ?) ORDER BY intTransID DESC";
-//   db.query(sqltrans2,[req.session.user,req.session.user,req.session.user,req.session.user],(err, results, fields) => {
-//       if (err) console.log(err);
-//       if (!results[0])
-//         console.log('');
-//       else{
-//         for(count=0;count<results.length;count++){
-//           results[count].date= results[count].datDateStarted.toDateString("en-US").slice(4, 15);
-//           results[count].price = numberWithCommas(results[count].fltItemPrice.toFixed(2));
-//           results[count].page = page;
-//           results[count].curpage = req.params.page;
-//           if((count+1)%5==0){
-//             page+=1;
-//           }
-//         }
-//         lastpage[0] = results[results.length-1].page;
-//       }
-//       if(req.params.page > 5){
-//         pagearr[0] = req.params.page - 5;
-//       }
-//       for(count=1;count<10;count++){
-//         pagearr[count] = pagearr[count-1] + 1;
-//       }
-//       req.lastpage = lastpage;
-//       req.curpage = curpage;
-//       req.prevpage = prevpage;
-//       req.nextpage = nextpage;
-//       req.page = pagearr;
-//       req.hold= results;
-//       return next();
-//     });
-// }
-// function ftranshistory(req,res,next){
-//   var db = require('../../lib/database')();
-//   var page = 1, pagearr = [1], curpage = [req.params.page], prevpage = [req.params.page - 1], nextpage = [parseInt(req.params.page)+1], lastpage = [];
-//   var sqltrans4 = "SELECT B.*, strName FROM(SELECT * FROM (SELECT * FROM tbltransaction INNER JOIN tblitem ON intItemID= intTransItemID WHERE strItemSNum= ? OR strBuyerSNum= ?) AS TRANS INNER JOIN tblcategories ON intItemCat= intCatID WHERE strTransStatus='Finished') AS B INNER JOIN tbluser WHERE (strBuyerSNum = strSNum AND strSNum!= ?) OR (strItemSNum = strSNum AND strSNum!= ?) ORDER BY intTransID DESC";
-//   db.query(sqltrans4,[req.session.user,req.session.user,req.session.user,req.session.user],(err, results, fields) => {
-//       if (err) console.log(err);
-//       if (!results[0])
-//         console.log('');
-//       else{
-//         for(count=0;count<results.length;count++){
-//           results[count].date= results[count].datDateStarted.toDateString("en-US").slice(4, 15);
-//           results[count].fin= results[count].datDateFinished.toDateString("en-US").slice(4, 15);
-//           results[count].price = numberWithCommas(results[count].fltItemPrice.toFixed(2));
-//           results[count].page = page;
-//           results[count].curpage = req.params.page;
-//           if((count+1)%5==0){
-//             page+=1;
-//           }
-//         }
-//         lastpage[0] = results[results.length-1].page;
-//       }
-//       if(req.params.page > 5){
-//         pagearr[0] = req.params.page - 5;
-//       }
-//       for(count=1;count<10;count++){
-//         pagearr[count] = pagearr[count-1] + 1;
-//       }
-//       req.lastpage = lastpage;
-//       req.curpage = curpage;
-//       req.prevpage = prevpage;
-//       req.nextpage = nextpage;
-//       req.page = pagearr;
-//       req.history= results;
-//       return next();
-//     });
-// }
-// function ftransfin(req, res, next){
-//   var db = require('../../lib/database')();
-//   var sqltrans3 = "SELECT B.*, strName FROM(SELECT * FROM (SELECT * FROM tbltransaction INNER JOIN tblitem ON intItemID= intTransItemID WHERE strItemSNum= ? OR strBuyerSNum= ?) AS TRANS INNER JOIN tblcategories ON intItemCat= intCatID WHERE strTransStatus!= 'Finished') AS B INNER JOIN tbluser WHERE ((strBuyerSNum = strSNum AND strSNum!= ?) OR (strItemSNum = strSNum AND strSNum!= ?)) AND intTransID= ? ORDER BY intTransID DESC";
-//   db.query(sqltrans3,[req.session.user,req.session.user,req.session.user,req.session.user,req.params.transid], (err, results, fields) => {
-//       if (err) console.log(err);
-//       console.log('TRANSFIN: '+ results);
-//       req.transfin= results;
-//       return next();
-//   });
-// }
-// function ftransid(req, res, next){
-//   var db = require('../../lib/database')();
-//   db.query("SELECT * FROM tbltransaction WHERE intTransID= ?",[req.params.transid], (err, results, fields) => {
-//       if (err) console.log(err);
-//       req.transid= results;
-//       return next();
-//   });
-// }
-// function fmypost(req, res, next){
-//   var db = require('../../lib/database')();
-//   db.query("SELECT B.*, strTransStatus FROM(SELECT * FROM(SELECT * FROM tblitem INNER JOIN tbluser ON strItemSNum= strSNum WHERE strSNum= ?) A INNER JOIN tblcategories ON intItemCat= intCatID) B LEFT JOIN tbltransaction ON intTransItemID= intItemID WHERE strTransStatus IS NULL ORDER BY intItemID DESC",[req.params.userid], (err, results, fields) => {
-//       if (err) console.log(err);
-//       var page = 1, pagearr = [1], curpage = [req.params.page], prevpage = [req.params.page - 1], nextpage = [parseInt(req.params.page)+1], lastpage = [];
-//       if (!results[0])
-//         console.log('');
-//       else{
-//         for(count=0;count<results.length;count++){
-//           results[count].date= results[count].datPostDate.toDateString("en-US").slice(4, 15);
-//           results[count].price = numberWithCommas(results[count].fltItemPrice.toFixed(2));
-//           results[count].page = page;
-//           results[count].curpage = req.params.page;
-//           if((count+1)%5==0){
-//             page+=1;
-//           }
-//         }
-//         lastpage[0] = results[results.length-1].page;
-//       }
-//       if(req.params.page > 5){
-//         pagearr[0] = req.params.page - 5;
-//       }
-//       for(count=1;count<10;count++){
-//         pagearr[count] = pagearr[count-1] + 1;
-//       }
-//       req.lastpage = lastpage;
-//       req.curpage = curpage;
-//       req.prevpage = prevpage;
-//       req.nextpage = nextpage;
-//       req.page = pagearr;
-//       req.mypost = results;
-//       return next();
-//     });
-// }
-// function feditpost(req, res, next){
-//   var db = require('../../lib/database')();
-//   db.query("SELECT B.*, strTransStatus FROM(SELECT * FROM(SELECT * FROM tblitem INNER JOIN tbluser ON strItemSNum= strSNum WHERE strSNum= ?) A INNER JOIN tblcategories ON intItemCat= intCatID) B LEFT JOIN tbltransaction ON intTransItemID= intItemID WHERE strTransStatus IS NULL AND intItemID= ? ORDER BY intItemID DESC",[req.params.userid, req.params.postid], (err, results, fields) => {
-//       if (err) console.log(err);
-//       if (!results[0]){
-//         console.log('');
-//       }
-//       else{
-//         results[0].date= results[0].datPostDate.toDateString("en-US").slice(4, 15);
-//         results[0].price = numberWithCommas(results[0].fltItemPrice);
-//       }
-//       req.editpost = results;
-//       return next();
-//     });
-// }
-
-// function profilerender(req,res){
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else if(req.valid==1){
-//     if (!req.user[0])
-//       res.render('login/views/noroute');
-//     else if(req.user[0].intID == req.session.user)
-//       res.render('profile/views/index',{usertab: req.user, transtab: req.trans});
-//     else
-//       res.render('profile/views/otherprofile',{usertab: req.user, transtab: req.trans});
-//   }
-//   else if(req.valid==2)
-//     res.render('home/views/invalidpages/adminonly');
-//   else
-//     res.render('login/views/invalid');
-// }
-
+//profile
 function findmyuser(req,res,next){
   var db = require('../../lib/database')();
   db.query("SELECT *,CURDATE(), TIMESTAMPDIFF(YEAR,datBirthday,CURDATE()) AS Age FROM tbluser WHERE intID= ?",[req.params.userid], (err, results, fields) => {
@@ -256,540 +28,723 @@ function rendermyuser(req,res){
   else
     res.render('login/views/noroute');
 }
+
+//sent invite
+function findinvite(req,res,next){
+  var db = require('../../lib/database')();
+  db.query("SELECT *,date_format(timTimeTrans,'%h:%i:%s %p' ) as mytime, DATE_FORMAT(datDateTrans, '%W %M %e %Y')  as mydate  FROM tbltransaction INNER JOIN tbluser ON tbltransaction.intTransID_intID2=tbluser.intID INNER JOIN tblcoffeeshop  ON tblcoffeeshop.intCID=tbltransaction.intTransID_intCID  WHERE strTransStatus='pending' AND intTransID_intID=?",[req.session.user], function (err, results, fields) {
+    if (err) return res.send(err);
+    var page = 1, pagearr = [1], curpage = [req.params.page], prevpage = [req.params.page - 1], nextpage = [parseInt(req.params.page)+1], lastpage = [], status = [];
+    if (!results[0])
+    console.log('');
+    else{
+      for(count=0;count<results.length;count++){
+        results[count].page = page;
+        results[count].curpage = req.params.page;
+        if((count+1)%5==0){
+          page+=1;
+        }
+      }
+    lastpage[0] = results[results.length-1].page;
+    status[0] = results[results.length-1].strStatus;
+  }
+  if(req.params.page > 5){
+    pagearr[0] = req.params.page - 5;
+  }
+  for(count=1;count<10;count++){
+    pagearr[count] = pagearr[count-1] + 1;
+  }
+  req.status = status;
+  req.lastpage = lastpage;
+  req.curpage = curpage;
+  req.prevpage = prevpage;
+  req.nextpage = nextpage;
+  req.page = pagearr;
+  req.trans = results;
+  return next();
+  });
+}
+function renderinvite(req,res){
+  if(req.valid==3){
+    res.render('login/views/invalidpages/banned');
+  }
+  if(req.valid==1){
+    if(!req.trans[0]){
+      if(req.params.page == 1)
+        res.render('profile/views/noinvite');
+        else
+        res.render('login/views/noroute');
+      }
+    else if(req.params.page < 1 || req.params.page > req.lastpage[0])
+    res.render('login/views/noroute');
+    else
+      res.render('profile/views/invite',{ usertab: req.user, transtab: req.trans, pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage, statustab: req.status});
+    }
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
+    else
+    res.render('login/views/invalid');
+}
+
+//received invite
+function findrinvite(req,res,next){
+  var db = require('../../lib/database')(); 
+  // db.query("SELECT * FROM tbltransaction WHERE strTransStatus='pending' AND intTransID_intID2=?",[req.session.user], function (err, results, fields) {
+    db.query("SELECT transact.intTransID AS TransactionID, transact.strTransDetails AS Detalye, DATE_FORMAT(timTimeTrans, '%h:%i:%s %p') AS Mytime, DATE_FORMAT(datDateTrans, '%W %M %e %Y') AS Mydate, intCID, strCName, user1.intID AS NaginviteID, user2.intID AS IninviteID, user1.strName AS Nanginvite, user2.strName AS Ininvite, user1.strPicture AS NanginvitePic, user2.strPicture AS IninvitePic, transact.strTransStatus AS Kalagayan FROM tbltransaction AS transact INNER JOIN  tbluser AS user1 ON user1.intID = transact.intTransID_intID INNER JOIN tbluser AS user2 ON user2.intID = transact.intTransID_intID2 INNER JOIN tblcoffeeshop AS cf ON cf.intCID = transact.intTransID_intCID WHERE strTransStatus='pending' AND intTransID_intID2=?",[req.session.user], function (err, results, fields) {  
+  if (err) return res.send(err);
+    var page = 1, pagearr = [1], curpage = [req.params.page], prevpage = [req.params.page - 1], nextpage = [parseInt(req.params.page)+1], lastpage = [], status = [];
+    if (!results[0])
+    console.log('');
+    else{
+      for(count=0;count<results.length;count++){
+        results[count].page = page;
+        results[count].curpage = req.params.page;
+        if((count+1)%5==0){
+          page+=1;
+        }
+      }
+    lastpage[0] = results[results.length-1].page;
+    status[0] = results[results.length-1].strStatus;
+  }
+  if(req.params.page > 5){
+    pagearr[0] = req.params.page - 5;
+  }
+  for(count=1;count<10;count++){
+    pagearr[count] = pagearr[count-1] + 1;
+  }
+  req.status = status;
+  req.lastpage = lastpage;
+  req.curpage = curpage;
+  req.prevpage = prevpage;
+  req.nextpage = nextpage;
+  req.page = pagearr;
+  req.trans = results;
+  return next();
+  });
+}
+function renderrinvite(req,res){
+  if(req.valid==3){
+    res.render('login/views/invalidpages/banned');
+  }
+  if(req.valid==1){
+    if(!req.trans[0]){
+      if(req.params.page == 1)
+        res.render('profile/views/norinvite');
+        else
+        res.render('login/views/noroute');
+      }
+    else if(req.params.page < 1 || req.params.page > req.lastpage[0])
+    res.render('login/views/noroute');
+    else
+      res.render('profile/views/rinvite',{ usertab: req.user, transtab: req.trans, pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage, statustab: req.status});
+    }
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
+    else
+    res.render('login/views/invalid');
+}
+//edit
+function fedituser(req,res,next){
+  var db = require('../../lib/database')();
+  db.query("SELECT * FROM tbluser WHERE intID= ?",[req.session.user], (err, results, fields) => {
+      if (err) console.log(err);
+      req.user= results;
+      return next();
+    });
+}
+function editprofilerender(req,res){
+  if(req.valid==3){
+    res.render('login/views/invalidpages/banned');
+  }
+  else if(req.valid==1)
+    res.render('profile/views/editprofile',{usertab: req.user});
+  else if(req.valid==2)
+    res.render('home/views/invalidpages/adminonly');
+  else
+    res.render('login/views/invalid');
+}
+router.get('/-/edit', flog, fedituser, editprofilerender);
+
+router.post('/-/edit/:userid',flog, fedituser, (req, res) => {
+  if(req.valid==3){
+    res.render('login/views/invalidpages/banned');
+  }
+  else if(req.valid==1){
+    var db = require('../../lib/database')();
+    if(req.body.picture1=='' && req.body.picture2=='' && req.body.picture3=='' && req.body.picture4=='' && req.body.picture5==''){//No Picture at all
+      db.query("UPDATE tbluser SET strName=?, strAddress=?, strFavCoffee=?, strBio=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });         
+    }
+    else if(req.body.picture1=='' && !req.body.picture2=='' && !req.body.picture3=='' && !req.body.picture4=='' && !req.body.picture5==''){// No picture 1/
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture2=?, strPicture3=?, strPicture4=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture2, req.body.picture3, req.body.picture4, req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture1=='' && req.body.picture2=='' && !req.body.picture3=='' && !req.body.picture4=='' && !req.body.picture5==''){//no picture 1 & 2/
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture3=?, strPicture4=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture3, req.body.picture4, req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture1=='' && req.body.picture3=='' && !req.body.picture2=='' && !req.body.picture4=='' && !req.body.picture5==''){//no picture 1 & 3/
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture2=?, strPicture4=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture2, req.body.picture4, req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture1=='' && req.body.picture4=='' && !req.body.picture2=='' && !req.body.picture3=='' && !req.body.picture5==''){//no picture 1 & 4/
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture2=?, strPicture3=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture2, req.body.picture3, req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture1=='' && req.body.picture5=='' && !req.body.picture2=='' && !req.body.picture3=='' && !req.body.picture4==''){//no picture 1 & 5/
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture2=?, strPicture3=?, strPicture4=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture2, req.body.picture3, req.body.picture4, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture1=='' && req.body.picture2=='' && req.body.picture3=='' && !req.body.picture4=='' && !req.body.picture5==''){//no picture 1 & 2 & 3/
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture4=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture4, req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture1=='' && req.body.picture2=='' && req.body.picture4=='' && !req.body.picture3=='' && !req.body.picture5==''){//no picture 1 & 2 & 4/
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture3=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture3, req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture1=='' && req.body.picture2=='' && req.body.picture5=='' && !req.body.picture3=='' && !req.body.picture4==''){//no picture 1 & 2 & 5/
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture3=?, strPicture4=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture3, req.body.picture4, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture1=='' && req.body.picture2=='' && req.body.picture3=='' && req.body.picture4=='' && !req.body.picture5==''){//no picture 1 & 2 & 3 & 4/
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture1=='' && req.body.picture2=='' && req.body.picture3=='' && req.body.picture5=='' && !req.body.picture4==''){//no picture 1 & 2 & 3 & 5/
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture4=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture4, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture1=='' && !req.body.picture2=='' && req.body.picture3=='' && req.body.picture5=='' && req.body.picture4==''){//no picture 1 & 3 & 4 & 5/
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture2=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture2, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture1=='' && req.body.picture2=='' && !req.body.picture3=='' && req.body.picture5=='' && req.body.picture4==''){//no picture 1 & 2 & 4 & 5
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture3=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture3, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture2=='' && !req.body.picture1=='' && !req.body.picture3=='' && !req.body.picture4=='' && !req.body.picture5==''){//no picture 2
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture3=?, strPicture4=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture3, req.body.picture4, req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture2=='' && req.body.picture3=='' && !req.body.picture1=='' && !req.body.picture4=='' && !req.body.picture5==''){//no picture 2 & 3
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture4=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture4, req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture2=='' && req.body.picture4=='' && !req.body.picture1=='' && !req.body.picture3=='' && !req.body.picture5==''){//no picture 2 & 4
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture3=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture3, req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture2=='' && req.body.picture5=='' && !req.body.picture1=='' && !req.body.picture3=='' && !req.body.picture4==''){//no picture 2 & 5
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture3=?, strPicture4=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture3, req.body.picture4, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture2=='' && req.body.picture3=='' && req.body.picture4=='' && !req.body.picture1=='' && !req.body.picture5==''){//no picture 2 & 3 & 4
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture2=='' && req.body.picture3=='' && req.body.picture5=='' && !req.body.picture1=='' && !req.body.picture4==''){//no picture 2 & 3 & 5
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture4=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture4, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture2=='' && req.body.picture3=='' && req.body.picture4=='' && req.body.picture5=='' && !req.body.picture1==''){//no picture 2 & 3 & 4 & 5
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture3=='' && !req.body.picture1=='' && !req.body.picture2=='' && !req.body.picture4=='' && !req.body.picture5==''){//no picture 3
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture2=?, strPicture4=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture2, req.body.picture4, req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture3=='' && req.body.picture4=='' && !req.body.picture1=='' && !req.body.picture2=='' && !req.body.picture5==''){//no picture 3 & 4
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture2=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture2, req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture3=='' && req.body.picture5=='' && !req.body.picture1=='' && !req.body.picture2=='' && !req.body.picture4==''){//no picture 3 & 5
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture2=?, strPicture4=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture2, req.body.picture4, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture3=='' && req.body.picture4=='' && req.body.picture5=='' && !req.body.picture1=='' && !req.body.picture2==''){//no picture 3 & 4 & 5
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture2=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture2, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture4=='' && !req.body.picture1=='' && !req.body.picture2=='' && !req.body.picture3=='' && !req.body.picture5==''){//no picture 4
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture2=?, strPicture3=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture2, req.body.picture3, req.body.picture5, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture4=='' && req.body.picture5=='' && !req.body.picture1=='' && !req.body.picture2=='' && !req.body.picture3==''){//no picture 4 & 5
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture2=?, strPicture3=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture2, req.body.picture3, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(req.body.picture5=='' && !req.body.picture1=='' && !req.body.picture2=='' && !req.body.picture3=='' && !req.body.picture4==''){//no picture 5
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture2=?, strPicture3=?, strPicture4=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture2, req.body.picture3, req.body.picture4, req.session.user], (err, results1, fields) => {
+      res.redirect('/profile/'+req.session.user);
+      });
+    }
+    else if(!req.body.picture1=='' && !req.body.picture2=='' && !req.body.picture3=='' && !req.body.picture4 == ''&& !req.body.picture5==''){// ALL Changed
+      db.query("UPDATE tbluser SET strName= ?, strAddress=?, strFavCoffee=?, strBio=?,  strPicture=?, strPicture2=?, strPicture3=?, strPicture4=?, strPicture5=? WHERE intID=? ",[req.body.name, req.body.address, req.body.favcoffee, req.body.bio,  req.body.picture1, req.body.picture2, req.body.picture3, req.body.picture4, req.body.picture5, req.session.user], (err, results1, fields) => {
+        res.redirect('/profile/'+req.session.user);
+      });
+    }
+  }
+  else if(req.valid==2)
+    res.render('home/views/invalidpages/adminonly');
+  else
+    res.render('login/views/noroute');
+});
+
+
+
+
+
 router.get('/', flog, (req, res) => {
   res.redirect('/profile/'+req.session.user);
-
 });
 router.get('/:userid',flog,findmyuser,rendermyuser);
-// function editprofilerender(req,res){
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else if(req.valid==1)
-//     res.render('profile/views/editprofile',{usertab: req.user});
-//   else if(req.valid==2)
-//     res.render('home/views/invalidpages/adminonly');
-//   else
-//     res.render('login/views/invalid');
-// }
-// function transrender(req,res){
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else if(req.valid==1){
-//     if(!req.trans[0]){
-//       if(req.params.page == 1)
-//         res.render('profile/views/noongoingtrans');
-//       else
-//         res.render('login/views/noroute');
-//     }
-//     else if(req.params.page < 1 || req.params.page > req.lastpage[0])
-//       res.render('login/views/noroute');
-//     else
-//       res.render('profile/views/ongoingtrans',{transtab: req.trans, viewertab: req.user, pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage});
-//   }
-//   else if(req.valid==2)
-//     res.render('home/views/invalidpages/adminonly');
-//   else
-//     res.render('login/views/invalid');
-// }
-// function transholdrender(req,res){
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else if(req.valid==1){
-//     if(!req.hold[0]){
-//       if(req.params.page == 1)
-//         res.render('profile/views/noonholdtrans');
-//       else
-//         res.render('login/views/noroute');
-//     }
-//     else if(req.params.page < 1 || req.params.page > req.lastpage[0])
-//       res.render('login/views/noroute');
-//     else
-//       res.render('profile/views/onholdtrans',{transtab: req.hold, viewertab: req.user, pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage});
-//   }
-//   else if(req.valid==2)
-//     res.render('home/views/invalidpages/adminonly');
-//   else
-//     res.render('login/views/invalid');
-// }
-// function transhistrender(req,res){
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else if(req.valid==1){
-//     if(!req.history[0]){
-//       if(req.params.page == 1)
-//         res.render('profile/views/noprevtrans');
-//       else
-//         res.render('login/views/noroute');
-//     }
-//     else if(req.params.page < 1 || req.params.page > req.lastpage[0])
-//       res.render('login/views/noroute');
-//     else
-//       res.render('profile/views/previoustrans',{transtab: req.history, viewertab: req.user, pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage});
-//   }
-//   else if(req.valid==2)
-//     res.render('home/views/invalidpages/adminonly');
-//   else
-//     res.render('login/views/invalid');
-// }
-// function transconfirmrender(req,res){
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else if(req.valid==1){
-//     if (!req.transfin[0])
-//       res.render('categ/views/invalidpages/itemunavailable');
-//     else{
-//       var db = require('../../lib/database')();
-//       if ( req.transid[0].strTransStatus=='Ongoing' ){
-//         if (req.session.user == req.transfin[0].strItemSNum || req.session.user == req.transfin[0].strBuyerSNum){
-//           res.render('profile/views/transconfirm',{transtab: req.transfin, usertab: req.user});
-//         }
-//         else
-//           res.render('profile/views/invalidpages/unauthorized');
-//       }
-//       else{
-//         if (req.session.user == req.transfin[0].strItemSNum && req.transid[0].strTransStatus!= 'SFinished'){
-//           res.render('profile/views/transconfirm',{transtab: req.transfin, usertab: req.user});
-//         }
-//         else if (req.session.user == req.transfin[0].strBuyerSNum && req.transid[0].strTransStatus!= 'BFinished'){
-//           res.render('profile/views/transconfirm',{transtab: req.transfin, usertab: req.user});
-//         }
-//         else
-//           res.render('profile/views/invalidpages/unauthorized');
-//       }
-//     }
-//   }
-//   else if(req.valid==2)
-//     res.render('home/views/invalidpages/adminonly');
-//   else
-//     res.render('login/views/invalid');
-// }
-// function commendrender(req,res){
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else if(req.valid==1){
-//     if (!req.transfin[0])
-//       res.render('categ/views/invalidpages/itemunavailable');
-//     else{
-//       var db = require('../../lib/database')();
-//       if ( req.transid[0].strTransStatus=='Ongoing' ){
-//         if (req.session.user == req.transfin[0].strItemSNum ){
-//           db.query("SELECT intCommend FROM tbluser WHERE strSNum= ?",[req.transfin[0].strBuyerSNum], (err, results, fields) => {
-//               if (err) console.log(err);
-//               var commend = results[0].intCommend + 1;
-//               db.query("UPDATE tbluser SET intCommend= ? WHERE strSNum= ?",[commend, req.transfin[0].strBuyerSNum], (err, results, fields) => {
-//                   if (err) console.log(err);
-//                   res.redirect('/profile/-/finishtrans/'+req.transid[0].intTransID);
-//               });
-//           });
-//         }
-//         else if (req.session.user == req.transfin[0].strBuyerSNum){
-//           db.query("SELECT intCommend FROM tbluser WHERE strSNum= ?",[req.transfin[0].strItemSNum], (err, results, fields) => {
-//               if (err) console.log(err);
-//               var commend = results[0].intCommend + 1;
-//               db.query("UPDATE tbluser SET intCommend= ? WHERE strSNum= ?",[commend, req.transfin[0].strItemSNum], (err, results, fields) => {
-//                   if (err) console.log(err);
-//                   res.redirect('/profile/-/finishtrans/'+req.transid[0].intTransID);
-//               });
-//           });
-//         }
-//         else
-//           res.render('profile/views/invalidpages/unauthorized');
-//       }
-//       else{
-//         if (req.session.user == req.transfin[0].strItemSNum && req.transid[0].strTransStatus!= 'SFinished'){
-//           db.query("SELECT intCommend FROM tbluser WHERE strSNum= ?",[req.transfin[0].strBuyerSNum], (err, results, fields) => {
-//               if (err) console.log(err);
-//               var commend = results[0].intCommend + 1;
-//               db.query("UPDATE tbluser SET intCommend= ? WHERE strSNum= ?",[commend, req.transfin[0].strBuyerSNum], (err, results, fields) => {
-//                   if (err) console.log(err);
-//                   res.redirect('/profile/-/finishtrans/'+req.transid[0].intTransID);
-//               });
-//           });
-//         }
-//         else if (req.session.user == req.transfin[0].strBuyerSNum && req.transid[0].strTransStatus!= 'BFinished'){
-//           db.query("SELECT intCommend FROM tbluser WHERE strSNum= ?",[req.transfin[0].strItemSNum], (err, results, fields) => {
-//               if (err) console.log(err);
-//               var commend = results[0].intCommend + 1;
-//               db.query("UPDATE tbluser SET intCommend= ? WHERE strSNum= ?",[commend, req.transfin[0].strItemSNum], (err, results, fields) => {
-//                   if (err) console.log(err);
-//                   res.redirect('/profile/-/finishtrans/'+req.transid[0].intTransID);
-//               });
-//           });
-//         }
-//         else
-//           res.render('profile/views/invalidpages/unauthorized');
-//       }
-//     }
-//   }
-//   else if(req.valid==2)
-//     res.render('home/views/invalidpages/adminonly');
-//   else
-//     res.render('login/views/invalid');
-// }
-// function reportrender(req,res){
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else if(req.valid==1){
-//     if (!req.transfin[0])
-//       res.render('categ/views/invalidpages/itemunavailable');
-//     else{
-//       var db = require('../../lib/database')();
-//       if ( req.transid[0].strTransStatus=='Ongoing' ){
-//         if (req.session.user == req.transfin[0].strItemSNum ){
-//           db.query("SELECT intReport FROM tbluser WHERE strSNum= ?",[req.transfin[0].strBuyerSNum], (err, results, fields) => {
-//               if (err) console.log(err);
-//               var report = results[0].intReport + 1;
-//               db.query("UPDATE tbluser SET intReport= ? WHERE strSNum= ?",[report, req.transfin[0].strBuyerSNum], (err, results, fields) => {
-//                   if (err) console.log(err);
-//                   res.redirect('/profile/-/finishtrans/'+req.transid[0].intTransID);
-//               });
-//           });
-//         }
-//         else if (req.session.user == req.transfin[0].strBuyerSNum){
-//           db.query("SELECT intReport FROM tbluser WHERE strSNum= ?",[req.transfin[0].strItemSNum], (err, results, fields) => {
-//               if (err) console.log(err);
-//               var report = results[0].intReport + 1;
-//               db.query("UPDATE tbluser SET intReport= ? WHERE strSNum= ?",[report, req.transfin[0].strItemSNum], (err, results, fields) => {
-//                   if (err) console.log(err);
-//                   res.redirect('/profile/-/finishtrans/'+req.transid[0].intTransID);
-//               });
-//           });
-//         }
-//         else
-//           res.render('profile/views/invalidpages/unauthorized');
-//       }
-//       else{
-//         if (req.session.user == req.transfin[0].strItemSNum && req.transid[0].strTransStatus!= 'SFinished'){
-//           db.query("SELECT intReport FROM tbluser WHERE strSNum= ?",[req.transfin[0].strBuyerSNum], (err, results, fields) => {
-//               if (err) console.log(err);
-//               var report = results[0].intReport + 1;
-//               db.query("UPDATE tbluser SET intReport= ? WHERE strSNum= ?",[report, req.transfin[0].strBuyerSNum], (err, results, fields) => {
-//                   if (err) console.log(err);
-//                   res.redirect('/profile/-/finishtrans/'+req.transid[0].intTransID);
-//               });
-//           });
-//         }
-//         else if (req.session.user == req.transfin[0].strBuyerSNum && req.transid[0].strTransStatus!= 'BFinished'){
-//           db.query("SELECT intReport FROM tbluser WHERE strSNum= ?",[req.transfin[0].strItemSNum], (err, results, fields) => {
-//               if (err) console.log(err);
-//               var report = results[0].intReport + 1;
-//               db.query("UPDATE tbluser SET intReport= ? WHERE strSNum= ?",[report, req.transfin[0].strItemSNum], (err, results, fields) => {
-//                   if (err) console.log(err);
-//                   res.redirect('/profile/-/finishtrans/'+req.transid[0].intTransID);
-//               });
-//           });
-//         }
-//         else
-//           res.render('profile/views/invalidpages/unauthorized');
-//       }
-//     }
-//   }
-//   else if(req.valid==2)
-//     res.render('home/views/invalidpages/adminonly');
-//   else
-//     res.render('login/views/invalid');
-// }
-// function transfinrender(req,res){
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else if(req.valid==1){
-//     if (!req.transfin[0])
-//       res.render('categ/views/invalidpages/itemunavailable');
-//     else{
-//       var db = require('../../lib/database')();
-//       if ( req.transid[0].strTransStatus=='Ongoing' ){
-//         if (req.session.user == req.transfin[0].strItemSNum ){
-//           db.query("UPDATE tbltransaction SET strTransStatus= 'SFinished' WHERE intTransID= ?",[req.params.transid], (err, results, fields) => {
-//               if (err) console.log(err);
-//               res.render('profile/views/transfin',{transtab: req.transfin, usertab: req.user});
-//           });
-//         }
-//         else if (req.session.user == req.transfin[0].strBuyerSNum){
-//           db.query("UPDATE tbltransaction SET strTransStatus= 'BFinished' WHERE intTransID= ?",[req.params.transid], (err, results, fields) => {
-//               if (err) console.log(err);
-//               res.render('profile/views/transfin',{transtab: req.transfin, usertab: req.user});
-//           });
-//         }
-//         else
-//           res.render('profile/views/invalidpages/unauthorized');
-//       }
-//       else{
-//         if (req.session.user == req.transfin[0].strItemSNum && req.transid[0].strTransStatus!= 'SFinished'){
-//           db.query("UPDATE tbltransaction SET strTransStatus= 'Finished', datDateFinished= (SELECT curdate() AS CD) WHERE intTransID= ?",[req.params.transid], (err, results, fields) => {
-//               if (err) console.log(err);
-//               res.render('profile/views/transfin',{transtab: req.transfin, usertab: req.user});
-//           });
-//         }
-//         else if (req.session.user == req.transfin[0].strBuyerSNum && req.transid[0].strTransStatus!= 'BFinished'){
-//           db.query("UPDATE tbltransaction SET strTransStatus= 'Finished', datDateFinished= (SELECT curdate() AS CD) WHERE intTransID= ?",[req.params.transid], (err, results, fields) => {
-//               if (err) console.log(err);
-//               res.render('profile/views/transfin',{transtab: req.transfin, usertab: req.user});
-//           });
-//         }
-//         else
-//           res.render('profile/views/invalidpages/unauthorized');
-//       }
-//     }
-//   }
-//   else if(req.valid==2)
-//     res.render('home/views/invalidpages/adminonly');
-//   else
-//     res.render('login/views/invalid');
-// }
-// function mypostrender(req,res){
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else if(req.valid==1){
-//     if(!req.mypost[0]){
-//       if(req.params.page == 1)
-//         res.render('profile/views/noposts', { usertab: req.user} );
-//       else
-//         res.render('login/views/noroute');
-//     }
-//     else if(req.params.page < 1 || req.params.page > req.lastpage[0])
-//       res.render('login/views/noroute');
-//     else if(req.session.user == req.mypost[0].strSNum)
-//       res.render('profile/views/myposts', { usertab: req.user, myposttab: req.mypost , pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage});
-//     else
-//       res.render('profile/views/otherposts', { usertab: req.user, myposttab: req.mypost , pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage});
-//   }
-//   else if(req.valid==2)
-//     res.render('home/views/invalidpages/adminonly');
-//   else
-//     res.render('login/views/invalid');
-// }
-// function editpostrender(req,res){
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else if(req.valid==1){
-//     if(!req.editpost[0])
-//         res.render('categ/views/invalidpages/itemunavailable');
-//     else{
-//       if (req.session.user == req.editpost[0].strItemSNum)
-//         res.render('profile/views/editpost', { editposttab: req.editpost });
-//       else
-//         res.render('profile/views/invalidpages/unauthorized');
-//     }
-//   }
-//   else if(req.valid==2)
-//     res.render('home/views/invalidpages/adminonly');
-//   else
-//     res.render('login/views/invalid');
-// }
-// function deletepostrender(req,res){
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else if(req.valid==1){
-//     if(!req.editpost[0])
-//         res.render('categ/views/invalidpages/itemunavailable');
-//     else{
-//       if (req.session.user == req.editpost[0].strItemSNum){
-//         var db = require('../../lib/database')();
-//         db.query("DELETE FROM tblreport WHERE intReportItemID= ?",[req.params.postid], (err, results, fields) => {
-//           if (err) console.log(err);
-//           db.query("DELETE FROM tblitem WHERE strItemSNum= ? AND intItemID= ?",[req.params.userid, req.params.postid], (err, results, fields) => {
-//             if (err) console.log(err);
-//             res.redirect('/profile/'+ req.params.userid +'/posts/1');
-//           });
-//         });
-//       }
-//       else
-//         res.render('profile/views/invalidpages/unauthorized');
-//     }
-//   }
-//   else if(req.valid==2)
-//     res.render('home/views/invalidpages/adminonly');
-//   else
-//     res.render('login/views/invalid');
-// }
+router.get('/-/invite/:page', flog, findinvite, fedituser, renderinvite);
+router.get('/-/rinvite/:page', flog, findrinvite, fedituser, renderrinvite);
 
-// router.get('/', flog, (req, res) => {
-//       res.redirect('/profile/'+req.session.user);
+//approve
+function approverender(req,res){
+  if(req.valid==1){
+    var db = require('../../lib/database')();
+    var sql = "UPDATE tbltransaction SET strTransStatus= 'ongoing' WHERE intTransID= ?";
+    db.query(sql,[req.params.userid], function (err, results, fields) {
+      if (err) return res.send(err);
+      res.redirect('/profile/-/rinvite/1');
+    });
+  }
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
+  else
+    res.render('login/views/invalid');
+}
+function freguser(req, res, next){
+  var db = require('../../lib/database')();
+  var sql = "SELECT * FROM tbluser WHERE intID= ?";
+  db.query(sql,[req.params.userid], function (err, results, fields) {
+      if (err) return res.send(err);
+      req.reguser = results;
+      return next();
+  });
+}
+router.get('/invitation/approve/:userid',flog,freguser,approverender)
 
-// });
-// router.get('/:userid', flog, fuser, profilerender);
-// router.get('/-/edit', flog, fedituser, editprofilerender);
-// router.get('/-/transactions/:page', flog, ftrans, fedituser, transrender);
-// router.get('/-/transactions/hold/:page', flog, fholdtrans, fedituser, transholdrender);
-// router.get('/-/transactions/history/:page', flog, ftranshistory, fedituser, transhistrender);
-// router.get('/-/confirmtrans/:transid', flog, ftransfin, fedituser, ftransid, transconfirmrender);
-// router.get('/-/commend/:transid', flog, ftransfin, ftransid, commendrender);
-// router.get('/-/report/:transid', flog, ftransfin, ftransid, reportrender);
-// router.get('/-/finishtrans/:transid', flog, ftransfin, fedituser, ftransid, transfinrender);
-// router.get('/:userid/posts/:page', flog, fuser, fmypost, mypostrender);
-// router.get('/:userid/posts/:postid/edit', flog, feditpost, editpostrender);
-// router.get('/:userid/posts/:postid/delete', flog, feditpost, deletepostrender);
+//reject
+function rejectrender(req,res){
+  if(req.valid==1){
+    var db = require('../../lib/database')();
+    var sql = "UPDATE tbltransaction SET strTransStatus= 'reject' WHERE intTransID= ?";
+    db.query(sql,[req.params.userid], function (err, results, fields) {
+      if (err) return res.send(err);
+      res.redirect('/profile/-/rinvite/1');
+    });
+  }
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
+  else
+    res.render('login/views/invalid');
+}
+router.get('/invitation/reject/:userid',flog,rejectrender)
 
-// router.post('/-/edit', flog, fedituser, (req, res) => {
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else{
-//     var db = require('../../lib/database')();
-//     if(req.body.studname=='' || req.body.oldpass=='' || req.body.newpass=='' || req.body.confirm=='' || req.body.email=='' ){
-//       res.render('profile/views/invalidpages/blank',{usertab: req.user});
-//     }
-//     else if( req.body.newpass === req.body.confirm ){
-//       if(req.body.oldpass === req.user[0].strPassword){
-//         var randomId= makeid();
-//         jpeg= req.session.user.concat('-'+randomId+'-dp.jpg');
-//         if(!req.files.profilepic){
-//           db.query("UPDATE tbluser SET strName= ?, strPassword= ?, strEmail= ?, txtContact= ? WHERE strSNum= ? ",[req.body.studname, req.body.newpass, req.body.email, req.body.contact, req.session.user], (err, results1, fields) => {
-//               if (err) console.log(err);
-//               res.redirect('/profile');
-//           });
-//         }
-//         else{
-//           req.files.profilepic.mv('public/images/profile_pictures/'+jpeg, function(err) {
-//             db.query("UPDATE tbluser SET strName= ?, strPassword= ?, strEmail= ?, txtContact= ?, strProfilePicture= ? WHERE strSNum= ? ",[req.body.studname, req.body.newpass, req.body.email, req.body.contact, jpeg, req.session.user], (err, results1, fields) => {
-//                 if (err) console.log(err);
-//                 if(req.user[0].strProfilePicture!= 'blank.jpg')
-//                   fs.unlink('public/images/profile_pictures/'+req.user[0].strProfilePicture);
-//                 res.redirect('/profile');
-//             });
-//           });
-//         }
-//       }
-//       else
-//         res.render('profile/views/invalidpages/incorrect',{usertab: req.user});
-//     }
-//     else
-//       res.render('profile/views/invalidpages/notmatch',{usertab: req.user});
-//   }
-// });
-// router.post('/:userid/posts/:postid/edit', flog, feditpost, (req, res) => {
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else{
-//     var db = require('../../lib/database')();
-//     if(req.body.title=='' || req.body.price=='' || req.body.oldpass=='' || req.body.newpass=='' || req.body.confirm=='' ){
-//       res.render('profile/views/invalidpages/postblank',{editposttab: req.editpost});
-//     }
-//     else if( req.body.newpass === req.body.confirm ){
-//       db.query("SELECT strOrderPass FROM tblitem WHERE intItemID= ? ",[req.params.postid], (err, results, fields) => {
-//           if (err) console.log(err);
-//           if(req.body.oldpass === results[0].strOrderPass){
-//             var randomId= makeid();
-//             jpeg1= req.session.user.concat('-'+randomId+'-1.jpg');
-//             jpeg2= req.session.user.concat('-'+randomId+'-2.jpg');
-//             jpeg3= req.session.user.concat('-'+randomId+'-3.jpg');
-//             if(!req.files.pic1 && !req.files.pic2 && !req.files.pic3){
-//               db.query("UPDATE tblitem SET strItemTitle = ?, fltItemPrice= ?, txtItemDesc= ?, strOrderPass= ?, intItemCat= ? WHERE intItemID= ? ",[req.body.title, req.body.price, req.body.description, req.body.newpass, req.body.category, req.params.postid], (err, results1, fields) => {
-//                   if (err) console.log(err);
-//                   res.redirect('/profile/'+req.session.user+'/posts/1');
-//               });
-//             }// none
-//             else if(!req.files.pic2 && !req.files.pic3){
-//               req.files.pic1.mv('public/images/uploaded_images/'+jpeg1, function(err) {
-//                 db.query("UPDATE tblitem SET strItemTitle = ?, fltItemPrice= ?, txtItemDesc= ?, strOrderPass= ?, strFirstPic= ?, intItemCat= ? WHERE intItemID= ? ",[req.body.title, req.body.price, req.body.description, req.body.newpass, jpeg1, req.body.category, req.params.postid], (err, results1, fields) => {
-//                     if (err) console.log(err);
-//                     if(req.editpost[0].strFirstPic!= 'blank.jpg')
-//                       fs.unlink('public/images/uploaded_images/'+req.editpost[0].strFirstPic);
-//                     res.redirect('/profile/'+req.session.user+'/posts/1');
-//                 });
-//               });
-//             }// 1
-//             else if(!req.files.pic1 && !req.files.pic3){
-//               req.files.pic2.mv('public/images/uploaded_images/'+jpeg2, function(err) {
-//                 db.query("UPDATE tblitem SET strItemTitle = ?, fltItemPrice= ?, txtItemDesc= ?, strOrderPass= ?, strSecondPic= ?, intItemCat= ? WHERE intItemID= ? ",[req.body.title, req.body.price, req.body.description, req.body.newpass, jpeg2, req.body.category, req.params.postid], (err, results1, fields) => {
-//                     if (err) console.log(err);
-//                     if(req.editpost[0].strSecondPic!= 'blank.jpg')
-//                       fs.unlink('public/images/uploaded_images/'+req.editpost[0].strSecondPic);
-//                     res.redirect('/profile/'+req.session.user+'/posts/1');
-//                 });
-//               });
-//             }// 2
-//             else if(!req.files.pic1 && !req.files.pic2){
-//               req.files.pic3.mv('public/images/uploaded_images/'+jpeg3, function(err) {
-//                 db.query("UPDATE tblitem SET strItemTitle = ?, fltItemPrice= ?, txtItemDesc= ?, strOrderPass= ?, strThirdPic= ?, intItemCat= ? WHERE intItemID= ? ",[req.body.title, req.body.price, req.body.description, req.body.newpass, jpeg3, req.body.category, req.params.postid], (err, results1, fields) => {
-//                     if (err) console.log(err);
-//                     if(req.editpost[0].strThirdPic!= 'blank.jpg')
-//                       fs.unlink('public/images/uploaded_images/'+req.editpost[0].strThirdPic);
-//                     res.redirect('/profile/'+req.session.user+'/posts/1');
-//                 });
-//               });
-//             }// 3
-//             else if(!req.files.pic3){
-//               req.files.pic1.mv('public/images/uploaded_images/'+jpeg1, function(err) {
-//                 req.files.pic2.mv('public/images/uploaded_images/'+jpeg2, function(err) {
-//                   db.query("UPDATE tblitem SET strItemTitle = ?, fltItemPrice= ?, txtItemDesc= ?, strOrderPass= ?, strFirstPic= ?, strSecondPic= ?, intItemCat= ? WHERE intItemID= ? ",[req.body.title, req.body.price, req.body.description, req.body.newpass, jpeg1, jpeg2, req.body.category, req.params.postid], (err, results1, fields) => {
-//                       if (err) console.log(err);
-//                       if(req.editpost[0].strFirstPic!= 'blank.jpg')
-//                         fs.unlink('public/images/uploaded_images/'+req.editpost[0].strFirstPic);
-//                       if(req.editpost[0].strSecondPic!= 'blank.jpg')
-//                         fs.unlink('public/images/uploaded_images/'+req.editpost[0].strSecondPic);
-//                       res.redirect('/profile/'+req.session.user+'/posts/1');
-//                   });
-//                 });
-//               });
-//             }// 12
-//             else if(!req.files.pic2){
-//               req.files.pic1.mv('public/images/uploaded_images/'+jpeg1, function(err) {
-//                 req.files.pic3.mv('public/images/uploaded_images/'+jpeg3, function(err) {
-//                   db.query("UPDATE tblitem SET strItemTitle = ?, fltItemPrice= ?, txtItemDesc= ?, strOrderPass= ?, strFirstPic= ?, strThirdPic= ?, intItemCat= ? WHERE intItemID= ? ",[req.body.title, req.body.price, req.body.description, req.body.newpass, jpeg1, jpeg3, req.body.category, req.params.postid], (err, results1, fields) => {
-//                       if (err) console.log(err);
-//                       if(req.editpost[0].strFirstPic!= 'blank.jpg')
-//                         fs.unlink('public/images/uploaded_images/'+req.editpost[0].strFirstPic);
-//                       if(req.editpost[0].strThirdPic!= 'blank.jpg')
-//                         fs.unlink('public/images/uploaded_images/'+req.editpost[0].strThirdPic);
-//                       res.redirect('/profile/'+req.session.user+'/posts/1');
-//                   });
-//                 });
-//               });
-//             }// 13
-//             else if(!req.files.pic1){
-//               req.files.pic2.mv('public/images/uploaded_images/'+jpeg2, function(err) {
-//                 req.files.pic3.mv('public/images/uploaded_images/'+jpeg3, function(err) {
-//                   db.query("UPDATE tblitem SET strItemTitle = ?, fltItemPrice= ?, txtItemDesc= ?, strOrderPass= ?, strSecondPic= ?, strThirdPic= ?, intItemCat= ? WHERE intItemID= ? ",[req.body.title, req.body.price, req.body.description, req.body.newpass, jpeg2, jpeg3, req.body.category, req.params.postid], (err, results1, fields) => {
-//                       if (err) console.log(err);
-//                       if(req.editpost[0].strSecondPic!= 'blank.jpg')
-//                         fs.unlink('public/images/uploaded_images/'+req.editpost[0].strSecondPic);
-//                       if(req.editpost[0].strThirdPic!= 'blank.jpg')
-//                         fs.unlink('public/images/uploaded_images/'+req.editpost[0].strThirdPic);
-//                       res.redirect('/profile/'+req.session.user+'/posts/1');
-//                   });
-//                 });
-//               });
-//             }// 23
-//             else{
-//               req.files.pic1.mv('public/images/uploaded_images/'+jpeg1, function(err) {
-//                 req.files.pic2.mv('public/images/uploaded_images/'+jpeg2, function(err) {
-//                   req.files.pic3.mv('public/images/uploaded_images/'+jpeg3, function(err) {
-//                     db.query("UPDATE tblitem SET strItemTitle = ?, fltItemPrice= ?, txtItemDesc= ?, strOrderPass= ?, strFirstPic= ?, strSecondPic= ?, strThirdPic= ?, intItemCat= ? WHERE intItemID= ? ",[req.body.title, req.body.price, req.body.description, req.body.newpass, jpeg1, jpeg2, jpeg3, req.body.category, req.params.postid], (err, results1, fields) => {
-//                         if (err) console.log(err);
-//                         if(req.editpost[0].strFirstPic!= 'blank.jpg')
-//                           fs.unlink('public/images/uploaded_images/'+req.editpost[0].strFirstPic);
-//                         if(req.editpost[0].strSecondPic!= 'blank.jpg')
-//                           fs.unlink('public/images/uploaded_images/'+req.editpost[0].strSecondPic);
-//                         if(req.editpost[0].strThirdPic!= 'blank.jpg')
-//                           fs.unlink('public/images/uploaded_images/'+req.editpost[0].strThirdPic);
-//                         res.redirect('/profile/'+req.session.user+'/posts/1');
-//                     });
-//                   });
-//                 });
-//               });
-//             }// all
+//Cancel
+function cancelrender(req,res){
+  if(req.valid==1){
+    var db = require('../../lib/database')();
+    var sql = "UPDATE tbltransaction SET strTransStatus= 'cancel' WHERE intTransID= ?";
+    db.query(sql,[req.params.userid], function (err, results, fields) {
+      if (err) return res.send(err);
+      res.redirect('/profile/-/ogtransaction/1');
+    });
+  }
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
+  else
+    res.render('login/views/invalid');
+}
+router.get('/invitation/cancel/:userid',flog,cancelrender)
 
-//           }
-//           else
-//             res.render('profile/views/invalidpages/postincorrect',{editposttab: req.editpost});
-//         });
-//     }
-//     else
-//       res.render('profile/views/invalidpages/postnotmatch',{editposttab: req.editpost});
-//   }
-// });
+//transactions ongoing
+function ftrans(req,res,next){
+  var db = require('../../lib/database')();
+  db.query("SELECT transact.intTransID AS TransactionID, transact.strTransDetails AS Detalye, DATE_FORMAT(timTimeTrans, '%h:%i:%s %p') AS Mytime, DATE_FORMAT(datDateTrans, '%W %M %e %Y') AS Mydate, intCID, strCName, user1.intID AS NaginviteID, user2.intID AS IninviteID, user1.strName AS Nanginvite, user2.strName AS Ininvite, user1.strPicture AS NanginvitePic, user2.strPicture AS IninvitePic, transact.strTransStatus AS Kalagayan FROM tbltransaction AS transact INNER JOIN  tbluser AS user1 ON user1.intID = transact.intTransID_intID INNER JOIN tbluser AS user2 ON user2.intID = transact.intTransID_intID2 INNER JOIN tblcoffeeshop AS cf ON cf.intCID = transact.intTransID_intCID WHERE strTransStatus = 'ongoing' AND (intTransID_intID2=? OR intTransID_intID=?)",[req.session.user,req.session.user], function (err, results, fields) {
+    if (err) return res.send(err);
+    var page = 1, pagearr = [1], curpage = [req.params.page], prevpage = [req.params.page - 1], nextpage = [parseInt(req.params.page)+1], lastpage = [], status = [];
+    if (!results[0])
+    console.log('');
+    else{
+      for(count=0;count<results.length;count++){
+        results[count].page = page;
+        results[count].curpage = req.params.page;
+        if((count+1)%5==0){
+          page+=1;
+        }
+      }
+    lastpage[0] = results[results.length-1].page;
+    status[0] = results[results.length-1].strStatus;
+  }
+  if(req.params.page > 5){
+    pagearr[0] = req.params.page - 5;
+  }
+  for(count=1;count<10;count++){
+    pagearr[count] = pagearr[count-1] + 1;
+  }
+  req.status = status;
+  req.lastpage = lastpage;
+  req.curpage = curpage;
+  req.prevpage = prevpage;
+  req.nextpage = nextpage;
+  req.page = pagearr;
+  req.trans = results;
+  return next();
+  });
+}
+function transrender(req,res){
+  if(req.valid==3){
+    res.render('login/views/invalidpages/banned');
+  }
+  if(req.valid==1){
+    if(!req.trans[0]){
+      if(req.params.page == 1)
+        res.render('profile/views/noongoingtransaction');
+        else
+        res.render('login/views/noroute');
+      }
+    else if(req.params.page < 1 || req.params.page > req.lastpage[0])
+    res.render('login/views/noroute');
+    else
+      res.render('profile/views/ongoingtransaction',{ usertab: req.user, transtab: req.trans, pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage, statustab: req.status});
+    }
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
+    else
+    res.render('login/views/invalid');
+}
+router.get('/-/ogtransaction/:page', flog, ftrans, fedituser, transrender);
+
+//transaction finished
+function ftransf(req,res,next){
+  var db = require('../../lib/database')();
+  db.query(`update tbltransaction set strTransStatus='finished' where strTransStatus='ongoing' AND datDateTrans<CURDATE() AND (intTransID_intID=? OR intTransID_intID2=?)`,[req.session.user, req.session.user])
+  db.query("SELECT transact.intTransID AS TransactionID, transact.strTransDetails AS Detalye, DATE_FORMAT(timTimeTrans, '%h:%i:%s %p') AS Mytime, DATE_FORMAT(datDateTrans, '%W %M %e %Y') AS Mydate, intCID, strCName, user1.intID AS NaginviteID, user2.intID AS IninviteID, user1.strName AS Nanginvite, user2.strName AS Ininvite, user1.strPicture AS NanginvitePic, user2.strPicture AS IninvitePic, transact.strTransStatus AS Kalagayan FROM tbltransaction AS transact INNER JOIN  tbluser AS user1 ON user1.intID = transact.intTransID_intID INNER JOIN tbluser AS user2 ON user2.intID = transact.intTransID_intID2 INNER JOIN tblcoffeeshop AS cf ON cf.intCID = transact.intTransID_intCID WHERE strTransStatus = 'finished' AND (intTransID_intID2=? OR intTransID_intID=?)",[req.session.user,req.session.user], function (err, results, fields) {
+    if (err) return res.send(err);
+    var page = 1, pagearr = [1], curpage = [req.params.page], prevpage = [req.params.page - 1], nextpage = [parseInt(req.params.page)+1], lastpage = [], status = [];
+    if (!results[0])
+    console.log('');
+    else{
+      for(count=0;count<results.length;count++){
+        results[count].page = page;
+        results[count].curpage = req.params.page;
+        if((count+1)%5==0){
+          page+=1;
+        }
+      }
+    lastpage[0] = results[results.length-1].page;
+    status[0] = results[results.length-1].strStatus;
+  }
+  if(req.params.page > 5){
+    pagearr[0] = req.params.page - 5;
+  }
+  for(count=1;count<10;count++){
+    pagearr[count] = pagearr[count-1] + 1;
+  }
+  req.status = status;
+  req.lastpage = lastpage;
+  req.curpage = curpage;
+  req.prevpage = prevpage;
+  req.nextpage = nextpage;
+  req.page = pagearr;
+  req.trans = results;
+  return next();
+  });
+}
+function transrenderf(req,res){
+  if(req.valid==3){
+    res.render('login/views/invalidpages/banned');
+  }
+  if(req.valid==1){
+    if(!req.trans[0]){
+      if(req.params.page == 1)
+        res.render('profile/views/nofinishedtransaction');
+        else
+        res.render('login/views/noroute');
+      }
+    else if(req.params.page < 1 || req.params.page > req.lastpage[0])
+    res.render('login/views/noroute');
+    else
+      res.render('profile/views/finishedtransaction',{ usertab: req.user, transtab: req.trans, friendtab:req.friend,  pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage, statustab: req.status});
+    }
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
+    else
+    res.render('login/views/invalid');
+}
+router.get('/-/ftransaction/:page', flog, ftransf, fedituser, transrenderf);
+
+//Add friend
+function addrender(req,res){
+  var db = require('../../lib/database')();
+  if(req.valid==1){
+    var db = require('../../lib/database')();
+    db.query("SELECT * FROM tblfriend where (intID_Me=? OR intID_Friend=?) AND (intID_Me=? OR intID_Friend=?);",[req.session.user,req.session.user,req.params.userid,req.params.userid], (err, results, fields) => {
+      if (err) console.log(err);
+      if (!results[0]){
+        var sql = "INSERT INTO tblfriend (intID_Me,intID_Friend,strRelasyon) VALUES (?,?,'pending')";
+        db.query(sql,[req.session.user,req.params.userid], function (err, results, fields) {
+          if (err) return res.send(err);
+        res.redirect('/profile/-/ftransaction/1');
+      });
+      }
+      else if(results[0].strRelasyon=='pending'||results[0].strRelasyon=='friend'){
+      if (err) console.log(err);
+      res.redirect('/profile/-/ftransaction/1')
+    }
+  });
+}
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
+  else
+    res.render('login/views/invalid');
+}
+router.get('/coffeemate/add/:userid',flog,addrender);
+
+//Rate Coffeeshop
+
+function findcoffeeshop(req,res,next){
+  var db = require('../../lib/database')();
+  db.query("SELECT * FROM tblcoffeeshop WHERE intCID= ?",[req.params.userid], (err, results, fields) => {
+      if (err) console.log(err);
+      req.coffee= results;
+      return next();
+    });
+}
+function raterendercoffeeshop(req,res){
+  if(req.valid==3){
+    res.render('login/views/invalidpages/banned');
+  }
+  else if(req.valid==1){
+    if (!req.coffee[0])
+      res.render('login/views/noroute');
+    else
+      res.render('profile/views/ratecoffeeshop',{coffeetab: req.coffee, usertab: req.user, transtab: req.trans});
+  }
+  else if(req.valid==2)
+    res.render('home/views/invalidpages/adminonly');
+  else
+    res.render('login/views/noroute');
+}
+router.get('/coffeeshop/rate/:userid',flog,findcoffeeshop,raterendercoffeeshop);
+
+function raterender(req,res){
+  var db = require('../../lib/database')();
+  if(req.valid==1){
+    var db = require('../../lib/database')();
+    db.query("SELECT * FROM tblrating where intRating_intID=? AND intRating_intCID=?",[req.session.user,req.params.userid], (err, results, fields) => {
+      if (err) console.log(err);
+      if (!results[0]){
+        var sql = "INSERT INTO tblrating (intRating_intID, intRating_intCID, intRating) VALUES (?,?,?)";
+        db.query(sql,[req.session.user,req.params.userid,req.body.rating], function (err, results, fields) {
+          db.query("UPDATE tblcoffeeshop set intCRating=( SELECT SUM(b.intRating) FROM tblrating as b where b.intRating_intCID=tblcoffeeshop.intCID)")
+          if (err) return res.send(err);
+        res.redirect('/profile/-/ftransaction/1');
+      });
+      }
+      else if(results[0].intRating_intID==req.session.user && results[0].intRating_intCID==req.params.userid){
+        var sql = "UPDATE tblrating SET intRating=? WHERE intRating_intID=? and intRating_intCID=?";
+        db.query(sql,[req.body.rating,req.session.user,req.params.userid], function (err, results, fields) {
+          db.query("UPDATE tblcoffeeshop set intCRating=( SELECT SUM(b.intRating) FROM tblrating as b where b.intRating_intCID=tblcoffeeshop.intCID)")
+          if (err) return res.send(err);
+        res.redirect('/profile/-/ftransaction/1');
+      });
+    }
+  });
+}
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
+  else
+    res.render('login/views/invalid');
+}
+router.post('/coffeeshop/rate/:userid',flog,raterender);
+
+
+
+//My coffeemate
+function findfriend(req,res,next){
+  var db = require('../../lib/database')();
+  // db.query("SELECT *,CURDATE(), TIMESTAMPDIFF(YEAR,datBirthday,CURDATE()) AS Age from tblfriend INNER JOIN tbluser ON tblfriend.intID_Friend=tbluser.intID WHERE strRelasyon='friend' AND (intID_Me = ? OR intID_friend = ?)",[req.session.user,req.session.user], (err, results, fields) => {
+  db.query("SELECT user1.intID AS NanginviteID, user1.strName AS Nanginvite, user2.intID AS IninviteID, user2.strName AS Ininvite, user1.strPicture AS NanginvitePic, user2.strPicture2 AS IninvitePic FROM tblfriend AS fr INNER JOIN tbluser AS user1 ON user1.intID = fr.intID_me INNER JOIN tbluser AS user2 ON user2.intID = fr.intID_Friend WHERE strRelasyon = 'friend' AND (intID_Me =? OR intID_Friend =?)",[req.session.user,req.session.user], (err, results, fields) => {
+    if (err) return res.send(err);
+    var page = 1, pagearr = [1], curpage = [req.params.page], prevpage = [req.params.page - 1], nextpage = [parseInt(req.params.page)+1], lastpage = [], status = [];
+    if (!results[0])
+    console.log('');
+    else{
+      for(count=0;count<results.length;count++){
+        results[count].page = page;
+        results[count].curpage = req.params.page;
+        if((count+1)%5==0){
+          page+=1;
+        }
+      }
+    lastpage[0] = results[results.length-1].page;
+    status[0] = results[results.length-1].strStatus;
+  }
+  if(req.params.page > 5){
+    pagearr[0] = req.params.page - 5;
+  }
+  for(count=1;count<10;count++){
+    pagearr[count] = pagearr[count-1] + 1;
+  }
+  req.status = status;
+  req.lastpage = lastpage;
+  req.curpage = curpage;
+  req.prevpage = prevpage;
+  req.nextpage = nextpage;
+  req.page = pagearr;
+  req.friend = results;
+  return next();
+  });
+}
+function renderfriend(req,res){
+  if(req.valid==3){
+    res.render('login/views/invalidpages/banned');
+  }
+  if(req.valid==1){
+    if(!req.friend[0]){
+      if(req.params.page == 1)
+        res.render('profile/views/nocoffeemate');
+        else
+        res.render('login/views/noroute');
+      }
+    else if(req.params.page < 1 || req.params.page > req.lastpage[0])
+    res.render('login/views/noroute');
+    else
+      res.render('profile/views/mycoffeemate',{ usertab: req.user, transtab: req.trans, friendtab: req.friend, pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage, statustab: req.status});
+    }
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
+    else
+    res.render('login/views/invalid');
+}
+router.get('/-/mycoffeemate/:page',flog,findfriend,fedituser,renderfriend);
+
+//Coffeemate Request
+function findrfriend(req,res,next){
+  var db = require('../../lib/database')();
+  db.query("SELECT *,CURDATE(), TIMESTAMPDIFF(YEAR,datBirthday,CURDATE()) AS Age from tblfriend INNER JOIN tbluser ON tblfriend.intID_Me=tbluser.intID WHERE strRelasyon='pending' AND intID_Friend= ?",[req.session.user], (err, results, fields) => {
+    if (err) return res.send(err);
+    var page = 1, pagearr = [1], curpage = [req.params.page], prevpage = [req.params.page - 1], nextpage = [parseInt(req.params.page)+1], lastpage = [], status = [];
+    if (!results[0])
+    console.log('');
+    else{
+      for(count=0;count<results.length;count++){
+        results[count].page = page;
+        results[count].curpage = req.params.page;
+        if((count+1)%5==0){
+          page+=1;
+        }
+      }
+    lastpage[0] = results[results.length-1].page;
+    status[0] = results[results.length-1].strStatus;
+  }
+  if(req.params.page > 5){
+    pagearr[0] = req.params.page - 5;
+  }
+  for(count=1;count<10;count++){
+    pagearr[count] = pagearr[count-1] + 1;
+  }
+  req.status = status;
+  req.lastpage = lastpage;
+  req.curpage = curpage;
+  req.prevpage = prevpage;
+  req.nextpage = nextpage;
+  req.page = pagearr;
+  req.friend = results;
+  return next();
+  });
+}
+
+function renderrfriend(req,res){
+  if(req.valid==3){
+    res.render('login/views/invalidpages/banned');
+  }
+  if(req.valid==1){
+    if(!req.friend[0]){
+      if(req.params.page == 1)
+        res.render('profile/views/normycoffeemate');
+        else
+        res.render('login/views/noroute');
+      }
+    else if(req.params.page < 1 || req.params.page > req.lastpage[0])
+    res.render('login/views/noroute');
+    else
+      res.render('profile/views/rmycoffeemate',{ usertab: req.user, transtab: req.trans, friendtab: req.friend, pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage, statustab: req.status});
+    }
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
+    else
+    res.render('login/views/invalid');
+}
+router.get('/-/rmycoffeemate/:page',flog,fedituser,findrfriend,renderrfriend);
+
+// Remove
+function removerender(req,res){
+  if(req.valid==1){
+    var db = require('../../lib/database')();
+    var sql = "DELETE FROM tblfriend WHERE (intID_Me=? OR intID_Friend=?) AND (intID_Me= ? OR intID_Friend=?)";
+    db.query(sql,[req.session.user, req.session.user, req.params.userid, req.params.userid], function (err, results, fields) {
+      if (err) return res.send(err);
+      res.redirect('/profile/-/mycoffeemate/1');
+    });
+  }
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
+  else
+    res.render('login/views/invalid');
+}
+router.get('/invitation/remove/:userid',flog,removerender)
+
+// Accept
+function acceptrender(req,res){
+  if(req.valid==1){
+    var db = require('../../lib/database')();
+    var sql = "UPDATE tblfriend SET strRelasyon= 'friend' WHERE strRelasyon='pending' AND intID_Friend= ? AND intID_Me=?";
+    db.query(sql,[req.session.user,req.params.userid],function (err, results, fields) {
+      if (err) return res.send(err);
+      res.redirect('/profile/-/rmycoffeemate/1');
+    });
+  }
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
+  else
+    res.render('login/views/invalid');
+}
+router.get('/invitation/accept/:userid',flog,acceptrender)
+
+
 
 exports.profile= router;

@@ -1,23 +1,6 @@
 var express = require('express');
-var flog = require( './loggedin');
+var flog = require( '../home/loggedin');
 var router = express.Router();
-
-// function render(req,res){
-  
-//   if(req.valid==3){
-//     res.render('login/views/invalidpages/banned');
-//   }
-//   else if(req.valid==1){
-//     res.render('home2/views/index', { usertab: req.user, otherstab: req.others, pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage});
-//   }
-//   else if(req.valid==2){
-//     res.render('home/views/invalidpages/adminonly');
-//   }
-//   else
-//     res.render('login/views/invalid')
-// }
-
-// router.get('/', flog, render);
 
 function findcoffeeshop(req, res, next){
   var db = require('../../lib/database')();
@@ -57,51 +40,52 @@ function findcoffeeshop(req, res, next){
 function rendercoffeeshop(req,res){
   if(req.valid==3){
   res.render('login/views/invalidpages/banned');
-}
-if(req.valid==1){
-  if(!req.stud[0]){
-    if(req.params.page == 1)
-      res.render('home2/views/index',{ usertab: req.user });
-      else
-      res.render('login/views/noroute');
-    }
-  else if(req.params.page < 1 || req.params.page > req.lastpage[0])
-  res.render('login/views/noroute');
-  else
-    res.render('home2/views/index',{ usertab: req.user, studtab: req.stud, pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage, statustab: req.status});
   }
-else if(req.valid==2)
-  res.render('admin/views/invalidpages/normalonly');
+  if(req.valid==4){
+    if(!req.stud[0]){
+      if(req.params.page == 1)
+        res.render('home2/views/index',{ usertab: req.user });
+        else
+        res.render('login/views/noroute');
+    }
+    else if(req.params.page < 1 || req.params.page > req.lastpage[0])
+      res.render('login/views/noroute');
+    else
+      res.render('home2/views/index',{ usertab: req.user, studtab: req.stud, pagetab: req.page, curpagetab: req.curpage, prevpagetab: req.prevpage, nextpagetab: req.nextpage, lastpagetab: req.lastpage, statustab: req.status});
+  }
+  else if(req.valid==2)
+    res.render('admin/views/invalidpages/normalonly');
   else
-  res.render('login/views/invalid');
+    res.render('login/views/invalid');
 }
 router.get('/page/:page', flog, findcoffeeshop, rendercoffeeshop);
 
-function renderadd(req, res){
-  if(req.valid==3){
-    res.render('login/views/invalidpages/banned');
-    }
-  else if(req.valid==1){
-    res.render('home2/views/addcoffeeshop',{usertab: req.user});
-  }
-  else if(req.valid==2){
-    res.render('home/views/invalidpages/adminonly');
-  }
-  else{
-    res.render('login/views/invalid');
-  }
+// function renderadd(req, res){
+//   if(req.valid==3){
+//     res.render('login/views/invalidpages/banned');
+//     }
+//   else if(req.valid==1){
+//     res.render('home2/views/addcoffeeshop',{usertab: req.user});
+//   }
+//   else if(req.valid==2){
+//     res.render('home/views/invalidpages/adminonly');
+//   }
+//   else{
+//     res.render('login/views/invalid');
+//   }
     
-}
-router.get('/addcoffeeshop', flog, renderadd);
+// }
+// router.get('/addcoffeeshop', flog, renderadd);
 
-function addchop(req,res,next){
-  var db = require('../../lib/database')();
-  db.query(`INSERT INTO tblcoffeeshop (strCName, strCAddress, strCTnumber, intCID_intID)  VALUES ("${req.body.Cname}","${req.body.Caddress}","${req.body.Ctnumber}","${req.session.user}")`, (err, results, fields) => {
-      if (err) console.log(err);
-      res.redirect('/home2/page/1');
-  });
-}
-router.post('/addcoffeeshop',flog,addchop)
+// function addchop(req,res,next){ 
+//   var db = require('../../lib/database')();
+//   db.query(`INSERT INTO tblcoffeeshop (strCName, strCAddress, strCTnumber, intCID_intID)  VALUES ("${req.body.Cname}","${req.body.Caddress}","${req.body.Ctnumber}","${req.session.user}")`, (err, results, fields) => {
+//       if (err) console.log(err);
+//       res.redirect('/home2/page/1');
+//   });
+// }
+// router.post('/addcoffeeshop',flog,addchop)
+
 
 
 exports.home2= router;

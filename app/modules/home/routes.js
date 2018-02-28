@@ -8,33 +8,33 @@ function numberWithCommas(x) {
   return parts.join(".");
 }
       
-router.get('/help', flog, (req, res) => {
-  if(req.valid==3){
-    res.render('login/views/invalidpages/banned');
-  }
-  else if(req.valid==1)
-    res.render('home/views/help');
-    else if(req.valid==2)
-    res.render('home/views/invalidpages/adminonly');
-    else
-    res.render('login/views/invalid');
-});
-router.get('/rules', flog, (req, res) => {
-  if(req.valid==3){
-    res.render('login/views/invalidpages/banned');
-  }
-    else if(req.valid==1)
-    res.render('home/views/rules');
-      else if(req.valid==2)
-      res.render('home/views/invalidpages/adminonly');
-      else
-      res.render('login/views/invalid');
-    });
+// router.get('/help', flog, (req, res) => {
+//   if(req.valid==3){
+//     res.render('login/views/invalidpages/banned');
+//   }
+//   else if(req.valid==1)
+//     res.render('home/views/help');
+//     else if(req.valid==2)
+//     res.render('home/views/invalidpages/adminonly');
+//     else
+//     res.render('login/views/invalid');
+// });
+// router.get('/rules', flog, (req, res) => {
+//   if(req.valid==3){
+//     res.render('login/views/invalidpages/banned');
+//   }
+//     else if(req.valid==1)
+//     res.render('home/views/rules');
+//       else if(req.valid==2)
+//       res.render('home/views/invalidpages/adminonly');
+//       else
+//       res.render('login/views/invalid');
+//     });
 
     
 function finduser(req, res, next){
       var db = require('../../lib/database')();
-      db.query("SELECT *,CURDATE(), TIMESTAMPDIFF(YEAR,datBirthday,CURDATE()) AS Age FROM tbluser WHERE strType= '1' AND intID!=?",[req.session.user], function (err, results, fields) {
+      db.query("SELECT *,CURDATE(), TIMESTAMPDIFF(YEAR,datBirthday,CURDATE()) AS Age FROM tbluser WHERE strStatus='verified' AND strType= '1' AND intID!=? ORDER BY RAND() LIMIT 1",[req.session.user], function (err, results, fields) {
         if (err) return res.send(err);
       var page = 1, pagearr = [1], curpage = [req.params.page], prevpage = [req.params.page - 1], nextpage = [parseInt(req.params.page)+1], lastpage = [], status = [];
       if (!results[0])

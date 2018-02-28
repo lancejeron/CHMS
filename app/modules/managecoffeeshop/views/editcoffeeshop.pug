@@ -1,0 +1,106 @@
+doctype html
+html
+  head
+    title Edit Coffeeshop
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/assets/css/main.1.css')
+    link(rel='stylesheet', href='/assets/css/home.1.css')
+    link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/posts.css")
+    link(rel='stylesheet' href='/assets/css/login.css')
+    link(rel='stylesheet', href='/assets/font-awesome-4.7.0/font-awesome.min.css')  
+    script(src='https://use.fontawesome.com/2414129dc7.js')
+    
+
+  body
+  #div1(style="width:auto; height:auto; margin-left:5%; margin-right:5%; margin-top:5%; background-color:#C8B188; border-radius: 10px; padding: 10px;")
+    each coffee in coffeetab
+        form(method="POST" action="/managecoffeeshop/page/:page/editcoffeeshop/"+coffee.intCID)
+          #div2(style="margin-top:2%;")
+            .group(style="margin-top:1%; color:black;") 
+              label Pictures:
+              label pic1
+              input(type='file', placeholder="", name='picture1', accept='image/*')
+              label pic2
+              input(type='file', placeholder="", name='picture2', accept='image/*')
+              label pic3
+              input(type='file', placeholder="", name='picture3', accept='image/*')
+              label pic4
+              input(type='file', placeholder="", name='picture4', accept='image/*')
+              label pic5
+              input(type='file', placeholder="", name='picture5', accept='image/*')
+              br          
+            .group(style="margin-top:1%; color:black;") 
+              label Coffeeshop Name:
+              input(type="text" , value=coffee.strCName, placeholder="", name="Cname")
+              br
+            .group(style="margin-top:1%; color:black;") 
+              label Coffeeshop Address:
+              input(type="text" , value=coffee.strCAddress, placeholder="", name="Caddress")
+              br
+            .group(style="margin-top:1%; color:black;") 
+              label Coffeeshop Telephone Number:
+              input(type="text" , value=coffee.strCTnumber, placeholder="", name="Ctnumber")
+              br
+            .group(style="margin-top:1%; color:black;") 
+              label Specialty of the House:
+              input(type="text" , value=coffee.strSpecial, placeholder="", name="Cspecial")
+              br
+            .group(style="margin-top:1%; color:black;") 
+              label Other Details:
+              input(type="text" , value=coffee.strDetails, placeholder="", name="Cdetail")
+              br
+            .group(style="margin-top:1%; color:black;") 
+              label Menus:
+              input(type="text" , value=coffee.strMenu, placeholder="", name="menu1")
+              input(type="text" , value=coffee.strMenu2, placeholder="", name="menu2")
+              input(type="text" , value=coffee.strMenu3, placeholder="", name="menu3")
+              input(type="text" , value=coffee.strMenu4, placeholder="", name="menu4")
+              input(type="text" , value=coffee.strMenu5, placeholder="", name="menu5")
+              br
+            .group
+            input.button(type='submit', value='Save')
+            br
+            br
+            br
+            a.button(href="/managecoffeeshop/page/1") Back
+
+  
+  script(src='/assets/js/jquery.min.js')
+  script(src='/assets/js/jquery.scrollex.min.js')
+  script(src='/assets/js/jquery.scrolly.min.js')
+  script(src='/assets/js/skel.min.js')
+  script(src='/assets/js/util.js')
+  script(src='/assets/js/main.js')
+//-   script(type='text/javascript').
+//-     function copyID(clicked_id) {
+
+//-        document.getElementById("txt1").value = clicked_id;
+//-        document.getElementById('id01').style.display='none';
+       
+//-     }
+//-     function panksyon(){
+//-        var full_url = document.URL; // Get current url
+//-       var url_array = full_url.split('/') // Split the string into an array with / as separator
+//-       var last_segment = url_array[url_array.length-1];  // Get the last part of the array (-1)
+//-       return last_segment; // Alert last segment
+//-     }
+//-     function myFunction() {
+//-       var input, filter, table, tr, td, i;
+//-       input = document.getElementById("myInput");
+//-       filter = input.value.toUpperCase();
+//-       table = document.getElementById("myTable");
+//-       tr = table.getElementsByTagName("tr");
+//-       for (i = 0; i < tr.length; i++) {
+//-         td = tr[i].getElementsByTagName("td")[0];
+//-         if (td) {
+//-           if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+//-             tr[i].style.display = "";
+//-           } else {
+//-             tr[i].style.display = "none";
+//-           }
+//-         }       
+//-       }
+//-     }
+
+ 

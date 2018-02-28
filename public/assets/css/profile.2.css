@@ -14,7 +14,7 @@
 }
 
 li a {
-    display: block;
+   display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
@@ -44,4 +44,9 @@ td, th {
     text-align: left;
     padding: 8px;
 }
-
+#hi{
+    color: white;
+    text-align: left;
+    display:inline-block;
+    padding: 0px 0px;
+}

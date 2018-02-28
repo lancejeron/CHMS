@@ -1,0 +1,82 @@
+doctype html
+html
+  head
+    title Generic - Spectral by HTML5 UP
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/assets/css/main.2.css')
+    link(rel='stylesheet', href='/assets/css/profile.2.css')
+    link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/posts.css")
+
+  body
+    // Page Wrapper
+    #page-wrapper
+      // Header
+      header#header
+        nav#nav
+          ul
+            li.special
+              a.menuToggle(href='#menu')
+                span Menu
+              #menu
+                ul
+                  li
+                    a(href='#') Help
+                  li
+                    a(href='/login') Log out
+            li.li
+              a(href='/home/page/1') HOME
+            li.li
+              a(href='/profile') PROFILE
+            li.li
+              a(href='/coffeeshops/page/1') COFFEESHOP  
+      ul.ul
+        li#li.active
+          a(href='/profile/-/ogtransaction/1') transactions
+        li#li
+          a(href='/profile/-/mycoffeemate/1') coffeemates
+        li#li
+          a(href='/profile/-/invite/1') My sent invites
+        li#li
+          a(href='/profile/-/rinvite/1') My received invites
+        br
+    p.control(style="margin-left:margin-top:5%;")
+      a.button( href='/profile/-/ogtransaction/1') Ongoing transactions
+      | &nbsp&nbsp&nbsp
+      a.button( href='/profile/-/ftransaction/1') Finished transactions
+      br
+      a.button( href='/profile/-/mogtransaction/1') My Ongoing transactions
+      | &nbsp&nbsp&nbsp
+      a.button( href='/profile/-/mftransaction/1') My Finished transactions
+    br
+    each trans in transtab
+      .card(style="margin-left:5%; margin-right:5%;")
+        h3.card-header
+        h3.subtitle 
+          | TO: 
+          a(href='/profile/'+ trans.intTransID_intID, target="_blank") #{trans.strName}
+        .card-body
+          #image-container
+            img(src='/images/'+ trans.strProfilePicture,  alt='')
+          p.card-text
+          h9 Details:
+          ul
+            li "#{trans.strTransDetails}"
+            li When: #{trans.mydate}
+            li At: #{trans.mytime}
+            li 
+              | Where:
+              a(id="hi")(href='/profile/'+ trans.intTransID_intCID, target="_blank") #{trans.strCName}
+            li Status: #{trans.strTransStatus}
+            a.button(href='/profile/invitation/cancel/'+trans.intTransID) Rate Coffeeshop
+            |&nbsp
+            a.button(href="/profile/coffeemate/add/"+trans.intTransID_intID) Add Coffee Mate
+            |&nbsp
+            a.button() Report User
+    // Scripts
+    script(src='/assets/js/jquery.min.js')
+    script(src='/assets/js/jquery.scrollex.min.js')
+    script(src='/assets/js/jquery.scrolly.min.js')
+    script(src='/assets/js/skel.min.js')
+    script(src='/assets/js/util.js')
+    script(src='/assets/js/main.js')

@@ -2,6 +2,7 @@ extends ../../../templates/master.pug
 
 block content
   link(rel="stylesheet" href="/assets/font-awesome-4.7.0/css/register.css")
+  
   .signup-wrap
     .signup-html
         label1.tab Create Account - User
@@ -9,38 +10,47 @@ block content
             br
             label2.tab &nbsp&nbsp All fields are required in order to successfully register, unless stated optional
         hr
-        form(method="POST" action="/register")
+        form(method="POST" id="registerform" action="/register")
             .group
                 label Name
-                input.input1(type="text" placeholder="ex. John S. Doe" name="name")
+                input.input1(type="text" placeholder="" name="name" maxlength='50' required)
             br
             .group
                 label Birthday
-                input.input1(type="date" name="bday")
+                input.input1(type="date" name="bday" required)
+            br
+            .group
+                label Gender
+                br
+                input(type='radio', name='gender', value='Male' required)
+                |  Male &nbsp&nbsp&nbsp
+                input(type='radio', name='gender', value='Female')
+                |  Female
+                br
             br
             .group
                 label Address
-                input.input1(type="text" placeholder="" name="address")
+                input.input1(type="text" placeholder="" name="address" maxlength='100' required)
             br
             .group
                 label Email Address
-                input.input1(type="email" placeholder="ex. john@xyz.com" name="email")
+                input.input1(type="email" placeholder="" name="email" maxlength="45" required)
             br
             .group
                 label Password
-                input.input2(type="password" placeholder="(minimum of 8 characters)" name="password")
+                input.input2(type="password" placeholder="(minimum of 5 characters)" minlength="5" maxlength="50" name="password" required)
             br
             .group
                 label Confirm Password
-                input.input2(type="password" placeholder="Confirm Password" name="confirm")
+                input.input2(type="password" placeholder="" minlength="5" maxlength="50" name="confirm" required)
             br
             .group
                  label Favorite Coffee
-                 input.input1(type="text" placeholder="ex. Kapeng Barako" name="favcoffee")
+                 input.input1(type="text" placeholder="" name="favcoffee" maxlength="50" required)
             br
             .group
                 label Upload Your Best Picture
-                input.file-input(type='file', name='profilepic', accept='image/*')
+                input.file-input(type='file', name='profilepic', accept='image/*' required)
             br
             .group
             input.button.is-info.is-inverted.is-outlined(type='submit', value='Register')

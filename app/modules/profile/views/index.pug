@@ -1,13 +1,16 @@
 doctype html
 html
   head
-    title Generic - Spectral by HTML5 UP
+    title Profile
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='/assets/css/main.2.css')
     link(rel='stylesheet', href='/assets/css/profile.2.css')
+    link(rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css")
+    //- link(rel='stylesheet', href='/assets/css/main.1.css')
+    //- link(rel='stylesheet', href='/assets/css/home.1.css')
 
-  body
+  body(style="background-color:#E3D7C1;")
     // Page Wrapper
     #page-wrapper
       // Header
@@ -31,23 +34,48 @@ html
               a(href='/coffeeshops/page/1') COFFEESHOP  
       ul.ul
         li#li
-          a(href='#') chat
+          a(href='/profile/-/ogtransaction/1') transactions
         li#li
-          a(href='#') history
+          a(href='/profile/-/mycoffeemate/1') coffeemates
         li#li
-          a(href='#') coffeemates
+          a(href='/profile/-/invite/1') My sent invites
         li#li
-          a(href='#') invites
+          a(href='/profile/-/rinvite/1') My received invites
+  each user in usertab
+    #div1(style="background-color:#C8B188; margin-left:5%; margin-right:5%; margin-top:5%; padding-top:10px; padding-right:10px; padding-left:10px; border-radius:5px; width:90%; height:auto;")
+      .one(style="width: 30%; height: 300px; float: left;")
+        a(href='/images/'+user.strPicture,target="_blank")
+          img.w3-image.w3-round(src='/images/'+ user.strPicture, width='600', height='400')
+        a.button.is-info.is-inverted.is-outlined(style="margin-left:15%; margin-top:5%;")(class="button", href="/profile/-/edit") &nbsp Edit Profile &nbsp
+      .two(style="margin-left: 30%; padding-left:20px;")
+        h1 #{user.strName}
+        hr
+        h6 Bio: #{user.strBio}
+        h6 Details:
+        ul
+          li Age: #{user.Age}
+          li Gender: #{user.strGender}
+          li Address: #{user.strAddress}
+          li Favorite Coffee: #{user.strFavCoffee}
+        hr
+        h6 Pictures:
         br
-      each user in usertab
+        a(href='/images/'+user.strPicture2,target="_blank")
+          img.w3-image.w3-round(style='margin-left-5%; margin-right:5%; margin-top:2%; margin-bottom:2%; width:35%')(src='/images/'+user.strPicture2, alt='')
+        a(href='/images/'+user.strPicture3,target="_blank")
+          img.w3-image.w3-round(style='margin-left-5%; margin-right:5%; margin-top:2%; margin-bottom:2%; width:35%')(src='/images/'+user.strPicture3, alt='')
+        a(href='/images/'+user.strPicture4,target="_blank")
+          img.w3-image.w3-round(style='margin-left-5%; margin-right:5%; margin-top:2%; margin-bottom:2%; width:35%')(src='/images/'+user.strPicture4, alt='')
+        a(href='/images/'+user.strPicture5,target="_blank")
+          img.w3-image.w3-round(style='margin-left-5%; margin-right:5%; margin-top:2%; margin-bottom:2%; width:35%')(src='/images/'+user.strPicture5, alt='')
 
-        section#two.wrapper.alt.style2
-          section
-            .image
-              img(src='/images/'+ user.strProfilePicture,  alt='' style=" width: 300px; border-radius: 300px;")
-          .content
-            h2 #{user.strName}
-            button Edit Profile
+        //- section#two.wrapper.alt.style2
+        //-   section
+        //-     .image
+        //-       img(src='/images/'+ user.strPicture,  alt='' style=" width: 300px; border-radius: 300px;")
+        //-   .content
+        //-     h2 #{user.strName}
+        //-     a.button.is-info.is-inverted.is-outlined(class="button", href="/profile/-/edit") &nbsp Edit Profile &nbsp
             
     // Scripts
     script(src='/assets/js/jquery.min.js')
